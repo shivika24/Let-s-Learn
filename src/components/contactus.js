@@ -17,7 +17,7 @@ class Contactus extends Component{
     {/* <!-- End: 1 Row 1 Column --> */}
     {/* <!-- Start: ebs contact form --> */}
     <div className="container" id="info-container">
-        <div className="row">
+        <div className="row" >
             <div className="col-12 col-sm-6 col-md-6" id="contact-box">
                 <p id="contact-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel nam magnam natus tempora cumque, aliquam deleniti voluptatibus voluptas. Repellat vel, et itaque commodi iste ab, laudantium voluptas deserunt nobis. </p>
                 <div className="info-box"><i className="fa fa-map-marker my-info-icons"></i><span className="text-uppercase text-info">Address: </span><span>MCC Road, Aba, Abia State Nigeria</span></div>
