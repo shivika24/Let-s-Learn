@@ -14,7 +14,7 @@ export default class TestNavbar extends Component
                     <ul className="navbar-nav" style={{margin: "auto"}}>
                         <li className="nav-item">
                         <h4 class="small font-weight-bold text-gray-800">Submitted</h4>
-                        <div class="progress mb-12 ">
+                        <div class="progress mb-12 " style={{width:"22vw"}}>
                           <div class="progress-bar" role="progressbar" style={{width: "20%"}} aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                           <span class="float-right">20%</span>
                        </div>
