@@ -27,9 +27,9 @@ export default class extends Component{
                     
                     </div>
                     <div className="col-auto ">
-                 <button type="button" className="btn btn-primary btn-sm">Submit Answer</button>
+                 <button type="button" className="btn btn-sm" style={{backgroundColor:"rgb(8, 169, 222)"}}>Submit Answer</button>
                  {this.props.idx<(this.props.len-1)?
-                   <Link to="/mcq" className="btn btn-primary btn-sm text-xm" onClick={()=>this.props.nextMcq(this.props.idx+1)}>Next Question</Link>:
+                   <Link to="/mcq" className="btn  btn-sm text-xm" onClick={()=>this.props.nextMcq(this.props.idx+1)} style={{backgroundColor:"rgb(8, 169, 222)"}}>Next Question</Link>:
                    <a href="#" className="btn btn-danger btn-sm" data-toggle="modal" data-target="#logoutModal">
                         Finish Test
                     </a>

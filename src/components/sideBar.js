@@ -9,7 +9,7 @@ export default class Sidebar extends Component
        //console.log(this.props.test);
        for (let i=0;i<len ; i++) {
             items.push(<li class="nav-item " key={i}>
-            <Link to="/mcq" className="btn btn-info btn-circle btn-md text-xm" onClick={()=>this.props.selectMCQ(i)}>{i+1}</Link>
+            <Link to="/mcq" className="btn  btn-circle btn-md text-xm" style={{backgroundColor:"rgb(159, 196, 216)"}} onClick={()=>this.props.selectMCQ(i)}>{i+1}</Link>
              <hr class="sidebar-divider"></hr></li>)
              }
         return(
