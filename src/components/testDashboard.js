@@ -13,7 +13,7 @@ export default class TestDashboard extends Component{
       
       return(
        this.props.test.map((t,index)=>{
-           return  <div className="col-xl-3 col-md-12 mb-4 shadow-none p-2 mb-2 bg-light rounded" >
+           return  <div className="col-xl-12 mb-4 shadow-none p-2 mb-2 bg-light rounded" >
            <div className="card border-left-primary  ">
              <div className="card-body">
                <div className="row no-gutters align-items-center">

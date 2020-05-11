@@ -6,7 +6,7 @@ class Services extends Component{
             <div className="Mainpage">
                 {/* <!-- Start: 1 Row 1 Column --> */}
     
-    <div style={{backgroundImage: "linear-gradient(90deg, #58a5ff 17%, #3a4e6d 100%)"}}>
+    <div style={{backgroundImage: "linear-gradient(90deg, rgb(0, 140, 186) 17%, rgb(63, 98, 114) 100%)"}}>
         <div className="container">
             <div className="row">
                 <div className="col" style={{textAlign: "center",padding: "40px"}}>
