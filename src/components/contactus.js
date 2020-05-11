@@ -27,10 +27,9 @@ class Contactus extends Component{
             <div className="col-12 col-sm-6 col-md-6 site-form">
                 <form id="my-form">
                     <div className="form-group"><label className="sr-only" for="firstname">First Name</label><input className="form-control" type="text" id="firstname" name="firstname" placeholder="First Name" autofocus=""/></div>
-                    <div className="form-group"><label className="sr-only" for="lastname">Last Name</label><input className="form-control" type="text" id="lastname" name="lastname" placeholder="Last Name"/></div>
                     <div className="form-group"><label className="sr-only" for="phonenumber">Phone Number</label><input className="form-control" type="tel" id="phonenumber" name="phonenumber" required="" placeholder="Phone"/></div>
                     <div className="form-group"><label className="sr-only" for="email">Email Address</label><input className="form-control" type="text" id="email" name="email" required="" placeholder="Email"/></div>
-                    <div className="form-group"><label className="sr-only" for="messages">Last Name</label><textarea className="form-control" name="messages" required="" placeholder="Message" rows="8"></textarea></div>
+                    <div className="form-group"><label className="sr-only" for="messages">Your message</label><textarea className="form-control" name="messages" required="" placeholder="Message" rows="8"></textarea></div>
                     <button className="btn btn-light btn-lg" id="form-btn" type="submit" style={{backgroundColor: "#58a5ff",color:"White",borderRadius: "8px"}}>SEND </button>
                 </form>
             </div>
