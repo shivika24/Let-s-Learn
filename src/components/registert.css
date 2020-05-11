@@ -1,0 +1,60 @@
+.container2{
+    box-shadow: 7px 4px 18px #314042; 
+    background: rgba(129, 176, 216, 0.48);
+    height: 50%;
+    width: 60%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url('https://images.pexels.com/photos/461077/pexels-photo-461077.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');  
+    opacity: 0.9;
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+#bid
+{
+width: 70%;
+height: 50px;
+background-color: rgb(215, 215, 215);
+opacity: 0.5;
+}
+#bid1
+{
+width: 50%;
+height: 50px;
+background-color: rgb(215, 215, 215);
+opacity: 0.5;
+}
+
+.container2 h1{
+font-size: 36px;
+font-weight: 250;
+text-align: center;
+text-shadow: 2px 2px #0ca0bc;
+}
+.container2 input{
+width: 80%;
+background: transparent;
+border-right: 0px;
+border:0px;
+border-bottom: 1px solid white;
+font-size: 18px;
+margin-top: 10px;
+height: 40px;
+color: black;
+margin-left: 10%;
+}
+#submitbut2
+{
+background-color:  #008CBA; 
+border: 2px solid rgb(116, 162, 177);  
+color: black;
+width: 50%;
+padding: 8px 16px;
+box-shadow: 0 8px 16px 0 rgba(17, 121, 190, 0.2), 0 6px 20px 0 rgba(17, 121, 190, 0.2);
+}
+::placeholder {
+    color: black;
+    opacity: 1; /* Firefox */
+    font-weight: 300;
+  }

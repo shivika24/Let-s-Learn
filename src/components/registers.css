@@ -1,0 +1,46 @@
+.container1{
+    box-shadow: 7px 4px 18px #314042; 
+    background: rgba(129, 176, 216, 0.48);
+    height: 50%;
+    width: 60%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url('https://images.pexels.com/photos/876467/pexels-photo-876467.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');  
+    opacity: 0.8;
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+#bid
+{
+width: 70%;
+height: 50px;
+background-color: rgb(242, 240, 241);
+opacity: 0.5;
+}
+#bid1
+{
+width: 50%;
+height: 50px;
+background-color: rgb(242, 240, 241);
+opacity: 0.5;
+}
+
+.container1 h1{
+font-size: 36px;
+font-weight: 250;
+text-align: center;
+text-shadow: 2px 2px darkgoldenrod;
+}
+.container1 input{
+width: 80%;
+background: transparent;
+border-right: 0px;
+border:0px;
+border-bottom: 1px solid white;
+font-size: 18px;
+margin-top: 10px;
+height: 40px;
+color: black;
+margin-left: 10%;
+}
