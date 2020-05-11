@@ -7,9 +7,9 @@ class Mainpage extends Component{
     {/* <!-- Start: Bootstrap 4 - Full Video Background v2 --> */}
     <div className="video-background-holder">
   <div className="video-background-overlay"></div>
-   <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+   {/* <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
         <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4"/>
-    </video> 
+    </video>  */}
    <img  className="video-background-overlay" src={img} style={{ width:"100vw" }}/>
 
   <div className="video-background-content container h-100">
