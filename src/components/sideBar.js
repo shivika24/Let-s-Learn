@@ -13,7 +13,7 @@ export default class Sidebar extends Component
              <hr class="sidebar-divider"></hr></li>)
              }
         return(
-              <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion text-center "  id="accordionSidebar">
+              <ul class="navbar-nav sidebar sidebar-dark accordion text-center "  id="accordionSidebar">
                   <li class="nav-item active">
                    <Link class="nav-link" to="/test">
                    <i class="fas fa-fw fa-tachometer-alt"></i>

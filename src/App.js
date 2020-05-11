@@ -9,6 +9,13 @@ import Sidebar from './components/sideBar.js';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 
+import Registers from './components/registers';
+import Registert from './components/registert';
+import Logins from './components/logins';
+import Logint from './components/logint';
+import Dashboard from './components/dashboard';
+import Home from './components/home';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -61,6 +68,9 @@ class App extends Component {
     <div>
     <Navbar test={this.setTofalse}/>
       <Switch>
+      <Route exact path="/">
+           <Home />
+        </Route>
         <Route path="/about">
           <Mainpage />
         </Route>
@@ -70,6 +80,11 @@ class App extends Component {
         <Route path="/Pricing">
           <Services/>
         </Route>
+        <Route path="/studentDashboard" exact render={() => (<Dashboard/>)}/>
+        <Route path="/Registers" render={() => ( <Registers/>)} />  
+        <Route path="/Registert" render={() => ( <Registert/>)} />     
+        <Route path="/Logins" render={() => ( <Logins/>)} /> 
+        <Route path="/Logint" render={() => ( <Logint/>)} />   
       </Switch>
     </div>
     <Footer/>

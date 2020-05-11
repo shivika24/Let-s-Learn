@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
 //import {Link,BrowserRouter} from 'react-router-dom';
 export default class TestNavbar extends Component
-{
+{ 
     render(){
-        return(
+        return( 
             
-             <nav className="navbar navbar-expand navbar-light p-1 mb-2  topbar mb-4 static-top shadow"  style={{backgroundImage:"linear-gradient(90deg, #58a5ff 17%, #3a4e6d 100%)"}}>
+             <nav className="navbar navbar-expand navbar-light p-1 mb-2  topbar mb-4 static-top shadow"  style={{backgroundImage: "linear-gradient(90deg, #008CBA 17%, rgb(63, 98, 114) 100%)"}}>
                  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                    <span className="navbar-toggler-icon"></span>
                  </button>

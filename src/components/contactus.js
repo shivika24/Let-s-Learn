@@ -5,7 +5,7 @@ class Contactus extends Component{
         return(
             <div className="Mainpage">
                 {/* <!-- Start: 1 Row 1 Column --> */}
-    <div style={{backgroundImage: "linear-gradient(90deg, #58a5ff 17%, #3a4e6d 100%)"}}>
+    <div style={{backgroundImage: "linear-gradient(90deg, #008CBA 17%, rgb(63, 98, 114) 100%)"}}>
         <div className="container">
             <div className="row">
                 <div className="col" style={{textAlign: "center",padding: "40px"}}>
@@ -25,7 +25,9 @@ class Contactus extends Component{
                 <div className="info-box"><i className="fa fa-phone-square my-info-icons"></i><span className="text-uppercase text-info">Phone: </span><span>+234000000000 </span></div>
             </div>
             <div className="col-12 col-sm-6 col-md-6 site-form">
-                <form id="my-form">
+            <form id="my-form" class="gform"
+              action="https://script.google.com/macros/s/AKfycbyc6jvSMz5lzibG5Bm8GxWktZbtC2PkUPVlZRT8/exec"
+              method="POST" data-email="shivikasingla24@gmail.com" target="_blank">
                     <div className="form-group"><label className="sr-only" for="firstname">First Name</label><input className="form-control" type="text" id="firstname" name="firstname" placeholder="First Name" autofocus=""/></div>
                     <div className="form-group"><label className="sr-only" for="lastname">Last Name</label><input className="form-control" type="text" id="lastname" name="lastname" placeholder="Last Name"/></div>
                     <div className="form-group"><label className="sr-only" for="phonenumber">Phone Number</label><input className="form-control" type="tel" id="phonenumber" name="phonenumber" required="" placeholder="Phone"/></div>
