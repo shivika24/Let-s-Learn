@@ -39,7 +39,7 @@ class Home extends Component
             <center><h3>How It Works ?</h3></center>
             <div className="boc_divider_holder">
             <div className="boc_divider  " style={{marginBottom: "10px",width: "200px",marginLeft: "auto", marginRight: "auto",height: "1px",background: "#777777"}}>
-            <i className="fa fa-circle" style={{marginTop:"1px",fontSize: "14px", lineHeight: "14px",color: "#ed5f5e",left: "50%", transform: "translateY(-50%) translateX(-50%)",backgroundColor: "#ffffff",padding: "10px"}}></i>
+
             </div>
             </div>
 

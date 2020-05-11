@@ -23,6 +23,7 @@ class Navbar extends Component{
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="about" style={{color: "white"}}>About Us</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Pricing">Pricing &amp; Plans</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Contact" style={{color: "white"}}>Contact Us</Link></li>
+                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/test" onClick={()=>this.props.test(false)} style={{color: "white"}}>Take Test</Link></li>
                 </ul><span className="navbar-text actions"> <Link className="login" to="/Logins" style={{color: "white"}}>Log In</Link>
                 <Link className="btn btn-light action-button" role="button" to="Registers" style={{backgroundColor: "white",color: "#58a5ff"}}>Sign Up</Link></span></div>
         </div>
