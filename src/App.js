@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Mainpage from './components/mainpage';
 import Contactus from './components/contactus';
 import Services from './components/services';
-
+import TestDashboard from './components/testDashboard.js'
+import Mcq from './components/mcq.js';
+import TestNavbar from './components/testnavbar.js';
+import Sidebar from './components/sideBar.js';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 
@@ -17,17 +20,53 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import './App.css';
 
-function App() {
+class App extends Component {
+  constructor(){
+    super();
+    this.state={
+      flag:true,
+      test:[
+        {
+            ques:"Which of the following can be operands of arithmetic operators?",
+            choices:["Numeric","Boolean","Character","Both Numeric & Characters"]
+        },
+        {
+            ques:"Modulus operator, %, can be applied to which of these?",
+            choices:["Integers","Floating-NUmbers","Both Integers and floating – point numbers","NOT"]
+        },
+        {
+            ques:"Decrement operator, −−, decreases the value of variable by what number?",
+            choices:["1","2","3","4"]
+        }
+    ]
+    }
+    this.setTofalse=this.setTofalse.bind(this);
+    this.selectMcq=this.selectMcq.bind(this);
+    this.clickedMcq=this.clickedMcq.bind(this);
+  }
+   selectMcq(mcq,i){
+    // console.log(event);
+    this.setState({selectedMcq:mcq,index:i});
+  }
+  clickedMcq(i)
+  {
+    this.setState({selectedMcq:this.state.test[i],index:i})
+  }
+  setTofalse()
+  {
+    this.setState({flag:false})
+  }
+  render(){
   return (
+    this.state.flag === true?
     <div className="App">
        <Router>
     <div>
-    <Navbar/>
+    <Navbar test={this.setTofalse}/>
       <Switch>
       <Route exact path="/">
            <Home />
@@ -50,8 +89,27 @@ function App() {
     </div>
     <Footer/>
   </Router>
-    </div>
-  );
+    </div>:
+    <div id="wrapper">
+    <Router>
+    <Sidebar len={this.state.test.length} selectMCQ={this.clickedMcq}></Sidebar>
+    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+       <TestNavbar  ></TestNavbar>
+       <div class="container-fluid">
+       
+         <Switch>
+         <Route path = "/test" render={()=><TestDashboard test={this.state.test} selectMCQ={this.selectMcq}></TestDashboard>}/> 
+         <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
+         </Switch>
+      
+      </div>
+      </div>
+      </div>
+      </Router> 
+  </div>
+  )
+  }
 }
 
 export default App;
