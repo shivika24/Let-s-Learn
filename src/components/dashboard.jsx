@@ -4,12 +4,13 @@ import imgs from '../images/test.svg';
 import './dashboard1.css';
 class Dashboard extends Component
 {
+
     render()
     {
         return(
             <div id="page-top">
             <div id="wrapper">
-    <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul className="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div className="sidebar-brand-icon rotate-n-15">
@@ -159,7 +160,7 @@ class Dashboard extends Component
                     <div className="status-indicator bg-success"></div>
                   </div>
                   <div className="font-weight-bold">
-                    <div className="text-truncate">Hi there! Can u dend me the solution of Tower Of Hanoi?</div>
+                    <div className="text-truncate">Hi there! Can u send me the solution of Tower Of Hanoi?</div>
                     <div className="small text-gray-500">Shivani Goyal</div>
                   </div>
                 </a>
@@ -390,7 +391,7 @@ class Dashboard extends Component
                 <div className="card-body">
                   <div id="myDIV" className="header">
                      <input type="text" id="myInput" placeholder="Title..."/>
-                     <a className="btn btn-primary btn-circle ml-1" role="button" onclick="newElement()">
+                     <a className="btn btn-primary btn-circle ml-1" role="button" onClick="newElement()">
                      <i className="fas fa-edit text-white" ></i>
                    </a>
                      
