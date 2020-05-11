@@ -9,7 +9,7 @@ class Contactus extends Component{
         <div className="container">
             <div className="row">
                 <div className="col" style={{textAlign: "center",padding: "40px"}}>
-                    <h1 data-aos="fade-down" style={{color: "white",fontSize: "60px"}}>Contact</h1>
+                    <h1 data-aos="fade-down" style={{color: "white",fontSize: "60px"}}>Contact1</h1>
                 </div>
             </div>
         </div>
