@@ -38,12 +38,15 @@
     background-color: #008CBA;
     color: white;
     font-weight: 700;
+    width: 112px;
+    border-radius: 6px;
 }
 #button1:hover {
     background-color: white;
     border: 1px solid #008CBA;
     color: #008CBA;
-    box-shadow: 0 8px 16px 0 rgba(17, 121, 190, 0.2), 0 6px 20px 0 rgba(17, 121, 190, 0.2);
+    box-shadow: 6px 8px 12px #00000030;
+    
   }
 #button2
 {
@@ -52,10 +55,14 @@
     border: 1px solid #008CBA;
     font-weight: 700;
     color: #008CBA;
-    box-shadow: 0 8px 16px 0 rgba(59, 122, 163, 0.2), 0 6px 20px 0 rgba(59, 122, 163, 0.2);
+    width: 112px;
+    border-radius: 6px;
+  
 }
 #button2:hover {
     background-color: #008CBA;
     color: white;
+  
+    box-shadow: 6px 8px 12px #00000030;
     
   }

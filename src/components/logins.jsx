@@ -29,7 +29,7 @@ class Logins extends Component
             <div>
             <div className="row" style={{margin:0,padding:0}}>
             <div className="col-md-6 col-12" style={{margin:0,padding:0}}>
-            <img src={t1} style={{height:"100%",width:"100%",marginTop:"8%"}}/>
+            <img src={t1} style={{width:"100%",marginTop:"8%"}}/>
             </div>
             <div className="col-md-6 col-12" style={{margin:0,padding:0}}>
             <div className="container5">
@@ -39,8 +39,11 @@ class Logins extends Component
             <div className="col-6">
             <center><div className="g-signin2" data-onsuccess="onSignIn" style={{width:"140%"}}></div></center>
             </div>
+          
+            </div>
             <div className="row">
-            <button id="github-button" className="btn" style={{width:"100%",color:"black",backgroundColor:"white"}}>
+            <div className="col-12" style={{textAlign:"center"}}>
+            <button id="github-button" className="btn" style={{color:"black",backgroundColor:"white"}}>
             <i className="fa fa-github"></i> Sign in with Github
             </button>
             </div>
@@ -54,7 +57,7 @@ class Logins extends Component
             <br/><i id="i11" className="fa fa-toggle-off" style={{marginLeft:"51px"}} onClick={() => this.func()}></i>  <span id="span1">Show Password</span><br/><br/>
             <center><button className="btn"  id="submitbut1">Sign In</button></center>
         </form>
-        <center><Link to="/Registers" style={{textDecoration:"none",color:"black"}}>Not Registered Yet...?click here to register.</Link></center>
+        <center style={{marginTop: "20px"}}><Link to="/Registers" style={{textDecoration:"none",color:"black"}}>Not Registered Yet...?click here to register.</Link></center>
         <br/>
         </div>
             </div>
