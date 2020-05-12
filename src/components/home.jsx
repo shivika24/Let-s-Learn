@@ -16,17 +16,17 @@ class Home extends Component
             <h2 id="head1">A PLATFORM</h2>
             <h2 id="head1">FOR ONLINE EXAMS!!!</h2>
             <div className="row">
-            <div className="col-6">
+            <div className="col-12 col-md-6">
             <br/>
             <h5 id="head3">For Students</h5>
             <p id="p1">User Friendly And Easy To Use Platform For Students To give their Examinations And Make Them Industry Ready Proffessionals.</p>
             <Link to="/Registers"><button id="button1" style={{marginLeft:"40px"}}>Sign Up</button></Link>
             </div>
-            <div className="col-6">
+            <div className="col-12 col-md-6" >
             <br/>
-            <h5 id="head2">For Faculty</h5>
-            <p>We aid colleges to transform their student’s by developing their skills, to enable them to emerge as “Industry Ready” professionals.</p>
-            <Link to="/Registert"><button id="button2">Sign Up</button></Link>
+            <h5 id="head2" style={{marginLeft:"40px"}}>For Faculty</h5>
+            <p style={{marginLeft:"40px"}}>We aid colleges to transform their student’s by developing their skills, to enable them to emerge as “Industry Ready” professionals.</p>
+            <Link to="/Registert" style={{marginLeft:"40px"}}><button id="button2">Sign Up</button></Link>
             </div>
             </div>
             </div>

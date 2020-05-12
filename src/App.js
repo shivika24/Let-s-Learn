@@ -70,7 +70,7 @@ class App extends Component {
     <Navbar test={this.setTofalse}/>
       <Switch>
       <Route exact path="/">
-           <Home />
+           <Home/>
         </Route>
         <Route path="/about">
           <Mainpage />

@@ -7,11 +7,11 @@ class Registers extends Component
     {
         return (
             <div className="container1">
-            <Link to="/Registers"><button id="bid1"><b>REGISTER AS STUDENT</b></button></Link><Link to="/Registert"><button id="bid1"><b>REGISTER AS TEACHER</b></button></Link>
-            <h1>STUDENT REGISTERATION FORM</h1>
+            <Link to="/Registers"><button id="bid1"><b>STUDENT</b></button></Link><Link to="/Registert"><button id="bid1"><b>TEACHER</b></button></Link>
+            <h1>STUDENT REGISTERATION</h1>
         <center><div className="g-signin2" data-onsuccess="onSignIn" style={{width:"300px"}}></div></center>
         <div className="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
-        <center><button id="github-button" className="btn" style={{width:"300px",color:"black",backgroundColor:"white"}}>
+        <center><button id="github-button" className="btn" style={{color:"black",backgroundColor:"white"}}>
         <i className="fa fa-github"></i> Sign in with Github
       </button></center>
         <form>
