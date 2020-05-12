@@ -14,6 +14,7 @@ import Registert from './components/registert';
 import Logins from './components/logins';
 import Logint from './components/logint';
 import Dashboard from './components/dashboard';
+import Tdashboard from './components/tdashboard';
 import Home from './components/home';
 
 import {
@@ -80,7 +81,8 @@ class App extends Component {
         <Route path="/Pricing">
           <Services/>
         </Route>
-        <Route path="/studentDashboard" exact render={() => (<Dashboard/>)}/>
+        <Route path="/studentDashboard"  render={() => (<Dashboard/>)}/>
+        <Route path="/teacherDashboard"  render={() => (<Tdashboard/>)}/>
         <Route path="/Registers" render={() => ( <Registers/>)} />  
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
