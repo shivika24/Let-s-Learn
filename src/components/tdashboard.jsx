@@ -425,7 +425,9 @@ class tDashboard extends Component
                 </div>
                 <div className="card-body">
                   <p>Unless you Try To Do Something Beyond What You Have Already Mastered You Will Never Grow!!</p>
-                </div>
+                  <center><button className="btn-primary">Add New Quotes</button></center>
+                  </div>
+                
               </div>
 
             </div>

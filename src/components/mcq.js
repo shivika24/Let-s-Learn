@@ -20,7 +20,7 @@ export default class extends Component{
                            return <div className="form-check">
                                
                                 <h6 className="form-check-label" for="exampleRadios1">
-                                <input className="form-check-input" style={{marginLeft:"-18.25rem"}}type="radio" name="exampleRadios" id="exampleRadios1" value="option1"/>
+                                <input className="form-check-input" type="radio"  name="exampleRadios" id="exampleRadios1" value="option1"/>
                                   {choice}
                                   
                                   {console.log(choice)}
