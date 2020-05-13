@@ -41,7 +41,19 @@ class Registert extends Component
     })
       .then(res => res.json())
       .then(res => {
+        if(res.resType === 0)
+        {
+          alert("Teacher Already Exists");
+          window.location='http://localhost:3000/Logint';
+        }
+        else if(res.resType === 1)
+        {
+          alert("Passwords Do Not Match");
+        }
+        else
+        {
         alert(`TEACHER:${JSON.stringify(res)} REGISTERED SUCCESFULLY!!`);
+        }
         console.log("done");
       });
       }

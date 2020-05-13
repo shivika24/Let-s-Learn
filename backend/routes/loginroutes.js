@@ -24,8 +24,7 @@ module.exports.register = async function(req,res){
          }   
          else{
              if(data[0].cnt > 0){  
-                   console.log("account already exists...Please Login");
-                   //redirect to login page
+              return res.status(400).json({resType:0});
              }else{
               var sql = "INSERT INTO `student`(`sname`,`srollno`,`semail`,`spno`, `syear`, `spassword`) VALUES ('" + users.sname + "','" + users.srollno + "','" + users.semail + "','" + users.spno + "','" + users.syear + "','" +users.spassword +"')";
               var query = con.query(sql, function(err, result) {  
@@ -73,8 +72,7 @@ module.exports.register = async function(req,res){
          }   
          else{
              if(data[0].cnt > 0){  
-                   console.log("account already exists...Please Login");
-                   //redirect to login page
+               return res.status(400).json({resType:0});
              }else{
               var sql = "INSERT INTO `teacher`(`tname`,`tid`,`temail`,`tpno`, `tpassword`) VALUES ('" + users.tname + "','" + users.tid + "','" + users.temail + "','" + users.tpno + "','" +users.tpassword +"')";
               var query = con.query(sql, function(err, result) {  
@@ -112,7 +110,10 @@ module.exports.register = async function(req,res){
         })
       }else{
         if(results.length >0){
-          const comparision = await bcrypt.compare(spassword, results[0].spassword)
+          console.log(results[0].spassword);
+          console.log(spassword);        
+          let comparision = await bcrypt.compare(spassword, results[0].spassword)
+          console.log(comparision);
           if(comparision){
               res.send({
                 "code":200,
@@ -134,4 +135,40 @@ module.exports.register = async function(req,res){
         }
       }
       });
-  }
+    }
+    module.exports.tlogin = async function(req,res){
+      var temail= req.body.temail;
+      var tpassword = req.body.tpassword;
+      con.query('SELECT * FROM teacher WHERE temail = ?',temail, async function (error, results, fields) {
+        if (error) {
+          res.send({
+            "code":400,
+            "failed":"error ocurred"
+          })
+        }else{
+          if(results.length >0){    
+            let comparision = await bcrypt.compare(tpassword, results[0].tpassword)
+
+            if(comparision){
+                res.send({
+                  "code":200,
+                  "success":"login sucessfull"
+                })
+            }
+            else{
+              res.send({
+                   "code":204,
+                   "success":"Email and password does not match"
+              })
+            }
+          }
+          else{
+            res.send({
+              "code":206,
+              "success":"Email does not exits"
+                });
+          }
+        }
+        });
+      }
+  
