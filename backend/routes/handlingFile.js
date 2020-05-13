@@ -1,8 +1,7 @@
 var express = require('express');
 const router=require('express').Router();
     var app = express()
-    const csv = require('csv-parser');
-    const fs = require('fs');
+    var con= require('./../dbconnection');
   //  var config=require('./config.js');
     //multer
     // var multer  = require('multer');
@@ -14,12 +13,7 @@ const router=require('express').Router();
     //       // the buffer here containes your file data in a byte array 
     //       var csv=req.file.buffer.toString('utf8');
     //  });
-    app.post('/handleFile',function(req,res,next){
-        fs.createReadStream(req.body)
-      .pipe(csv())
-      .on('data', (data) => this.state.testFile.push(data))
-      .on('end', () => {
-        console.log(this.state.testFile);
-      })
-    })
-      module.exports=router;
+    module.exports.handleFile = async function(req,res,next){
+        console.log(req.body);
+    }
+     // module.exports=router;

@@ -15,13 +15,13 @@ class tDashboard extends Component
     }
     csvreader()
     {
-      // fs.createReadStream(document.getElementById("inputGroupFile02").files[0])
-      // .pipe(csv())
-      // .on('data', (data) => this.state.testFile.push(data))
-      // .on('end', () => {
-      //   console.log(this.state.testFile);
+      fs.createReadStream(document.getElementById("inputGroupFile02").value)
+      .pipe(csv())
+      .on('data', (data) => this.state.testFile.push(data))
+      .on('end', () => {
+        console.log(this.state.testFile);
         
-  // });
+  });
         //   var csv=document.getElementById('inputGroupFile02').files[0];
         // var formData=new FormData();
         // formData.append("uploadCsv",csv);
@@ -29,16 +29,20 @@ class tDashboard extends Component
 
  //here you can set the request header to set the content type, this can be avoided.
  //The browser sets the setRequestHeader and other headers by default based on the formData that is being passed in the request.
- fetch(' http://localhost:8081/handleFile',{
+ fetch(" http://localhost:8082/handleFile",{
          method:"POST",
          headers:{
-            "Content-Type":"multipart/form-data",
+          Accept: "application/json",
+            "Content-Type":"application/json",
             },
-         body:JSON.stringify(document.getElementById('inputGroupFile02').files[0])
+         body:JSON.stringify(this.state.testFile)
       })
       .then(res => {
          if(res.ok){return res.json();}
       })
+      .then(res => {
+        alert("File is succesfully uploaded!!");
+      });
 //   request.open("POST","/handleFile", true);        
 //  request.setRequestHeader("Content-type", "multipart/form-data"); //----(*)
           
@@ -49,7 +53,7 @@ class tDashboard extends Component
           //   }
 
 // request.send(formData);
-  alert("File is succesfully uploaded!!");
+  
     }
     render()
     {

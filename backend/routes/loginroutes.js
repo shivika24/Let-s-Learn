@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-const bcrypt=require('bcrypt-nodejs');
-exports.register = async function(req,res){
-=======
 var bcrypt = require ('bcrypt');
 const saltRounds=10;
 var con= require('./../dbconnection');
 
 module.exports.register = async function(req,res){
->>>>>>> 71c50651e5aba474f093213c1be38587be0f8f2a
     const password = req.body.spassword;
     const password1 = req.body.spassword1;
     if(password==password1)
