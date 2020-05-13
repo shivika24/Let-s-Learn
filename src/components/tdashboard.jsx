@@ -14,21 +14,25 @@ class tDashboard extends Component
         testFile:[]
       }
     }
-    handleFiles = files => {
+    handleFiles = e => {
+    //  let files=e.target.files;
       var reader = new FileReader();
+      reader.readAsText(e[0]);
       reader.onload = function(e) {
           // Use reader.result
           alert(reader.result)
-      }
-      reader.readAsText(files[0]);
-      this.state.testFile.push(reader.result);
+          const formData={file:e.target.result}
+          console.log(formData);
+      
+      
+     // this.state.testFile.push(reader.result);
       fetch(" http://localhost:8082/handleFile",{
         method:"POST",
         headers:{
          Accept: "application/json",
            "Content-Type":"application/json",
            },
-        body:JSON.stringify(this.state.testFile)
+        body:JSON.stringify(formData)
      })
      .then(res => {
         if(res.ok){return res.json();}
@@ -36,7 +40,7 @@ class tDashboard extends Component
      .then(res => {
        alert("File is succesfully uploaded!!");
      });
-      
+    }
   }
 //     csvreader()
 //     {
@@ -526,16 +530,16 @@ class tDashboard extends Component
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="fileName"></p>
-                              {/* <input type="file" class="custom-file-input" id="inputGroupFile02"/>
-                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label> */}
+                              <input type="file" class="custom-file-input" id="inputGroupFile02" />
+                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label>
                             </div>
                           </div>
                         </div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                          <button class="btn btn-primary" >UPLOAD</button>
-                          </ReactFileReader>
+                          {/* <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}> */}
+                          <button class="btn btn-primary"onClick={(e)=>this.handleFiles(document.getElementById('inputGroupFile02').files)} >UPLOAD</button>
+                          {/* </ReactFileReader> */}
                         </div>
                       </div>
                     </div>
