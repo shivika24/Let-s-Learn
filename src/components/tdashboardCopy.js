@@ -2,42 +2,76 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
 import './dashboard1.css';
-import ReactFileReader from "react-file-reader";
-const csv = require('csv-parser');
-const fs = require('fs');
+import Papa from 'papaparse';
+//import ReactFileReader from "react-file-reader";
+//const csv = require('csv-parser');
+//const fs = require('fs');
 class tDashboard extends Component
 {
     constructor(){
       super();
-     // this.csvreader=this.csvreader.bind(this);
+      this.csvreader=this.csvreader.bind(this);
       this.state={
         testFile:[]
       }
-    }
-    handleFiles = files => {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-          // Use reader.result
-          alert(reader.result)
-      }
-      reader.readAsText(files[0]);
-      this.state.testFile.push(reader.result);
-      fetch(" http://localhost:8082/handleFile",{
-        method:"POST",
-        headers:{
-         Accept: "application/json",
-           "Content-Type":"application/json",
-           },
-        body:JSON.stringify(this.state.testFile)
-     })
-     .then(res => {
-        if(res.ok){return res.json();}
-     })
-     .then(res => {
-       alert("File is succesfully uploaded!!");
-     });
       
+    }
+  //   handleFiles = files => {
+  //     var reader = new FileReader();
+  //     reader.onload = function(e) {
+  //         // Use reader.result
+  //         alert(reader.result)
+  //     }
+  //     reader.readAsText(files[0]);
+  //     this.state.testFile.push(reader.result);
+  //     fetch(" http://localhost:8082/handleFile",{
+  //       method:"POST",
+  //       headers:{
+  //        Accept: "application/json",
+  //          "Content-Type":"application/json",
+  //          },
+  //       body:JSON.stringify(this.state.testFile)
+  //    })
+  //    .then(res => {
+  //       if(res.ok){return res.json();}
+  //    })
+  //    .then(res => {
+  //      alert("File is succesfully uploaded!!");
+  //    });
+      
+  // }
+  csvreader(){
+    var testF={};
+    //var Papa=require("papaparse/papaparse.min.js");
+    console.log(document.getElementById('inputGroupFile02').value)
+    Papa.parse(document.getElementById('inputGroupFile02').value,{
+      delimiter:"",
+      header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true,
+    transformHeader: (header) => header.toLowerCase().replace(/\W/g, "_"),
+    complete:function(results) {
+      testF=results.data
+      console.log(results.data)
+    }
+    })
+    console.log(testF);
+    fetch(" http://localhost:8082/handleFile",{
+      method:"POST",
+      headers:{
+       Accept: "application/json",
+         "Content-Type":"application/json",
+         },
+      body:JSON.stringify(testF)
+   })
+   .then(res => {
+      if(res.ok){return res.json();}
+   })
+   .then(res => {
+     alert("File is succesfully uploaded!!");
+   });
   }
+  
 //     csvreader()
 //     {
 //       fs.createReadStream(document.getElementById("inputGroupFile02").value)
@@ -526,16 +560,14 @@ class tDashboard extends Component
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="fileName"></p>
-                              {/* <input type="file" class="custom-file-input" id="inputGroupFile02"/>
-                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label> */}
+                               <input type="file" class="custom-file-input" id="inputGroupFile02"/>
+                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label> 
                             </div>
                           </div>
                         </div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                          <button class="btn btn-primary" >UPLOAD</button>
-                          </ReactFileReader>
+                          <button class="btn btn-primary" onClick={()=>{this.csvreader()}}>UPLOAD</button>
                         </div>
                       </div>
                     </div>
@@ -545,3 +577,17 @@ class tDashboard extends Component
     }
 }
 export default tDashboard;
+{/* <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <p id="fileName"></p>
+                              {/* <input type="file" class="custom-file-input" id="inputGroupFile02"/>
+                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label> */}
+                        //     </div>
+                        //   </div>
+                        // </div>
+                        // <div class="modal-footer">
+                        //   <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        //   <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
+                        //   <button class="btn btn-primary" >UPLOAD</button>
+                        //   </ReactFileReader>
+                        // </div> */}
