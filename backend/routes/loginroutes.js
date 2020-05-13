@@ -1,3 +1,4 @@
+const bcrypt=require('bcrypt-nodejs');
 exports.register = async function(req,res){
     const password = req.body.spassword;
     const encryptedPassword = await bcrypt.hash(password, saltRounds)

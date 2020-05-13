@@ -1,5 +1,6 @@
 var express    =  require("express");
 var login =  require('./routes/loginroutes');
+var handleFileRouter =  require('./routes/handlingFile');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
@@ -17,7 +18,7 @@ app.use(function(req, res, next) {
 var router = express.Router();
 
 app.get('/', (req, res) => res.send('ho!'))
-
+app.use('/handleFile',handleFileRouter);
 // test route
 // router.get('/', function(req, res) {
 //     res.json({ message: 'welcome to our upload module apis' });
