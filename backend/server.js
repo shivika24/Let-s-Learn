@@ -18,22 +18,31 @@ app.use(function(req, res, next) {
 var router = express.Router();
 
 app.get('/', (req, res) => res.send('ho!'))
+<<<<<<< HEAD
 app.use('/handleFile',handleFileRouter);
 // test route
 // router.get('/', function(req, res) {
 //     res.json({ message: 'welcome to our upload module apis' });
 // });
-//route to handle user registration
-// router.post('/register',login.register);
+=======
 
-// router.get('/register',(res)=>{
+//test route
+app.get('/', function(req, res) {
+    res.json({ message: 'welcome to our upload module apis' });
+});
+>>>>>>> 71c50651e5aba474f093213c1be38587be0f8f2a
+//route to handle user registration
+app.post('/register',login.register);
+app.post('/tregister',login.tregister);
+
+// app.get('/register',(res)=>{
 //     console.log("hello");
 // });
 
-// router.post('/login',login.login)
-// app.use('/api', router);
+app.post('/login',login.login)
+app.use('/api', router);
 
-app.listen(8081,()=>{ 
-    console.log("Server is Listening At Port 8081")  
+app.listen(8082,()=>{ 
+    console.log("Server is Listening At Port 8082")  
 })
 

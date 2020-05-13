@@ -12,6 +12,7 @@ con.connect(function(err){
         console.log("Error connecting database ... ");
     }
     });
+module.exports = con; 
 // con.connect(function(err)
 // {
 //     if(err) throw err;
