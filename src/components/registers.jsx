@@ -12,7 +12,8 @@ class Registers extends Component
             spno:"",
             semail:"",
             syear:"",
-            spassword:""
+            spassword:"",
+            spassword1:""
         }
         this.onChange = this.onChange.bind(this);
         this.onfunc = this.onfunc.bind(this);
@@ -30,10 +31,11 @@ class Registers extends Component
             semail:email,
             spno:this.state.sphone,
             syear:year,
-            spassword:this.state.spassword
+            spassword:this.state.spassword,
+            spassword1:this.state.spassword1
         };
         console.log(newUser);
-    fetch("http://localhost:8081/register", {
+    fetch("http://localhost:8082/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -64,7 +66,7 @@ class Registers extends Component
             <input type="tel" name="sphone" placeholder="enter Student's contact-no" maxLength="10"  minLength="10" title="enter only numbers" onChange={this.onChange} required/>
             <input type="text" name="syear" id="syear" placeholder="enter Students Year" required/>
             <input type="password" name="spassword" placeholder="enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange}  required/> 
-            <input type="password" name="srpassword" placeholder="re-enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange} required/>
+            <input type="password" name="spassword1" placeholder="re-enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange} required/>
             <br/><br/>
             <center><button type="submit" className="btn" style={{backgroundColor:"#1aa1d0",width:"200px",color:"white"}} onClick={(e)=>{this.onfunc(e)}}>Submit</button></center>
         </form>
