@@ -32,6 +32,7 @@ app.post('/tregister',login.tregister);
 // });
 
 app.post('/login',login.login)
+app.post('/tlogin',login.tlogin)
 app.use('/api', router);
 
 app.listen(8082,()=>{ 

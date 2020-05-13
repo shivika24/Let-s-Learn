@@ -6,9 +6,48 @@ class Logint extends Component
 {
     constructor()
     {
-        super();
+        super();this.state={
+            temail:"",
+            tpassword:""
+        }
         this.func=this.func.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onfunc1 = this.onfunc1.bind(this);
     }
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+      }
+    onfunc1(e) {
+    e.preventDefault();
+        const newUser = {
+            temail:this.state.semail,
+            tpassword:this.state.spassword,
+        };
+        console.log(newUser);
+    fetch("http://localhost:8082/tlogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    })
+      .then(res => res.json())
+      .then(res => {
+        //alert(`TEACHER:${JSON.stringify(res)} LOGIN SUCCESFULLY!!`);
+        if(res.code === 204)
+        {
+            alert("Email and password does not match");
+        }
+        else if(res.code === 206)
+        {
+            alert("Email Not Registered");
+            window.location='http://localhost:3000/Registert';
+        }
+        else
+        window.location='http://localhost:3000/teacherDashboard';
+        
+      });
+      }
     func()
     {
     var y = document.getElementById("i11");
@@ -52,10 +91,10 @@ class Logint extends Component
         <div className="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
 
         <form>
-            <input type="email" name="semail" placeholder="Enter your email-id" required/>
-            <input type="password" name="spassword" id="spass" placeholder="Enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10"  required/> 
+            <input type="email" name="semail" placeholder="Enter your email-id" onChange={this.onChange} required/>
+            <input type="password" name="spassword" id="spass" placeholder="Enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange} required/> 
             <br/><i id="i11" className="fa fa-toggle-off" style={{marginLeft:"50px"}} onClick={() => this.func()}></i>  <span id="span1">Show Password</span><br/><br/>
-            <center><button className="btn"  id="submitbut1">Sign In</button></center>
+            <center><button className="btn"  id="submitbut1" onClick={(e)=>{this.onfunc1(e)}}>Sign In</button></center>
         </form>
         <center style={{marginTop: "20px"}}><Link to="/Registert" style={{textDecoration:"none",color:"black"}}>Not Registered Yet...?click here to register.</Link></center>
         <br/>

@@ -44,7 +44,20 @@ class Registers extends Component
     })
       .then(res => res.json())
       .then(res => {
-        alert(`NEW USER:${JSON.stringify(res)} ADDED SUCCESFULLY!!`);
+        if(res.resType === 0)
+        {
+          alert("Student Already Exists");
+          window.location='http://localhost:3000/Logins';
+        }
+        // else if(res.resType === 101)
+        // {
+        //   alert("PASSWORDS DON'T MATCH");
+        // }
+        else
+        {
+        alert(`NEW STUDENT REGISTERED SUCCESFULLY!!`);
+        window.location="http://localhost:3000/Logins";
+        }
         console.log("done");
       });
       }

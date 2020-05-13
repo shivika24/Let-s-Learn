@@ -35,8 +35,17 @@ class Logins extends Component
     })
       .then(res => res.json())
       .then(res => {
-        alert(`USER:${JSON.stringify(res)} LOGIN SUCCESFULLY!!`);
-        console.log("done");
+        if(res.code === 204)
+        {
+            alert("Email and password does not match");
+        }
+        else if(res.code === 206)
+        {
+            alert("Email Not Registered");
+            window.location='http://localhost:3000/Registers';
+        }
+        else
+        window.location='http://localhost:3000/studentDashboard';
       });
       }
     func()
