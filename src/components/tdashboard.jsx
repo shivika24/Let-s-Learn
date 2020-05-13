@@ -2,9 +2,27 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
 import './dashboard1.css';
+const csv = require('csv-parser');
+const fs = require('fs');
 class tDashboard extends Component
 {
-
+    constructor(){
+      super();
+      this.csvreader=this.csvreader.bind(this);
+      this.state={
+        testFile:[]
+      }
+    }
+    csvreader()
+    {
+      fs.createReadStream(document.getElementById("inputGroupFile02").files[0])
+      .pipe(csv())
+      .on('data', (data) => this.state.testFile.push(data))
+      .on('end', () => {
+        console.log(this.state.testFile);
+        alert("File is succesfully uploaded!!");
+  });
+    }
     render()
     {
         return(
@@ -415,7 +433,7 @@ class tDashboard extends Component
                     <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src={imgs} alt=""/>
                   </div>
                   <p>One Click Upload Exam!!!Easy, Convinient And User Friendly Environment</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">  Click Here To Upload Exam &rarr;</a>
+                  <a target="_blank" href="#" data-toggle="modal" data-target="#logoutModal" rel="nofollow" href="https://undraw.co/">  Click Here To Upload Exam &rarr;</a>
                 </div>
               </div>
 
@@ -437,6 +455,30 @@ class tDashboard extends Component
       </div>
             </div>
             </div>
+            <div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header bg-info">
+                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">UPLOAD TEST</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="inputGroupFile02"/>
+                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                          <button class="btn btn-primary" onClick={()=>this.csvreader()}>UPLOAD</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
         )
     }
