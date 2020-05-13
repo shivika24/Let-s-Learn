@@ -3,6 +3,49 @@ import { Link } from "react-router-dom";
 import './registers.css';
 class Registers extends Component
 {
+    constructor()
+    {
+        super();
+        this.state={
+            sname:"",
+            srollno:"",
+            spno:"",
+            semail:"",
+            syear:"",
+            spassword:""
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onfunc = this.onfunc.bind(this);
+    }
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+      }
+    onfunc(e) {
+    e.preventDefault();
+      const email=document.getElementById("semail").value;
+      const year=document.getElementById("syear").value;
+        const newUser = {
+            sname:this.state.sname,
+            srollno:this.state.srno,
+            semail:email,
+            spno:this.state.sphone,
+            syear:year,
+            spassword:this.state.spassword
+        };
+        console.log(newUser);
+    fetch("http://localhost:8081/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    })
+      .then(res => res.json())
+      .then(res => {
+        alert(`NEW USER:${JSON.stringify(res)} ADDED SUCCESFULLY!!`);
+        console.log("done");
+      });
+      }
     render()
     {
         return (
@@ -15,15 +58,15 @@ class Registers extends Component
         <i className="fa fa-github"></i> Sign in with Github
       </button></center>
         <form>
-            <input type="text" name="sname" placeholder="Enter Student's name" pattern="[A-Za-z]" maxLength="20" required/>
-            <input type="tel" name="srno" placeholder="Enter Student's roll number" pattern="[A-Za-z]{0-20}" maxLength="20" required/>
-            <input type="email" name="semail" placeholder="enter your email-id" required/>
-            <input type="tel" name="sphone" placeholder="enter Student's contact-no" maxLength="10"  minLength="10" title="enter only numbers" required/>
-            <input type="text" name="syear" placeholder="enter Students Year" required/>
-            <input type="password" name="spassword" placeholder="enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10"  required/> 
-            <input type="password" name="srpassword" placeholder="re-enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" required/>
+            <input type="text" name="sname" placeholder="Enter Student's name"  maxLength="20" onChange={this.onChange} required/>
+            <input type="tel" name="srno" placeholder="Enter Student's roll number" maxLength="20" onChange={this.onChange} required/>
+            <input type="email" name="semail" id="semail" placeholder="enter your email-id" required/>
+            <input type="tel" name="sphone" placeholder="enter Student's contact-no" maxLength="10"  minLength="10" title="enter only numbers" onChange={this.onChange} required/>
+            <input type="text" name="syear" id="syear" placeholder="enter Students Year" required/>
+            <input type="password" name="spassword" placeholder="enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange}  required/> 
+            <input type="password" name="srpassword" placeholder="re-enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange} required/>
             <br/><br/>
-            <center><button className="btn" style={{backgroundColor:"#1aa1d0",width:"200px",color:"white"}}>Submit</button></center>
+            <center><button type="submit" className="btn" style={{backgroundColor:"#1aa1d0",width:"200px",color:"white"}} onClick={(e)=>{this.onfunc(e)}}>Submit</button></center>
         </form>
         <center><Link to="/Logins" style={{textDecoration:"none",color:"black"}}>Already Registered...?click here to login.</Link></center>
         <br/>

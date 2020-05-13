@@ -5,9 +5,16 @@ var con = mysql.createConnection({
     password:"",
     database: "mytest"
 });
-con.connect(function(err)
-{
-    if(err) throw err;
-    console.log("Connected!"); 
-})
+con.connect(function(err){
+    if(!err) {
+        console.log("Database is connected ... ");
+    } else {
+        console.log("Error connecting database ... ");
+    }
+    });
+// con.connect(function(err)
+// {
+//     if(err) throw err;
+//     console.log("Connected!"); 
+// })
 
