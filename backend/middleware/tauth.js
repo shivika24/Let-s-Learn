@@ -2,7 +2,7 @@ const config=require('config');
 const jwt=require('jsonwebtoken');
 var con= require('./../dbconnection');
 var login =  require('./routes/loginroutes');
-async function auth(req,res,next)  //to get token sent from react,postman or frontend etc
+async function tauth(req,res,next)  //to get token sent from react,postman or frontend etc
 {
   const token=req.header('x-auth-token');
    // const token = req.cookies.token || '';
@@ -15,7 +15,7 @@ async function auth(req,res,next)  //to get token sent from react,postman or fro
           const decoded=jwt.verify(token,config.get('jwtSecret'));
           console.log(decoded)
           var user;
-         con.query('SELECT semail FROM student WHERE semail = ?',decoded.id, async function (error, results, fields) {
+         con.query('SELECT temail FROM student WHERE temail = ?',decoded.id, async function (error, results, fields) {
               user=results;
          })
          console.log(user);
@@ -26,4 +26,4 @@ async function auth(req,res,next)  //to get token sent from react,postman or fro
       console.log('hello i am error ' + e)
    }
 }
-module.exports=auth;
+module.exports=tauth;

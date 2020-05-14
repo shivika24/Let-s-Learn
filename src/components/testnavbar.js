@@ -2,6 +2,18 @@ import React,{Component} from 'react';
 //import {Link,BrowserRouter} from 'react-router-dom';
 export default class TestNavbar extends Component
 { 
+  constructor(){
+    super();
+    let u="Name"
+      try{
+        u =  JSON.parse(localStorage.getItem("jwt")).user.name;
+      }catch(e){
+          u=""
+      }
+      this.state={
+        name:u
+      }
+  }
     render(){
         return( 
             
@@ -29,7 +41,7 @@ export default class TestNavbar extends Component
                       </ul>
                       <ul className="navbar-nav" style={{float:"right"}} >
                      <li className="nav-item">
-                     <span className="mr-2 d-none d-lg-inline font-weight-bold text-uppercase text-light small">Shivani</span>
+        <span className="mr-2 d-none d-lg-inline font-weight-bold text-uppercase text-light small">{this.state.name}</span>
                      <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="Not Available"/>
                      </li>
                     </ul>
