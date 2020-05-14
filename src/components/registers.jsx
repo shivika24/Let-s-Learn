@@ -17,6 +17,7 @@ class Registers extends Component
         }
         this.onChange = this.onChange.bind(this);
         this.onfunc = this.onfunc.bind(this);
+        this.f1=this.f1.bind(this);
     }
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -34,6 +35,7 @@ class Registers extends Component
             spassword:this.state.spassword,
             spassword1:this.state.spassword1
         };
+
         console.log(newUser);
     fetch("http://localhost:8082/register", {
       method: "POST",
@@ -49,17 +51,45 @@ class Registers extends Component
           alert("Student Already Exists");
           window.location='http://localhost:3000/Logins';
         }
-        // else if(res.resType === 101)
-        // {
-        //   alert("PASSWORDS DON'T MATCH");
-        // }
+        else if(res.resType === 101)
+        {
+          alert("PASSWORDS DON'T MATCH");
+        }
         else
         {
         alert(`NEW STUDENT REGISTERED SUCCESFULLY!!`);
-        window.location="http://localhost:3000/Logins";
+        this.f1();
+        //window.location="http://localhost:3000/Logins";
         }
         console.log("done");
-      });
+      });     
+      
+      }
+      f1()
+      {
+        console.log("f1");
+        const email=document.getElementById("semail").value;
+        const user = {
+          semail:email,
+        };
+        fetch("http://localhost:8082/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+      })
+        .then(res => res.json())
+        .then(res => {  
+          console.log(res.resType); 
+         if(res.resType === "102")
+         {     
+          alert(`MAIL SENT SUCCESSFULLY`);
+          window.location="http://localhost:3000/Logins";
+         }
+          console.log("done");
+        });
+      
       }
     render()
     {
@@ -72,7 +102,7 @@ class Registers extends Component
         <center><button id="github-button" className="btn" style={{color:"black",backgroundColor:"white"}}>
         <i className="fa fa-github"></i> Sign in with Github
       </button></center>
-        <form>
+        <form onSubmit={this.onfunc}>
             <input type="text" name="sname" placeholder="Enter Student's name"  maxLength="20" onChange={this.onChange} required/>
             <input type="tel" name="srno" placeholder="Enter Student's roll number" maxLength="20" onChange={this.onChange} required/>
             <input type="email" name="semail" id="semail" placeholder="enter your email-id" required/>
@@ -81,7 +111,7 @@ class Registers extends Component
             <input type="password" name="spassword" placeholder="enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange}  required/> 
             <input type="password" name="spassword1" placeholder="re-enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange} required/>
             <br/><br/>
-            <center><button type="submit" className="btn" style={{backgroundColor:"#1aa1d0",width:"200px",color:"white"}} onClick={(e)=>{this.onfunc(e)}}>Submit</button></center>
+            <center><button type="submit" className="btn" style={{backgroundColor:"#1aa1d0",width:"200px",color:"white"}}>Submit</button></center>
         </form>
         <center><Link to="/Logins" style={{textDecoration:"none",color:"black"}}>Already Registered...?click here to login.</Link></center>
         <br/>
