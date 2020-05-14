@@ -205,15 +205,16 @@ module.exports.register = async function(req,res){
         });
       }
   
-      module.exports.notice = async function(req,res){
+      module.exports.nnotice = async function(req,res){
         var d=new Date();
         var users={
-             "temail":req.body.email,
+             "email":req.body.email,
              "data":req.body.data,
-             "date":d.getDate()
+             "date":d
            }
            console.log(users);
-                  var sql = "INSERT INTO `notification`(`email`,`data`,`date`) VALUES ('" + users.email + "','" + users.data + "','" + users.date  +"')";
+
+                  var sql = "INSERT INTO `notifications`(`email`,`data`,`date`) VALUES ('" + users.email + "','" + users.data + "','" + users.date  +"')";
                   var query = con.query(sql, function(err, result) {  
                     if (err) {
                       return res.status(400).json({code:0});

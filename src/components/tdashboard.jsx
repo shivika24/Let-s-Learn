@@ -70,6 +70,7 @@ var file = document.querySelector('#file').files[0];
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
         data:e
       }
+      console.log(user);
       fetch("http://localhost:8082/notice", {
       method: "POST",
       headers: {
@@ -87,6 +88,7 @@ var file = document.querySelector('#file').files[0];
         else
         {
         alert(`NOTICE ADDED SUCCESFULLY!!`);
+        window.location='http://localhost:3000/teacherDashboard';
         //window.location="http://localhost:3000/Logins";
         }
         console.log("done");
