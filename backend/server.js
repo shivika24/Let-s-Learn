@@ -35,6 +35,7 @@ app.post('/tregister',login.tregister);
 app.get('/mcq',mcqRouter.mcq);
 app.post('/login',login.login)
 app.post('/tlogin',login.tlogin)
+app.post('/notice',login.notice)
 app.use('/api', router);
 
 app.listen(8082,()=>{ 

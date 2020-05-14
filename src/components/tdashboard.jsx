@@ -65,6 +65,33 @@ var file = document.querySelector('#file').files[0];
     }
 
 
+    nnotice = e => {
+      const user={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+        data:e
+      }
+      fetch("http://localhost:8082/notice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(res => {
+        if(res.code === 0)
+        {
+          alert("Notice Not Added");
+          window.location='http://localhost:3000/teacherDashboard';
+        }
+        else
+        {
+        alert(`NOTICE ADDED SUCCESFULLY!!`);
+        //window.location="http://localhost:3000/Logins";
+        }
+        console.log("done");
+      }); 
+    }
     handleFiles = files => {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -459,7 +486,7 @@ var file = document.querySelector('#file').files[0];
                 </div>
 
                 <div className="card-body" style={{height: "360px"}}>
-                <button className="btn-primary">Add New Notice</button><button className="btn-primary">Delete Notice</button>
+                <button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button><button className="btn-primary">Delete Notice</button>
                   <div>
                     <p style={{fontSize: "14px"}}>New Assignment amid COVID-19 for students to develop something that cause awareness among people for COVID-19</p>
                     <hr style={{border: "1px solid #008CBA"}} />
@@ -588,6 +615,31 @@ var file = document.querySelector('#file').files[0];
                       </div>
                     </div>
                   </div>
+
+
+
+                  <div class="modal fade " id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header bg-info">
+                        <h5 class="modal-title text-gray-800" id="exampleModalLabel">ADD NEW NOTICE</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">                        
+                      <div class="form-group">
+                      <input type="text" class="form-control" id="notice01" placeholder="Add Notice"/>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" onClick={()=>this.nnotice(document.getElementById("notice01").value)}>ADD</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
             </div>
         )
     }

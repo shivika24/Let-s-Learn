@@ -52,9 +52,9 @@ class App extends Component {
   componentDidMount(){
     fetch(` http://localhost:8082/mcq`, {
       method: "GET",
-      headers:{  "Content-Type":"application/json", },
+      headers:{  "Content-Type":"application/json" },
   })
-.then(res => {return res.json()})
+.then(res => {return res.json();})
 .then(res => {
       console.log(res);
       var i=0;var obj=[{ques:"",choices:[]}]
