@@ -31,23 +31,44 @@ class App extends Component {
     this.state={
       flag:true,
       test:[
-        {
-            ques:"Which of the following can be operands of arithmetic operators?",
-            choices:["Numeric","Boolean","Character","Both Numeric & Characters"]
-        },
-        {
-            ques:"Modulus operator, %, can be applied to which of these?",
-            choices:["Integers","Floating-NUmbers","Both Integers and floating – point numbers","NOT"]
-        },
-        {
-            ques:"Decrement operator, −−, decreases the value of variable by what number?",
-            choices:["1","2","3","4"]
-        }
+        // {
+        //     ques:"Which of the following can be operands of arithmetic operators?",
+        //     choices:["Numeric","Boolean","Character","Both Numeric & Characters"]
+        // },
+        // {
+        //     ques:"Modulus operator, %, can be applied to which of these?",
+        //     choices:["Integers","Floating-NUmbers","Both Integers and floating – point numbers","NOT"]
+        // },
+        // {
+        //     ques:"Decrement operator, −−, decreases the value of variable by what number?",
+        //     choices:["1","2","3","4"]
+        // }
     ]
     }
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
     this.clickedMcq=this.clickedMcq.bind(this);
+  }
+  componentDidMount(){
+    fetch(` http://localhost:8082/mcq`, {
+      method: "GET",
+      headers:{  "Content-Type":"application/json", },
+  })
+.then(res => {return res.json()})
+.then(res => {
+      console.log(res);
+      var i=0;var obj=[{ques:"",choices:[]}]
+      res.map((r)=>{
+            obj[i].ques=r.question;
+            obj[i].choices.push(r.option1);
+            obj[i].choices.push(r.option2)
+            obj[i].choices.push(r.option3)
+            obj[i].choices.push(r.option4)
+            i++;
+      })
+     this.setState({test:obj})
+     console.log(this.state.test)
+})
   }
    selectMcq(mcq,i){
     // console.log(event);

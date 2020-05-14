@@ -1,7 +1,8 @@
 var bcrypt = require ('bcrypt');
 const saltRounds=10;
 var con= require('./../dbconnection');
-
+const config=require('config');
+const jwt=require('jsonwebtoken');
 module.exports.register = async function(req,res){
     const password = req.body.spassword;
     const password1 = req.body.spassword1;
@@ -34,6 +35,15 @@ module.exports.register = async function(req,res){
                     "failed":"error ocurred"
                   })
                 } else {
+                  const token=jwt.sign(
+                    {id:users.semail},    //payload
+                    config.get('jwtSecret'),
+                    {expiresIn:3600},
+                    (err,token)=>{
+                        if(err) throw err;
+                        res.json({token,user:{id:users.semail,name:users.sname}})
+                    }
+                  )
                   res.send({
                     "code":200,
                     "success":"user registered sucessfully"
@@ -82,9 +92,18 @@ module.exports.register = async function(req,res){
                     "failed":"error ocurred"
                   })
                 } else {
+                  const token=jwt.sign(
+                    {id:users.temail},    //payload
+                    config.get('jwtSecret'),
+                    {expiresIn:3600},
+                    (err,token)=>{
+                        if(err) throw err;
+                        res.json({token,user:{id:users.temail,name:users.tname}})
+                    }
+                  )
                   res.send({
                     "code":200,
-                    "success":"teacher registered sucessfully"
+                    "success":"teacher registered sucessfully",
                       });
                   }
               });  
@@ -115,9 +134,16 @@ module.exports.register = async function(req,res){
           let comparision = await bcrypt.compare(spassword, results[0].spassword)
           console.log(comparision);
           if(comparision){
+            const token = jwt.sign(
+              {id:results[0].semail},    //payload
+              config.get('jwtSecret'),
+              {expiresIn:3600}
+              );
               res.send({
                 "code":200,
-                "success":"login sucessfull"
+                "success":"login sucessfull",
+                token,
+                user:{id:results[0].semail,name:results[0].sname}
               })
           }
           else{
@@ -150,9 +176,16 @@ module.exports.register = async function(req,res){
             let comparision = await bcrypt.compare(tpassword, results[0].tpassword)
 
             if(comparision){
+              const token = jwt.sign(
+                {id:results[0].temail},    //payload
+                config.get('jwtSecret'),
+                {expiresIn:3600}
+                );
                 res.send({
                   "code":200,
-                  "success":"login sucessfull"
+                  "success":"login sucessfull",
+                  token,
+                  user:{id:results[0].temail,name:results[0].tname}
                 })
             }
             else{

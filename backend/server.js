@@ -1,6 +1,7 @@
 var express    =  require("express");
 var login =  require('./routes/loginroutes');
 var handleFileRouter =  require('./routes/handlingFile');
+var mcqRouter=require('./routes/mcq')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
@@ -31,7 +32,7 @@ app.post('/tregister',login.tregister);
 // app.get('/register',(res)=>{
 //     console.log("hello");
 // });
-
+app.get('/mcq',mcqRouter.mcq);
 app.post('/login',login.login)
 app.post('/tlogin',login.tlogin)
 app.use('/api', router);

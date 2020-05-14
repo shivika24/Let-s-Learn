@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
 import './dashboard1.css';
-import ReactFileReader from "react-file-reader";
+//import ReactFileReader from "react-file-reader";
 const csv = require('csv-parser');
 const fs = require('fs');
 class tDashboard extends Component
@@ -10,8 +10,15 @@ class tDashboard extends Component
     constructor(){
       super();
      // this.csvreader=this.csvreader.bind(this);
+     let u="Name"
+      try{
+        u =  JSON.parse(localStorage.getItem("jwt")).user.name;
+      }catch(e){
+          u=""
+      }
       this.state={
-        testFile:[]
+        testFile:[],
+        name:u
       }
     }
     handleFiles = e => {
@@ -271,7 +278,7 @@ class tDashboard extends Component
 
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Nitin Goel</span>
+        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{this.state.name}</span>
                 <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
               </a>
 

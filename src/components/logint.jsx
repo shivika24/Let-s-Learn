@@ -44,7 +44,10 @@ class Logint extends Component
             window.location='http://localhost:3000/Registert';
         }
         else
-        window.location='http://localhost:3000/teacherDashboard';
+        {
+            localStorage.setItem("jwt", JSON.stringify(res));
+            window.location='http://localhost:3000/teacherDashboard';
+        }
         
       });
       }
