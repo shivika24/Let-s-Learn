@@ -14,6 +14,57 @@ class tDashboard extends Component
         testFile:[]
       }
     }
+    sendfile =()=>{
+   
+        // let event=document.getElementById('file');
+        // const fileInput = document.getElementById('file') ;
+        const fileInput =document.querySelector('input[type="file"]');
+// const reader = new FileReader()
+
+// 	const csv = fileInput.files[0]
+// 	reader.readAsText(csv)
+
+// reader.onload = (e)=>{
+//   console.log(e.target.result);
+
+// }
+
+var file = document.querySelector('#file').files[0];
+  var reader = new FileReader();
+  reader.readAsText(file);
+
+  //if you need to read a csv file with a 'ISO-8859-1' encoding
+  /*reader.readAsText(file,'ISO-8859-1');*/
+
+  //When the file finish load
+  let rowdata=[];
+  reader.onload = function(event) {
+
+    //get the file.
+    var csv = event.target.result;
+
+    //split and get the rows in an array
+    let rows = csv.split('\n');
+    //move line by line
+    for (var i = 0; i < rows.length; i++) {
+      //split by separator (,) and get the columns
+     let cols = rows[i].split(',');
+     rowdata.push([]);
+      //move column by column
+      for (var j = 0; j < cols.length; j++) {
+        /*the value of the current column.
+        Do whatever you want with the value*/
+        var value = cols[j];
+        rowdata[i].push(cols[j]);
+      }
+    }
+    // rowdata json array isko strigyfy kra kruse krlo
+    console.log(rowdata[0]);
+    console.log(rowdata[1]);
+  }        
+    }
+
+
     handleFiles = files => {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -526,16 +577,13 @@ class tDashboard extends Component
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="fileName"></p>
-                              {/* <input type="file" class="custom-file-input" id="inputGroupFile02"/>
-                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label> */}
+                              <input type="file" accept=".csv,.xls,.xlsx/*"  name="file" id="file" size="150" required />
                             </div>
                           </div>
                         </div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}>
-                          <button class="btn btn-primary" >UPLOAD</button>
-                          </ReactFileReader>
+                          <button class="btn btn-primary" onClick={this.sendfile}>UPLOAD</button>
                         </div>
                       </div>
                     </div>
