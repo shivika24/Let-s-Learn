@@ -45,7 +45,10 @@ class Logins extends Component
             window.location='http://localhost:3000/Registers';
         }
         else
-        window.location='http://localhost:3000/studentDashboard';
+        {
+            localStorage.setItem("jwt", JSON.stringify(res));
+            window.location='http://localhost:3000/studentDashboard';
+        }
       });
       }
     func()

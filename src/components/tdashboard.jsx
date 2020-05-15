@@ -21,6 +21,64 @@ class tDashboard extends Component
         name:u
       }
     }
+    sendfile =()=>{
+      
+ 
+  var temp=[];
+      const fileInput =document.querySelector('input[type="file"]');
+
+var file = document.querySelector('#file').files[0];
+var reader = new FileReader();
+reader.readAsText(file);
+let rowdata=[];
+reader.onload = function(event) {
+  var csv = event.target.result;
+  let rows = csv.split('\r\n');
+  //move line by line
+  for (var i = 0; i < rows.length; i++) {
+    //split by separator (,) and get the columns
+   let cols = rows[i].split(',');
+   rowdata.push([]);
+    //move column by column
+    for (var j = 0; j < cols.length; j++) {
+      /*the value of the current column.
+      Do whatever you want with the value*/
+     // var value = cols[j];
+      rowdata[i].push(cols[j]);
+    }
+  }
+  console.log(rowdata);
+  console.log(rowdata.length);
+  console.log(JSON.stringify(rowdata));
+  // rowdata json array isko strigyfy kra kruse krlo
+  for(var k=1;k<rowdata.length;k++)
+  {
+    var obj={qno:"",ques:"",choices:[],ans:""};
+    obj.qno=rowdata[k][0];
+    obj.ques=rowdata[k][1];
+           obj.choices.push(rowdata[k][2]);
+           obj.choices.push(rowdata[k][3]);
+           obj.choices.push(rowdata[k][4]);
+           obj.choices.push(rowdata[k][5]);
+           obj.ans=rowdata[k][6];
+           temp.push(obj)
+  }
+  fetch(" http://localhost:8082/handleFile",{
+        method:"POST",
+        headers:{
+         Accept: "application/json",
+           "Content-Type":"application/json",
+           },
+        body:JSON.stringify(temp)
+     })
+     .then(res => {
+        if(res.ok){return res.json();}
+     })
+     .then(res => {
+       alert("File is succesfully uploaded!!");
+     });   
+  }
+}
     handleFiles = e => {
     //  let files=e.target.files;
       var reader = new FileReader();
@@ -111,6 +169,7 @@ class tDashboard extends Component
           <span>Dashboard</span></a>
       </li>
       <hr className="sidebar-divider"/>
+      
       <li className="nav-item">
         <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i className="fas fa-fw fa-list-alt"></i>
@@ -283,10 +342,10 @@ class tDashboard extends Component
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="/profile" href="#">
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -537,16 +596,18 @@ class tDashboard extends Component
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="fileName"></p>
-                              <input type="file" class="custom-file-input" id="inputGroupFile02" />
-                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label>
+                              {/* <input type="file" class="custom-file-input" id="inputGroupFile02" />
+                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label> */}
+                              <input type="file" accept=".csv,.xls,.xlsx/*"  name="file" id="file" size="150" required />
                             </div>
                           </div>
                         </div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          {/* <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}> */}
+                          <button class="btn btn-primary" onClick={this.sendfile}>UPLOAD</button>
+                           {/* <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}> 
                           <button class="btn btn-primary"onClick={(e)=>this.handleFiles(document.getElementById('inputGroupFile02').files)} >UPLOAD</button>
-                          {/* </ReactFileReader> */}
+                           </ReactFileReader>  */}
                         </div>
                       </div>
                     </div>
