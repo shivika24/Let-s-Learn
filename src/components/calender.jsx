@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import Calendar from 'react-calendar';
-// import 'react-calendar/dist/Calendar.css';
+ import 'react-calendar/dist/Calendar.css';
 
 class Calender extends Component{
    constructor()
@@ -53,8 +53,6 @@ class Calender extends Component{
     
     addData()
     {
-        console.log("hello");
-        console.log(this.state.eve);
         var obj=
         {
          date:0,
@@ -82,11 +80,11 @@ class Calender extends Component{
             <div>
                 {this.addData()}
                 {this.eventDisplay()}
-                <Calendar  onChange = {this.onChange}  value = {this.state.date}    />
-                <h2>You Have Event <i>{this.state.eventname} </i>on this Date </h2>
+                <Calendar  onChange = {this.onChange}  value = {this.state.date}/>                
             </div>
         )
     }
 
 }
 export default Calender;
+/*<h2>You Have Event <i>{this.state.eventname} </i>on this Date </h2>*/

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
+import Calender from './calender';
 import './dashboard1.css';
 import ReactFileReader from "react-file-reader";
 const csv = require('csv-parser');
@@ -14,13 +15,7 @@ class tDashboard extends Component
         data:[],
         date:[],
         del:'',
-<<<<<<< HEAD
-        flag:false,
-        testid:0,
-        msg:""
-=======
         list:[]
->>>>>>> 56fec53f2057ea09ffa365ea46caef8d96b897b3
       }
       
     }
@@ -41,10 +36,6 @@ class tDashboard extends Component
       .then(res => {
         this.setState({data:res.code,date:res.code})
       })
-<<<<<<< HEAD
-    }    
-    
-=======
 
       fetch("http://localhost:8082/gettodo", {
       method: "POST",
@@ -107,7 +98,6 @@ var file = document.querySelector('#file').files[0];
     console.log(rowdata[1]);
   }        
     }
->>>>>>> 56fec53f2057ea09ffa365ea46caef8d96b897b3
     myfunc = () =>{
       if(this.state.data)
       {
@@ -252,68 +242,6 @@ var file = document.querySelector('#file').files[0];
         console.log("done");
       }); 
     }
-<<<<<<< HEAD
-    sendfile =()=>{
-      
- 
-  var temp=[];
-      const fileInput =document.querySelector('input[type="file"]');
-
-var file = document.querySelector('#file').files[0];
-var reader = new FileReader();
-reader.readAsText(file);
-let rowdata=[];
-reader.onload = function(event) {
-  var csv = event.target.result;
-  let rows = csv.split('\r\n');
-  //move line by line
-  for (var i = 0; i < rows.length; i++) {
-    //split by separator (,) and get the columns
-   let cols = rows[i].split(',');
-   rowdata.push([]);
-    //move column by column
-    for (var j = 0; j < cols.length; j++) {
-      /*the value of the current column.
-      Do whatever you want with the value*/
-     // var value = cols[j];
-      rowdata[i].push(cols[j]);
-    }
-  }
-  console.log(rowdata);
-  console.log(rowdata.length);
-  console.log(JSON.stringify(rowdata));
-  // rowdata json array isko strigyfy kra kruse krlo
-  for(var k=1;k<rowdata.length-1;k++)
-  {
-    var obj={qno:"",ques:"",choices:[],ans:""};
-    obj.qno=rowdata[k][0];
-   // obj.testid=this.state.testid;
-    obj.ques=rowdata[k][1];
-           obj.choices.push(rowdata[k][2]);
-           obj.choices.push(rowdata[k][3]);
-           obj.choices.push(rowdata[k][4]);
-           obj.choices.push(rowdata[k][5]);
-           obj.ans=rowdata[k][6];
-           temp.push(obj)
-  }
-  fetch(" http://localhost:8082/handleFile",{
-        method:"POST",
-        headers:{
-         Accept: "application/json",
-           "Content-Type":"application/json",
-           },
-        body:JSON.stringify(temp)
-     })
-     .then(res => {
-        if(res.ok){return res.json();}
-     })
-     .then(res => {
-       alert(JSON.stringify(res));
-     });   
-  }
-}
-    
-=======
 
     todolist = e => {
       console.log(e);
@@ -345,7 +273,6 @@ reader.onload = function(event) {
       }); 
     }
 
->>>>>>> 56fec53f2057ea09ffa365ea46caef8d96b897b3
     handleFiles = files => {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -750,32 +677,14 @@ reader.onload = function(event) {
           <div className="row">
 
             <div className="col-lg-6 mb-4">
-
               <div className="card shadow mb-4">
-                <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary">Calender</h6>
-                </div>
+              <div className="card-header py-3">
+                <h6 className="m-0 font-weight-bold text-primary">Calender</h6>
+              </div>
                 <div className="card-body">
-                  <h4 className="small font-weight-bold">Server Migration <span className="float-right">20%</span></h4>
-                  <div className="progress mb-4">
-                    <div className="progress-bar bg-danger" role="progressbar" style={{width: "20%",ariaValuenow:"20",ariaValuemin:"0", ariaValuemax:"100"}}></div>
-                  </div>
-                  <h4 className="small font-weight-bold">Sales Tracking <span className="float-right">40%</span></h4>
-                  <div className="progress mb-4">
-                    <div className="progress-bar bg-warning" role="progressbar" style={{width: "40%" ,ariaValuenow:"40" , ariaValuemin:"0", ariaValuemax:"100"}}></div>
-                  </div>
-                  <h4 className="small font-weight-bold">Customer Database <span className="float-right">60%</span></h4>
-                  <div className="progress mb-4">
-                    <div className="progress-bar" role="progressbar" sstyle={{width: "60%" ,ariaValuenow:"40" , ariaValuemin:"0", ariaValuemax:"100"}}></div>
-                  </div>
-                  <h4 className="small font-weight-bold">Payout Details <span className="float-right">80%</span></h4>
-                  <div className="progress mb-4">
-                    <div className="progress-bar bg-info" role="progressbar" style={{width: "80%" ,ariaValuenow:"40" , ariaValuemin:"0", ariaValuemax:"100"}}></div>
-                  </div>
-                  <h4 className="small font-weight-bold">Account Setup <span className="float-right">Complete!</span></h4>
-                  <div className="progress">
-                    <div className="progress-bar bg-success" role="progressbar" style={{width: "100%" ,ariaValuenow:"40" , ariaValuemin:"0", ariaValuemax:"100"}}></div>
-                  </div>
+                <center>
+                <Calender/>
+                </center>
                 </div>
               </div>
 

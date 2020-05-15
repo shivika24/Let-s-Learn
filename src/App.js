@@ -16,6 +16,7 @@ import Logint from './components/logint';
 import Dashboard from './components/dashboard';
 import Tdashboard from './components/tdashboard';
 import Home from './components/home';
+import Calender from './components/calender';
 
 import {
   BrowserRouter as Router,
@@ -112,6 +113,7 @@ class App extends Component {
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
         <Route path="/profile" render={() => ( <Profile/>)} /> 
+        <Route path="/calender" render={() => ( <Calender/>)} /> 
       </Switch>
     </div>
     <Footer/>
