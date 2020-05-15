@@ -50,6 +50,7 @@ class App extends Component {
     this.clickedMcq=this.clickedMcq.bind(this);
   }
   componentDidMount(){
+   // var temp:[]
     fetch(` http://localhost:8082/mcq`, {
       method: "GET",
       headers:{  "Content-Type":"application/json" },
@@ -57,16 +58,18 @@ class App extends Component {
 .then(res => {return res.json();})
 .then(res => {
       console.log(res);
-      var i=0;var obj=[{ques:"",choices:[]}]
+      var temp=[]
+      
       res.map((r)=>{
-            obj[i].ques=r.question;
-            obj[i].choices.push(r.option1);
-            obj[i].choices.push(r.option2)
-            obj[i].choices.push(r.option3)
-            obj[i].choices.push(r.option4)
-            i++;
+        var obj={ques:"",choices:[]}
+            obj.ques=r.question;
+            obj.choices.push(r.option1);
+            obj.choices.push(r.option2)
+            obj.choices.push(r.option3)
+            obj.choices.push(r.option4)
+            temp.push(obj);
       })
-     this.setState({test:obj})
+     this.setState({test:temp})
      console.log(this.state.test)
 })
   }

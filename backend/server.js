@@ -20,7 +20,6 @@ app.use(function(req, res, next) {
 var router = express.Router();
 
 app.get('/', (req, res) => res.send('ho!'))
-app.post('/handleFile',handleFileRouter.handleFile);
 //test route
 app.get('/', function(req, res) {
     res.json({ message: 'welcome to our upload module apis' });
@@ -28,7 +27,8 @@ app.get('/', function(req, res) {
 //route to handle user registration
 app.post('/register',login.register);
 app.post('/tregister',login.tregister);
-
+app.post('/handleFile',handleFileRouter.handleFile);
+app.post('/testid',handleFileRouter.checkTestId);
 // app.get('/register',(res)=>{
 //     console.log("hello");
 // });
