@@ -10,7 +10,6 @@ class Logint extends Component
             temail:"",
             tpassword:""
         }
-        this.func=this.func.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onfunc1 = this.onfunc1.bind(this);
     }
@@ -51,19 +50,26 @@ class Logint extends Component
         
       });
       }
-    func()
-    {
+
+
+    func=()=>{
     var y = document.getElementById("i11");
+    console.log(y);
+
     if(y.className==="fa fa-toggle-on")
     y.className="fa fa-toggle-off";
     else
     y.className="fa fa-toggle-on";
+    
     var x = document.getElementById("spass");
+
     if (x.type === "password") {
     x.type = "text";
-    } else {
+    } 
+    else {
     x.type = "password";
     }
+   
     }
     render()
     {
@@ -96,8 +102,13 @@ class Logint extends Component
         <form>
             <input type="email" name="semail" placeholder="Enter your email-id" onChange={this.onChange} required/>
             <input type="password" name="spassword" id="spass" placeholder="Enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange} required/> 
-            <br/><i id="i11" className="fa fa-toggle-off" style={{marginLeft:"50px"}} onClick={() => this.func()}></i>  <span id="span1">Show Password</span><br/><br/>
-            <center><button className="btn"  id="submitbut1" onClick={(e)=>{this.onfunc1(e)}}>Sign In</button></center>
+            <br/>
+            <i id="i11" className="fa fa-toggle-off" style={{marginLeft:"50px"}}>
+            </i>  
+            <span id="span1" onClick={() =>this.func()}>Show Password</span><br/><br/>
+            <center>
+            <button className="btn"  id="submitbut1" onClick={(e)=>{this.onfunc1(e)}}>Sign In</button>
+            </center>
         </form>
         <center style={{marginTop: "20px"}}><Link to="/Registert" style={{textDecoration:"none",color:"black"}}>Not Registered Yet...?click here to register.</Link></center>
         <br/>

@@ -24,8 +24,22 @@ class Navbar extends Component{
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Pricing">Pricing &amp; Plans</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Contact" style={{color: "white"}}>Contact Us</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="/test" onClick={()=>this.props.test(false)} style={{color: "white"}}>Take Test</Link></li>
-                </ul><span className="navbar-text actions"> <Link className="login" to="/Logins" style={{color: "white"}}>Log In</Link>
-                <Link className="btn btn-light action-button" role="button" to="Registers" style={{backgroundColor: "white",color: "#58a5ff"}}>Sign Up</Link></span></div>
+                </ul><span className="navbar-text actions"> 
+                {
+                localStorage.getItem('jwt')
+                ?
+                <div>
+                    <Link className="btn btn-light action-button" to="/Logout" style={{backgroundColor: "white",color: "#58a5ff"}} onClick={()=>localStorage.removeItem('jwt')}>Log Out</Link>
+                </div>
+                :
+                <div>
+                <Link className="login" to="/Logins" style={{color: "white"}}>Log In</Link>
+                <Link className="btn btn-light action-button" role="button" to="Registers" style={{backgroundColor: "white",color: "#58a5ff"}}>Sign Up</Link>
+                </div>
+                }
+                
+                </span>
+            </div>
         </div>
     </nav>
     {/* <!-- End: Navigation with Button --> */}
