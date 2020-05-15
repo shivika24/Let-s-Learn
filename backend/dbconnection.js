@@ -13,9 +13,4 @@ con.connect(function(err){
     }
     });
 module.exports = con; 
-// con.connect(function(err)
-// {
-//     if(err) throw err;
-//     console.log("Connected!"); 
-// })
 

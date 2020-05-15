@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
 import './dashboard1.css';
-//import ReactFileReader from "react-file-reader";
+import ReactFileReader from "react-file-reader";
 const csv = require('csv-parser');
 const fs = require('fs');
 class tDashboard extends Component
@@ -10,16 +10,39 @@ class tDashboard extends Component
     constructor(){
       super();
      // this.csvreader=this.csvreader.bind(this);
-     let u="Name"
-      try{
-        u =  JSON.parse(localStorage.getItem("jwt")).user.name;
-      }catch(e){
-          u=""
-      }
       this.state={
-        testFile:[],
-        name:u
+        testFile:[]
       }
+    }
+   
+    nnotice = e => {
+      const user={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+        data:e
+      }
+      console.log(user);
+      fetch("http://localhost:8082/notice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(res => {
+        if(res.code === 0)
+        {
+          alert("Notice Not Added");
+          window.location='http://localhost:3000/teacherDashboard';
+        }
+        else
+        {
+        alert(`NOTICE ADDED SUCCESFULLY!!`);
+        window.location='http://localhost:3000/teacherDashboard';
+        //window.location="http://localhost:3000/Logins";
+        }
+        console.log("done");
+      }); 
     }
     sendfile =()=>{
       
@@ -79,25 +102,22 @@ reader.onload = function(event) {
      });   
   }
 }
-    handleFiles = e => {
-    //  let files=e.target.files;
+    
+    handleFiles = files => {
       var reader = new FileReader();
-      reader.readAsText(e[0]);
       reader.onload = function(e) {
           // Use reader.result
           alert(reader.result)
-          const formData={file:e.target.result}
-          console.log(formData);
-      
-      
-     // this.state.testFile.push(reader.result);
+      }
+      reader.readAsText(files[0]);
+      this.state.testFile.push(reader.result);
       fetch(" http://localhost:8082/handleFile",{
         method:"POST",
         headers:{
          Accept: "application/json",
            "Content-Type":"application/json",
            },
-        body:JSON.stringify(formData)
+        body:JSON.stringify(this.state.testFile)
      })
      .then(res => {
         if(res.ok){return res.json();}
@@ -105,7 +125,7 @@ reader.onload = function(event) {
      .then(res => {
        alert("File is succesfully uploaded!!");
      });
-    }
+      
   }
 //     csvreader()
 //     {
@@ -148,7 +168,7 @@ reader.onload = function(event) {
 
 // // request.send(formData);
   
-//     }
+ //   }
     render()
     {
         return(
@@ -337,7 +357,7 @@ reader.onload = function(event) {
 
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{this.state.name}</span>
+                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Nitin Goel</span>
                 <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
               </a>
 
@@ -478,7 +498,7 @@ reader.onload = function(event) {
                 </div>
 
                 <div className="card-body" style={{height: "360px"}}>
-                <button className="btn-primary">Add New Notice</button><button className="btn-primary">Delete Notice</button>
+                <button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button><button className="btn-primary">Delete Notice</button>
                   <div>
                     <p style={{fontSize: "14px"}}>New Assignment amid COVID-19 for students to develop something that cause awareness among people for COVID-19</p>
                     <hr style={{border: "1px solid #008CBA"}} />
@@ -612,6 +632,31 @@ reader.onload = function(event) {
                       </div>
                     </div>
                   </div>
+
+
+
+                  <div class="modal fade " id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header bg-info">
+                        <h5 class="modal-title text-gray-800" id="exampleModalLabel">ADD NEW NOTICE</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">                        
+                      <div class="form-group">
+                      <input type="text" class="form-control" id="notice01" placeholder="Add Notice"/>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" onClick={()=>this.nnotice(document.getElementById("notice01").value)}>ADD</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
             </div>
         )
     }

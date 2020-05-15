@@ -72,7 +72,7 @@ module.exports.register = async function(req,res){
          "tname":req.body.tname,
          "tid":req.body.tid,
          "temail":req.body.temail,
-         "tpno":req.body.spno,
+         "tpno":req.body.tpno,
          "tpassword":tencryptedPassword,
          "tpassword1":tencryptedPassword1
        }
@@ -205,3 +205,22 @@ module.exports.register = async function(req,res){
         });
       }
   
+      module.exports.nnotice = async function(req,res){
+        var d=new Date();
+        var users={
+             "email":req.body.email,
+             "data":req.body.data,
+             "date":d
+           }
+           console.log(users);
+
+                  var sql = "INSERT INTO `notifications`(`email`,`data`,`date`) VALUES ('" + users.email + "','" + users.data + "','" + users.date  +"')";
+                  var query = con.query(sql, function(err, result) {  
+                    if (err) {
+                      return res.status(400).json({code:0});
+                    } else {
+                      return res.status(400).json({code:1});
+                      }
+                  });         
+                
+      }
