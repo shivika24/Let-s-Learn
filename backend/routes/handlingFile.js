@@ -15,6 +15,18 @@ const router=require('express').Router();
                 else
                 {
                     testId=req.body.testid;
+                    con.query("SELECT tid FROM teacher WHERE temail=?",req.query.temail,function(err,data){
+                        if(err)
+                        console.log(err);
+                        else{
+                    var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`) VALUES('"+ req.query.temail+"','"+data[0].tid +"','"+ testId+"') ";
+                    con.query(sql,function(err,result){
+                        if(err)
+                        console.log(err);
+                        console.log('test table updated');
+                    })
+                }
+                })
                     return res.json({resType:1});
                 }
             }

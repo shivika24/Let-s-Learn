@@ -10,11 +10,21 @@ class tDashboard extends Component
 {
     constructor(){
       super();
+      let u="Name"
+      try{
+        u =  JSON.parse(localStorage.getItem("jwt")).user.name;
+      }catch(e){
+          u=""
+      }
       this.state={
+        name:u,
         testFile:[],
         data:[],
         date:[],
         del:'',
+        flag:false,
+        testid:0,
+        msg:"",
         list:[]
       }
       
@@ -49,55 +59,8 @@ class tDashboard extends Component
         this.setState({list:res.code})
       })
     }
-    sendfile =()=>{
-   
-        // let event=document.getElementById('file');
-        // const fileInput = document.getElementById('file') ;
-        const fileInput =document.querySelector('input[type="file"]');
-// const reader = new FileReader()
-
-// 	const csv = fileInput.files[0]
-// 	reader.readAsText(csv)
-
-// reader.onload = (e)=>{
-//   console.log(e.target.result);
-
-// }
-
-var file = document.querySelector('#file').files[0];
-  var reader = new FileReader();
-  reader.readAsText(file);
-
-  //if you need to read a csv file with a 'ISO-8859-1' encoding
-  /*reader.readAsText(file,'ISO-8859-1');*/
-
-  //When the file finish load
-  let rowdata=[];
-  reader.onload = function(event) {
-
-    //get the file.
-    var csv = event.target.result;
-
-    //split and get the rows in an array
-    let rows = csv.split('\n');
-    //move line by line
-    for (var i = 0; i < rows.length; i++) {
-      //split by separator (,) and get the columns
-     let cols = rows[i].split(',');
-     rowdata.push([]);
-      //move column by column
-      for (var j = 0; j < cols.length; j++) {
-        /*the value of the current column.
-        Do whatever you want with the value*/
-        var value = cols[j];
-        rowdata[i].push(cols[j]);
-      }
-    }
-    // rowdata json array isko strigyfy kra kruse krlo
-    console.log(rowdata[0]);
-    console.log(rowdata[1]);
-  }        
-    }
+    
+    
     myfunc = () =>{
       if(this.state.data)
       {
@@ -194,7 +157,7 @@ var file = document.querySelector('#file').files[0];
      this.setState({testid:e},()=>{
      var obj={testid:this.state.testid};
      console.log(this.state.testid);
-     fetch(" http://localhost:8082/testid",{
+     fetch(`http://localhost:8082/testid?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`,{
       method:"POST",
       headers:{
        Accept: "application/json",
@@ -242,6 +205,69 @@ var file = document.querySelector('#file').files[0];
         console.log("done");
       }); 
     }
+    sendfile =()=>{
+      
+ 
+  var temp=[];
+      const fileInput =document.querySelector('input[type="file"]');
+
+var file = document.querySelector('#file').files[0];
+var reader = new FileReader();
+reader.readAsText(file);
+let rowdata=[];
+reader.onload = function(event) {
+  var csv = event.target.result;
+  let rows = csv.split('\r\n');
+  //move line by line
+  for (var i = 0; i < rows.length; i++) {
+    //split by separator (,) and get the columns
+   let cols = rows[i].split(',');
+   rowdata.push([]);
+    //move column by column
+    for (var j = 0; j < cols.length; j++) {
+      /*the value of the current column.
+      Do whatever you want with the value*/
+     // var value = cols[j];
+      rowdata[i].push(cols[j]);
+    }
+  }
+  console.log(rowdata);
+  console.log(rowdata.length);
+  console.log(JSON.stringify(rowdata));
+  // rowdata json array isko strigyfy kra kruse krlo
+  for(var k=1;k<rowdata.length-1;k++)
+  {
+    var obj={qno:"",ques:"",choices:[],ans:""};
+    obj.qno=rowdata[k][0];
+   // obj.testid=this.state.testid;
+     var q=rowdata[k][1].split('?');
+     for(var l=0;l<q.length-1;l++)
+    obj.ques=obj.ques+q[l]+" ";
+           obj.ques=obj.ques+q[q.length-1]+"?";
+           obj.choices.push(rowdata[k][2]);
+           obj.choices.push(rowdata[k][3]);
+           obj.choices.push(rowdata[k][4]);
+           obj.choices.push(rowdata[k][5]);
+           obj.ans=rowdata[k][6];
+           temp.push(obj)
+  }
+  fetch(" http://localhost:8082/handleFile",{
+        method:"POST",
+        headers:{
+         Accept: "application/json",
+           "Content-Type":"application/json",
+           },
+        body:JSON.stringify(temp)
+     })
+     .then(res => {
+        if(res.ok){return res.json();}
+     })
+     .then(res => {
+       alert(JSON.stringify(res));
+     });   
+  }
+}
+    
 
     todolist = e => {
       console.log(e);
@@ -526,15 +552,15 @@ var file = document.querySelector('#file').files[0];
 
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Nitin Goel</span>
+                <span className="mr-2 d-none d-lg-inline text-gray-600 small">{this.state.name}</span>
                 <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="/profile">
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
