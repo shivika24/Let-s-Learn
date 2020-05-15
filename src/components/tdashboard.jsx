@@ -21,7 +21,7 @@ class tDashboard extends Component
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
       }
-      console.log(user);
+      //bconsole.log(user);
       fetch("http://localhost:8082/getnotice", {
       method: "POST",
       headers: {
@@ -31,14 +31,9 @@ class tDashboard extends Component
     })
     .then(res=> res.json())
       .then(res => {
-        //console.log(JSON.stringify(res));
+        console.log(res.code);
         // console.log(res.code[0].data)
-        setTimeout(()=>{        
-          res.code.map(dd=>{
-            console.log(dd.data)
-            // var c=JSON.parse(dd.data);
-            this.setState({data:dd.data,date:dd.date})})
-         },1000)
+        this.setState({data:res.code,date:res.code})
       })
     }
     sendfile =()=>{
@@ -92,21 +87,26 @@ var file = document.querySelector('#file').files[0];
     }
 
     myfunc = () =>{
-      console.log("ffff")
-      console.log(this.state.data)
-      if(this.state.data.length>0)
+      console.log("ffff");
+      console.log(this.state.data);
+      console.log("ffff");
+      if(this.state.data)
       {
-      this.state.data.map(d=>{return <div>
-        <p style={{fontSize: "14px"}}>{d}</p>
+        const doubled = this.state.data.map((number) => 
+        <div>
+        <p style={{fontSize: "14px"}}>{number.data}</p>
         <hr style={{border: "1px solid #008CBA"}} />
-      </div>
-      })
-      }
+        </div>
+      );
+        console.log(doubled);
+        return doubled;
 
+      }
       else{
-     console.log("error") 
+        console.log("error") 
       }
     }
+
     nnotice = e => {
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
@@ -531,7 +531,7 @@ var file = document.querySelector('#file').files[0];
 
                 <div className="card-body" style={{height: "360px"}}>
                 <button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button><button className="btn-primary">Delete Notice</button>
-                {this.myfunc}
+                {this.myfunc()}
                                 
                   
                   <div>
