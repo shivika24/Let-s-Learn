@@ -53,6 +53,7 @@ class Registert extends Component
         else
         {
         alert(`TEACHER:${JSON.stringify(res)} REGISTERED SUCCESFULLY!!`);
+        window.location='http://localhost:3000/Logint';
         }
         console.log("done");
       });

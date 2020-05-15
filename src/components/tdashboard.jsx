@@ -11,8 +11,33 @@ class tDashboard extends Component
       super();
      // this.csvreader=this.csvreader.bind(this);
       this.state={
-        testFile:[]
+        testFile:[],
+        data:[],
+        date:[]
       }
+    }
+    componentDidMount()
+    {
+      const user={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+      }
+      console.log(user);
+      fetch("http://localhost:8082/getnotice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res=> res.json())
+      .then(res => {
+        // console.log(JSON.stringify(res));
+        // console.log(res.code[0].data)
+        setTimeout(()=>{        
+          res.code.map(dd=>{
+            this.setState({data:dd.data,date:dd.date})})
+         },1000)
+      })
     }
     sendfile =()=>{
    
@@ -64,7 +89,22 @@ var file = document.querySelector('#file').files[0];
   }        
     }
 
+    myfunc = () =>{
+      console.log("ffff")
+      console.log(this.state.data)
+      if(this.state.data.length>0)
+      {
+      this.state.data.map(d=>{return <div>
+        <p style={{fontSize: "14px"}}>{d}</p>
+        <hr style={{border: "1px solid #008CBA"}} />
+      </div>
+      })
+      }
 
+      else{
+     console.log("error") 
+      }
+    }
     nnotice = e => {
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
@@ -489,10 +529,9 @@ var file = document.querySelector('#file').files[0];
 
                 <div className="card-body" style={{height: "360px"}}>
                 <button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button><button className="btn-primary">Delete Notice</button>
-                  <div>
-                    <p style={{fontSize: "14px"}}>New Assignment amid COVID-19 for students to develop something that cause awareness among people for COVID-19</p>
-                    <hr style={{border: "1px solid #008CBA"}} />
-                  </div>
+                {console.log(this.state.data)}
+                {this.myfunc()}
+                                
                   
                   <div>
                     <p style={{fontSize: "14px"}}>For Upcoming Placements Mock tests to be held on every wednesday till 10th june containing frequently asked interview questions</p>
