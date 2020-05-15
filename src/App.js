@@ -8,7 +8,7 @@ import TestNavbar from './components/testnavbar.js';
 import Sidebar from './components/sideBar.js';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
-
+import Profile from './components/profile';
 import Registers from './components/registers';
 import Registert from './components/registert';
 import Logins from './components/logins';
@@ -108,6 +108,7 @@ class App extends Component {
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
+        <Route path="/profile" render={() => ( <Profile/>)} /> 
       </Switch>
     </div>
     <Footer/>

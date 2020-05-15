@@ -16,95 +16,7 @@ class tDashboard extends Component
         date:[]
       }
     }
-    componentDidMount()
-    {
-      const user={
-        email:JSON.parse(localStorage.getItem("jwt")).user.id,
-      }
-      console.log(user);
-      fetch("http://localhost:8082/getnotice", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
-    })
-    .then(res=> res.json())
-      .then(res => {
-        // console.log(JSON.stringify(res));
-        // console.log(res.code[0].data)
-        setTimeout(()=>{        
-          res.code.map(dd=>{
-            this.setState({data:dd.data,date:dd.date})})
-         },1000)
-      })
-    }
-    sendfile =()=>{
    
-        // let event=document.getElementById('file');
-        // const fileInput = document.getElementById('file') ;
-        const fileInput =document.querySelector('input[type="file"]');
-// const reader = new FileReader()
-
-// 	const csv = fileInput.files[0]
-// 	reader.readAsText(csv)
-
-// reader.onload = (e)=>{
-//   console.log(e.target.result);
-
-// }
-
-var file = document.querySelector('#file').files[0];
-  var reader = new FileReader();
-  reader.readAsText(file);
-
-  //if you need to read a csv file with a 'ISO-8859-1' encoding
-  /*reader.readAsText(file,'ISO-8859-1');*/
-
-  //When the file finish load
-  let rowdata=[];
-  reader.onload = function(event) {
-
-    //get the file.
-    var csv = event.target.result;
-
-    //split and get the rows in an array
-    let rows = csv.split('\n');
-    //move line by line
-    for (var i = 0; i < rows.length; i++) {
-      //split by separator (,) and get the columns
-     let cols = rows[i].split(',');
-     rowdata.push([]);
-      //move column by column
-      for (var j = 0; j < cols.length; j++) {
-        /*the value of the current column.
-        Do whatever you want with the value*/
-        var value = cols[j];
-        rowdata[i].push(cols[j]);
-      }
-    }
-    // rowdata json array isko strigyfy kra kruse krlo
-    console.log(rowdata[0]);
-    console.log(rowdata[1]);
-  }        
-    }
-
-    myfunc = () =>{
-      console.log("ffff")
-      console.log(this.state.data)
-      if(this.state.data.length>0)
-      {
-      this.state.data.map(d=>{return <div>
-        <p style={{fontSize: "14px"}}>{d}</p>
-        <hr style={{border: "1px solid #008CBA"}} />
-      </div>
-      })
-      }
-
-      else{
-     console.log("error") 
-      }
-    }
     nnotice = e => {
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
@@ -134,6 +46,65 @@ var file = document.querySelector('#file').files[0];
         console.log("done");
       }); 
     }
+    sendfile =()=>{
+      
+ 
+  var temp=[];
+      const fileInput =document.querySelector('input[type="file"]');
+
+var file = document.querySelector('#file').files[0];
+var reader = new FileReader();
+reader.readAsText(file);
+let rowdata=[];
+reader.onload = function(event) {
+  var csv = event.target.result;
+  let rows = csv.split('\r\n');
+  //move line by line
+  for (var i = 0; i < rows.length; i++) {
+    //split by separator (,) and get the columns
+   let cols = rows[i].split(',');
+   rowdata.push([]);
+    //move column by column
+    for (var j = 0; j < cols.length; j++) {
+      /*the value of the current column.
+      Do whatever you want with the value*/
+     // var value = cols[j];
+      rowdata[i].push(cols[j]);
+    }
+  }
+  console.log(rowdata);
+  console.log(rowdata.length);
+  console.log(JSON.stringify(rowdata));
+  // rowdata json array isko strigyfy kra kruse krlo
+  for(var k=1;k<rowdata.length;k++)
+  {
+    var obj={qno:"",ques:"",choices:[],ans:""};
+    obj.qno=rowdata[k][0];
+    obj.ques=rowdata[k][1];
+           obj.choices.push(rowdata[k][2]);
+           obj.choices.push(rowdata[k][3]);
+           obj.choices.push(rowdata[k][4]);
+           obj.choices.push(rowdata[k][5]);
+           obj.ans=rowdata[k][6];
+           temp.push(obj)
+  }
+  fetch(" http://localhost:8082/handleFile",{
+        method:"POST",
+        headers:{
+         Accept: "application/json",
+           "Content-Type":"application/json",
+           },
+        body:JSON.stringify(temp)
+     })
+     .then(res => {
+        if(res.ok){return res.json();}
+     })
+     .then(res => {
+       alert("File is succesfully uploaded!!");
+     });   
+  }
+}
+    
     handleFiles = files => {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -199,7 +170,7 @@ var file = document.querySelector('#file').files[0];
 
 // // request.send(formData);
   
-//     }
+ //   }
     render()
     {
         return(
@@ -220,6 +191,7 @@ var file = document.querySelector('#file').files[0];
           <span>Dashboard</span></a>
       </li>
       <hr className="sidebar-divider"/>
+      
       <li className="nav-item">
         <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i className="fas fa-fw fa-list-alt"></i>
@@ -392,10 +364,10 @@ var file = document.querySelector('#file').files[0];
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="/profile" href="#">
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -645,6 +617,8 @@ var file = document.querySelector('#file').files[0];
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="fileName"></p>
+                              {/* <input type="file" class="custom-file-input" id="inputGroupFile02" />
+                              <label class="custom-file-label" for="inputGroupFile02" id="fileName">Choose file</label> */}
                               <input type="file" accept=".csv,.xls,.xlsx/*"  name="file" id="file" size="150" required />
                             </div>
                           </div>
@@ -652,6 +626,9 @@ var file = document.querySelector('#file').files[0];
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                           <button class="btn btn-primary" onClick={this.sendfile}>UPLOAD</button>
+                           {/* <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}> 
+                          <button class="btn btn-primary"onClick={(e)=>this.handleFiles(document.getElementById('inputGroupFile02').files)} >UPLOAD</button>
+                           </ReactFileReader>  */}
                         </div>
                       </div>
                     </div>
