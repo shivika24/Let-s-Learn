@@ -9,15 +9,18 @@ class tDashboard extends Component
 {
     constructor(){
       super();
-     // this.csvreader=this.csvreader.bind(this);
       this.state={
         testFile:[],
         data:[],
         date:[],
         del:'',
+<<<<<<< HEAD
         flag:false,
         testid:0,
         msg:""
+=======
+        list:[]
+>>>>>>> 56fec53f2057ea09ffa365ea46caef8d96b897b3
       }
       
     }
@@ -36,12 +39,75 @@ class tDashboard extends Component
     })
     .then(res=> res.json())
       .then(res => {
-        //console.log(res.code);
-        // console.log(res.code[0].data)
         this.setState({data:res.code,date:res.code})
       })
+<<<<<<< HEAD
     }    
     
+=======
+
+      fetch("http://localhost:8082/gettodo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res=> res.json())
+      .then(res => {
+        this.setState({list:res.code})
+      })
+    }
+    sendfile =()=>{
+   
+        // let event=document.getElementById('file');
+        // const fileInput = document.getElementById('file') ;
+        const fileInput =document.querySelector('input[type="file"]');
+// const reader = new FileReader()
+
+// 	const csv = fileInput.files[0]
+// 	reader.readAsText(csv)
+
+// reader.onload = (e)=>{
+//   console.log(e.target.result);
+
+// }
+
+var file = document.querySelector('#file').files[0];
+  var reader = new FileReader();
+  reader.readAsText(file);
+
+  //if you need to read a csv file with a 'ISO-8859-1' encoding
+  /*reader.readAsText(file,'ISO-8859-1');*/
+
+  //When the file finish load
+  let rowdata=[];
+  reader.onload = function(event) {
+
+    //get the file.
+    var csv = event.target.result;
+
+    //split and get the rows in an array
+    let rows = csv.split('\n');
+    //move line by line
+    for (var i = 0; i < rows.length; i++) {
+      //split by separator (,) and get the columns
+     let cols = rows[i].split(',');
+     rowdata.push([]);
+      //move column by column
+      for (var j = 0; j < cols.length; j++) {
+        /*the value of the current column.
+        Do whatever you want with the value*/
+        var value = cols[j];
+        rowdata[i].push(cols[j]);
+      }
+    }
+    // rowdata json array isko strigyfy kra kruse krlo
+    console.log(rowdata[0]);
+    console.log(rowdata[1]);
+  }        
+    }
+>>>>>>> 56fec53f2057ea09ffa365ea46caef8d96b897b3
     myfunc = () =>{
       if(this.state.data)
       {
@@ -59,9 +125,52 @@ class tDashboard extends Component
         console.log("error") 
       }
     }
+    myfunc1 = () =>{
+      if(this.state.list)
+      {
+        const doubled = this.state.list.map((number) => 
+        <div>
+        <p style={{fontSize: "14px"}}>{number.data}</p>
+        <button onClick={()=>{this.deleten(number.sno)}}>Delete</button>
+        <hr style={{border: "1px solid #008CBA"}} />
+        </div>
+      );
+        return doubled;
+
+      }
+      else{
+        console.log("error") 
+      }
+    }
   f1 = e =>{
     //console.log(e)
     {this.setState({del:e})}
+  }
+  deleten = id => {
+    console.log(id)
+    const user={
+      sno:id
+    }
+    fetch("http://localhost:8082/deletetodo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  })
+    .then(res => res.json())
+    .then(res => {
+      if(res.code === 0)
+      {
+        alert("Could Not Delete ITEM");
+        window.location='http://localhost:3000/teacherDashboard';
+      }
+      else
+      {
+      alert(`ITEM DELETED SUCCESFULLY!!`);
+      window.location='http://localhost:3000/teacherDashboard';
+      }
+    }); 
   }
     delete = () => {
       const user={
@@ -143,6 +252,7 @@ class tDashboard extends Component
         console.log("done");
       }); 
     }
+<<<<<<< HEAD
     sendfile =()=>{
       
  
@@ -203,6 +313,39 @@ reader.onload = function(event) {
   }
 }
     
+=======
+
+    todolist = e => {
+      console.log(e);
+      const ttuser={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+        data:e
+      }
+      console.log(ttuser);
+      fetch("http://localhost:8082/addtodo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(ttuser)
+    })
+      .then(res => res.json())
+      .then(res => {
+        if(res.code === 0)
+        {
+          alert("Item Not Added");
+          window.location='http://localhost:3000/teacherDashboard';
+        }
+        else
+        {
+        alert(`ITEM ADDED SUCCESFULLY!!`);
+        window.location='http://localhost:3000/teacherDashboard';
+        }
+        console.log("done");
+      }); 
+    }
+
+>>>>>>> 56fec53f2057ea09ffa365ea46caef8d96b897b3
     handleFiles = files => {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -642,11 +785,11 @@ reader.onload = function(event) {
                 </div>
                 <div className="card-body">
                   <div id="myDIV" className="header">
-                     <input type="text" id="myInput" placeholder="Title..."/>
-                     <a className="btn btn-primary btn-circle ml-1" role="button" onClick="newElement()">
+                     <input type="text" id="todo" placeholder="Title..."/>
+                     <button className="btn btn-primary btn-circle ml-1" role="button" onClick={()=>{this.todolist(document.getElementById('todo').value)}}>
                      <i className="fas fa-edit text-white" ></i>
-                   </a>
-                     
+                   </button>
+                   {this.myfunc1()}  
                   </div>
                 <ul id="myUL">
                 </ul>

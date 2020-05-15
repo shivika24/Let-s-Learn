@@ -38,6 +38,9 @@ app.post('/tlogin',login.tlogin)
 app.post('/notice',login.nnotice)
 app.post('/getnotice',login.getnotice)
 app.post('/deleten',login.ddelete)
+app.post('/addtodo',login.todo)
+app.post('/gettodo',login.gettodo)
+app.post('/deletetodo',login.tododelete)
 app.use('/api', router);
 
 app.listen(8082,()=>{ 
