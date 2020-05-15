@@ -13,7 +13,8 @@ class tDashboard extends Component
       this.state={
         testFile:[],
         data:[],
-        date:[]
+        date:[],
+        del:''
       }
     }
     componentDidMount()
@@ -31,7 +32,7 @@ class tDashboard extends Component
     })
     .then(res=> res.json())
       .then(res => {
-        console.log(res.code);
+        //console.log(res.code);
         // console.log(res.code[0].data)
         this.setState({data:res.code,date:res.code})
       })
@@ -85,20 +86,16 @@ var file = document.querySelector('#file').files[0];
     console.log(rowdata[1]);
   }        
     }
-
     myfunc = () =>{
-      console.log("ffff");
-      console.log(this.state.data);
-      console.log("ffff");
       if(this.state.data)
       {
         const doubled = this.state.data.map((number) => 
         <div>
         <p style={{fontSize: "14px"}}>{number.data}</p>
+        <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button>
         <hr style={{border: "1px solid #008CBA"}} />
         </div>
       );
-        console.log(doubled);
         return doubled;
 
       }
@@ -106,13 +103,40 @@ var file = document.querySelector('#file').files[0];
         console.log("error") 
       }
     }
-
+  f1 = e =>{
+    //console.log(e)
+    {this.setState({del:e})}
+  }
+    delete = () => {
+      const user={
+        sno:this.state.del
+      }
+      fetch("http://localhost:8082/deleten", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(res => {
+        if(res.code === 0)
+        {
+          alert("Could Not Delete Notice");
+          window.location='http://localhost:3000/teacherDashboard';
+        }
+        else
+        {
+        alert(`NOTICE DELETED SUCCESFULLY!!`);
+        window.location='http://localhost:3000/teacherDashboard';
+        }
+      }); 
+    }
     nnotice = e => {
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
         data:e
       }
-      console.log(user);
       fetch("http://localhost:8082/notice", {
       method: "POST",
       headers: {
@@ -131,7 +155,6 @@ var file = document.querySelector('#file').files[0];
         {
         alert(`NOTICE ADDED SUCCESFULLY!!`);
         window.location='http://localhost:3000/teacherDashboard';
-        //window.location="http://localhost:3000/Logins";
         }
         console.log("done");
       }); 
@@ -530,19 +553,8 @@ var file = document.querySelector('#file').files[0];
                 </div>
 
                 <div className="card-body" style={{height: "360px"}}>
-                <button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button><button className="btn-primary">Delete Notice</button>
-                {this.myfunc()}
-                                
-                  
-                  <div>
-                    <p style={{fontSize: "14px"}}>For Upcoming Placements Mock tests to be held on every wednesday till 10th june containing frequently asked interview questions</p>
-                    <hr style={{border: "1px solid #008CBA"}} />
-                  </div>
-
-                  <div>
-                    <p style={{fontSize: "14px"}}>For Every 3rd and 4th year student it is mandatory to take atleast 1 UGC course and tell the details to their mentors.</p>
-                    <hr style={{border: "1px solid #008CBA"}} />
-                  </div>                 
+                <center><button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button></center>
+                {this.myfunc()}         
                 </div>
               </div>
             </div>
@@ -681,6 +693,28 @@ var file = document.querySelector('#file').files[0];
                     </div>
                   </div>
                 </div>
+
+
+                <div class="modal fade " id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header bg-info">
+                      <h5 class="modal-title text-gray-800" id="exampleModalLabel">ADD NEW NOTICE</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">                        
+                    <p>Are You Sure You Want To Delete Notice???</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-primary" onClick={()=>this.delete()}>DELETE</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
 
             </div>
         )

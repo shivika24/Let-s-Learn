@@ -239,6 +239,21 @@ module.exports.register = async function(req,res){
               return res.status(400).json({code:data});
               } 
           });
+        }
+
+      module.exports.ddelete = async function(req,res){
+        var users1={
+             "sno":req.body.sno,
+           }
+           console.log(users1);
+
+           con.query("DELETE FROM notifications WHERE sno = ? " , users1.sno , function(err , data){
+            if (err) {
+              return res.status(400).json({code:0});
+            } else {
+              return res.status(400).json({code:1});
+              } 
+          });
+        }
                         
-                
-      }
+          
