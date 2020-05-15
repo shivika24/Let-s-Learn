@@ -255,5 +255,54 @@ module.exports.register = async function(req,res){
               } 
           });
         }
+
+
+        module.exports.todo = async function(req,res){
+          var users={
+               "email":req.body.email,
+               "data":req.body.data,
+             }
+             console.log(users);
+  
+                    var sql = "INSERT INTO `todolist`(`email`,`data`) VALUES ('" + users.email + "','" + users.data + "')";
+                    var query = con.query(sql, function(err, result) {  
+                      if (err) {
+                        return res.status(400).json({code:0});
+                      } else {
+                        return res.status(400).json({code:1});
+                        }
+                    });         
+                  
+        }
+  
+        module.exports.gettodo = async function(req,res){
+          var users={
+               "email":req.body.email,
+             }
+             console.log(users);
+  
+             con.query("SELECT *  FROM todolist WHERE email = ? " , users.email , function(err , data){
+              if (err) {
+                return res.status(400).json({code:0});
+              } else {
+                return res.status(400).json({code:data});
+                } 
+            });
+          }
+
+          module.exports.tododelete = async function(req,res){
+            var users1={
+                 "sno":req.body.sno,
+               }
+               console.log(users1);
+    
+               con.query("DELETE FROM todolist WHERE sno = ? " , users1.sno , function(err , data){
+                if (err) {
+                  return res.status(400).json({code:0});
+                } else {
+                  return res.status(400).json({code:1});
+                  } 
+              });
+            }
                         
           
