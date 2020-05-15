@@ -31,10 +31,12 @@ class tDashboard extends Component
     })
     .then(res=> res.json())
       .then(res => {
-        // console.log(JSON.stringify(res));
+        //console.log(JSON.stringify(res));
         // console.log(res.code[0].data)
         setTimeout(()=>{        
           res.code.map(dd=>{
+            console.log(dd.data)
+            // var c=JSON.parse(dd.data);
             this.setState({data:dd.data,date:dd.date})})
          },1000)
       })
@@ -529,8 +531,7 @@ var file = document.querySelector('#file').files[0];
 
                 <div className="card-body" style={{height: "360px"}}>
                 <button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button><button className="btn-primary">Delete Notice</button>
-                {console.log(this.state.data)}
-                {this.myfunc()}
+                {this.myfunc}
                                 
                   
                   <div>
