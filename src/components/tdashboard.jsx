@@ -10,6 +10,13 @@ class tDashboard extends Component
 {
     constructor(){
       super();
+      let u="Name";
+      try{
+        u=JSON.parse(localStorage.getItem("jwt")).user.name;
+      }
+      catch(e){
+        u="";
+      }
       this.state={
         testFile:[],
         data:[],
@@ -17,7 +24,10 @@ class tDashboard extends Component
         del:'',
         list:[],
         quotess:[],
-        hhistory:[]
+        hhistory:[],
+        flag:false,
+        msg:'',
+        testid:0
       }
       
     }
