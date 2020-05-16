@@ -71,6 +71,7 @@ class tDashboard extends Component
       })
     .then(res=> res.json())
       .then(res => {
+        console.log("asajij")
         console.log(res.code)
         this.setState({hhistory:res.code})
       })
@@ -169,7 +170,7 @@ var file = document.querySelector('#file').files[0];
         if(this.state.quotess)
       {
         const doubled = this.state.quotess.map((number) => 
-        <div class="carousel-item">
+        <div class="carousel-item active">
         <img class="d-block w-100" src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
         <div class="carousel-caption d-none d-md-block">
         <h5>{number.data}</h5>
@@ -652,11 +653,15 @@ var file = document.querySelector('#file').files[0];
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</div>
-                      {console.log(this.state.hhistory)}
-                      <Link to={{
-                        pathname:'/testhistory',
-                        state:{historydata:this.state.hhistory}                      
-                      }}><button>View</button></Link>
+                      {console.log("ass"),
+                      console.log(this.state.hhistory)}
+                      <Link
+                      to="/testhistory" params={{ testvalue: "hello" }}
+                      //  to={{
+                      //   pathname:'/testhistory',
+                      //   state:{data:"asas"}                      
+                      // }}
+                      ><button>View</button></Link>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">11</div>
                     </div>
                     <div className="col-auto">
