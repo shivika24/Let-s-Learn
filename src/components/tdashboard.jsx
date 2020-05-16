@@ -229,8 +229,8 @@ var file = document.querySelector('#file').files[0];
         const doubled = this.state.quotess.map((number) => 
         <div class="carousel-item">
         <img class="d-block w-100" style={{height:"300px"}} src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
-        <div class="d-flex h-100 align-items-center justify-content-center" >
-        <h5>{number.data}</h5>
+        <div  class="ss">
+        <h5 className="my-auto">{number.data}</h5>
         </div>
         </div>       
        );
@@ -763,13 +763,13 @@ var file = document.querySelector('#file').files[0];
 
 
             <div className="col-xl-4 col-lg-5">
-              <div className="card shadow mb-4" style={{overflow: "scroll"}}>
+              <div className="card shadow mb-4">
 
                 <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 className="m-0 font-weight-bold text-primary">Notices & Alerts</h6>
                   <a class="btn btn-success btn-circle ml-1" role="button" style={{float: "right"}}  data-toggle="modal" data-target="#noticeModal" rel="nofollow"><i class="icon ion-android-add text-white"></i></a>
                 </div>
-                <div className="card-body" style={{height: "360px"}}>
+                <div className="card-body" style={{height: "360px", overflow: "scroll"}}>
                 {this.myfunc()}         
                 </div>
               </div>
@@ -827,9 +827,7 @@ var file = document.querySelector('#file').files[0];
 
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                  
                   <h6 className="m-0 font-weight-bold text-primary my-auto">Quote For The Day<button className="btn btn-primary btn-sm d-none d-sm-inline-block" data-toggle="modal" data-target="#quoteModal" rel="nofollow" style={{float: "right"}}>Add New Quotes</button></h6>
-
                 </div>   
                 <div className="card-body">
 
