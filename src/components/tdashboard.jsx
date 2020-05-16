@@ -36,7 +36,6 @@ class tDashboard extends Component
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
       }
-      //bconsole.log(user);
       fetch("http://localhost:8082/getnotice", {
       method: "POST",
       headers: {
@@ -86,63 +85,33 @@ class tDashboard extends Component
       })
     }
     sendfile =()=>{
-   
-        // let event=document.getElementById('file');
-        // const fileInput = document.getElementById('file') ;
         const fileInput =document.querySelector('input[type="file"]');
-// const reader = new FileReader()
-
-// 	const csv = fileInput.files[0]
-// 	reader.readAsText(csv)
-
-// reader.onload = (e)=>{
-//   console.log(e.target.result);
-
-// }
 
 var file = document.querySelector('#file').files[0];
   var reader = new FileReader();
   reader.readAsText(file);
 
-  //if you need to read a csv file with a 'ISO-8859-1' encoding
-  /*reader.readAsText(file,'ISO-8859-1');*/
-
-  //When the file finish load
   let rowdata=[];
   reader.onload = function(event) {
 
-    //get the file.
     var csv = event.target.result;
     var temp=[];
-
-    //split and get the rows in an array
     let rows = csv.split('\n');
-    //move line by line
     for (var i = 0; i < rows.length; i++) {
-      //split by separator (,) and get the columns
      let cols = rows[i].split(',');
      rowdata.push([]);
-      //move column by column
       for (var j = 0; j < cols.length; j++) {
-        /*the value of the current column.
-        Do whatever you want with the value*/
         var value = cols[j];
         rowdata[i].push(cols[j]);
       }
     }
-    console.log(rowdata);
-    console.log(rowdata.length);
-    console.log(JSON.stringify(rowdata));
-    // rowdata json array isko strigyfy kra kruse krlo
+    // console.log(rowdata);
+    // console.log(rowdata.length);
+    // console.log(JSON.stringify(rowdata));
     for(var k=1;k<rowdata.length-1;k++)
     {
       var obj={qno:"",ques:"",choices:[],ans:""};
       obj.qno=rowdata[k][0];
-     // obj.testid=this.state.testid;
-      //  var q=rowdata[k][1].split('?');
-      //  for(var l=0;l<q.length-1;l++)
-      // obj.ques=obj.ques+q[l]+" ";
-      //        obj.ques=obj.ques+q[q.length-1]+"?";
              obj.ques=rowdata[k][1];
              obj.choices.push(rowdata[k][2]);
              obj.choices.push(rowdata[k][3]);
@@ -173,7 +142,7 @@ var file = document.querySelector('#file').files[0];
       {
         const doubled = this.state.data.map((number) => 
         <div>
-        {/* <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button> */}
+        {}
         <div class="row align-items-center no-gutters">
          <div class="col mr-2">
         <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{number.date}</span></div>
@@ -229,7 +198,6 @@ var file = document.querySelector('#file').files[0];
     }
 
   f1 = e =>{
-    //console.log(e)
     {this.setState({del:e})}
   }
   deleten = id => {
@@ -312,7 +280,6 @@ var file = document.querySelector('#file').files[0];
     }
    });  
   })
-     //this.setState({flag:true})
    }
     nnotice = e => {
       const user={
@@ -424,51 +391,11 @@ var file = document.querySelector('#file').files[0];
      })
      .then(res => {
        alert(JSON.stringify(res));
+       window.locationbar="http://localhost:3000/teacherDashboard";
      });
       
   }
-//     csvreader()
-//     {
-//       fs.createReadStream(document.getElementById("inputGroupFile02").value)
-//       .pipe(csv())
-//       .on('data', (data) => this.state.testFile.push(data))
-//       .on('end', () => {
-//         console.log(this.state.testFile);
-       
-//   });
-//         //   var csv=document.getElementById('inputGroupFile02').files[0];
-//         // var formData=new FormData();
-//         // formData.append("uploadCsv",csv);
-//         // var request = new XMLHttpRequest();
 
-//  //here you can set the request header to set the content type, this can be avoided.
-//  //The browser sets the setRequestHeader and other headers by default based on the formData that is being passed in the request.
-//  fetch(" http://localhost:8082/handleFile",{
-//          method:"POST",
-//          headers:{
-//           Accept: "application/json",
-//             "Content-Type":"application/json",
-//             },
-//          body:JSON.stringify(this.state.testFile)
-//       })
-//       .then(res => {
-//          if(res.ok){return res.json();}
-//       })
-//       .then(res => {
-//         alert("File is succesfully uploaded!!");
-//       });
-// //   request.open("POST","/handleFile", true);        
-// //  request.setRequestHeader("Content-type", "multipart/form-data"); //----(*)
-          
-//           // request.onreadystatechange = function (){
-//           //     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-//           //     console.log("yey");
-//           //     }
-//           //   }
-
-// // request.send(formData);
-  
-//     }
     render()
     {
         return(
@@ -661,10 +588,10 @@ var file = document.querySelector('#file').files[0];
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">
-                  <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                <Link to="/profile" style={{color:"black",textDecoration:"none"}}>
+                  <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style={{marginLeft:"25px"}}></i>
                   Profile
-                </a>
+                  </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings

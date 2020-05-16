@@ -15,10 +15,8 @@ const router=require('express').Router();
                 else
                 {
                     testId=req.body.testid;
-                    console.log(req.body.email)
 
                     con.query("SELECT tid FROM teacher WHERE temail=?",req.body.email,function(err,data){
-                        console.log(data[0].tid);
                         if(err)
                         console.log(err);
                         else{

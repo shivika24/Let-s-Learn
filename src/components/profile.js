@@ -16,9 +16,72 @@ export default class Profile extends Component
         this.state={
             username:u,
             eid:email,
-            phone:''
+            phone:'',
+            flag1:false
         }
     }
+    pass=e=>{
+         var obj={
+          email:JSON.parse(localStorage.getItem("jwt")).user.id,    
+          oldp:e,
+        };
+         fetch("http://localhost:8082/checkpass",{
+          method:"POST",
+          headers:{
+           Accept: "application/json",
+             "Content-Type":"application/json",
+             },
+          body:JSON.stringify(obj)
+       })
+       .then(res => res.json())
+          .then(res => {
+            if(res.pass === 1)
+            {
+                console.log("matched")
+            this.setState({flag1:true})
+            }
+        else 
+        {
+         alert("Incorrect Password Entered")
+        }
+       });  
+       }
+       changepass=()=>{
+        var e=document.getElementById("npass01").value;
+        var f=document.getElementById("npass02").value;
+        console.log(e);
+        console.log(f)
+        var obj={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,  
+        npass1:e,
+        npass2:f,
+       };
+        fetch("http://localhost:8082/changepass",{
+         method:"POST",
+         headers:{
+          Accept: "application/json",
+            "Content-Type":"application/json",
+            },
+         body:JSON.stringify(obj)
+      })
+      .then(res => res.json())
+         .then(res => {
+           if(res.pass === 1)
+           {
+            alert("Password Changed");
+            window.location="http://localhost:3000/teacherDashboard";        
+           }
+           else if(res.pass===2)
+           {
+               alert("Password do not match");
+               window.location="http://localhost:3000/teacherDashboard";    
+           }
+       else 
+       {
+        alert("Password Not Entered")
+       }
+      });  
+       }
     componentDidMount()
     {
         fetch(` http://localhost:8082/phone?tId=${this.state.eid}`)
@@ -183,12 +246,52 @@ export default class Profile extends Component
                                         </form>
                                     </div>
                                 </div>
+                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#changeModal" rel="nofollow">Change Password</button></div>
                             </div>
+    
                         </div>
                     </div>
-                </div>
-               
+                </div>               
             </div>
+
+            <div class="modal fade " id="changeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header bg-info">
+                        <h5 class="modal-title text-gray-800" id="exampleModalLabel">CHANGE PASSWORD</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      {this.state.flag1==false?
+                        (<div class="modal-body">
+                          
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" id="pass01" placeholder="Enter Old Password" required/>
+                          </div>
+                        </div>):
+                        (<div class="modal-body">
+                          <div class="input-group mb-3">
+                          <input type="password" class="form-control" id="npass01" placeholder="Enter New Password" required/>
+                          </div>
+                          <div class="input-group mb-3">
+                          <input type="password" class="form-control" id="npass02" placeholder="ReEnter New Password" required/>
+                          </div>
+                          </div>
+                        )}
+                        {this.state.flag1==false?
+                        <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                          <button class="btn btn-primary" onClick={()=>this.pass(document.getElementById("pass01").value)}>Next</button>
+                        </div>:
+                          <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                          <button class="btn btn-primary" onClick={()=>this.changepass(document.getElementById("npass01").value,document.getElementById("npass02").value)}>CHANGE</button>
+                       </div>
+                        }
+                    </div>
+                  </div>
+                </div>            
             </div>
         )
     }
