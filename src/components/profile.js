@@ -15,17 +15,28 @@ export default class Profile extends Component
       }
         this.state={
             username:u,
-            eid:email
+            eid:email,
+            phone:''
         }
+    }
+    componentDidMount()
+    {
+        fetch(` http://localhost:8082/phone?tId=${this.state.eid}`)
+        .then(res => {return res.json()})
+        .then(res => {
+              console.log(JSON.stringify(res));
+             this.setState({phone:res.tpno});
+                      }
+            )
     }
     saveSettings()
     {
         var obj={
             name:document.getElementById("uname").value,
-            email:document.getElementById("uemail").value,
+           email:document.getElementById("uemail").value,
             ph_num:document.getElementById("uph_no").value
         }
-        fetch(' http://localhost:8082/profile/savesetting',{
+        fetch(' http://localhost:8082/savesetting',{
          method:"PUT",
          headers:{
             "Content-Type":"application/json",
@@ -121,12 +132,12 @@ export default class Profile extends Component
                                                     <div class="form-group"><label for="username"><strong>Name</strong></label><input class="form-control" type="text" defaultValue={this.state.username}id="uname" name="username"/></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" defaultValue={this.state.eid} id="uemail" name="email"/></div>
+                                                    <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" value={this.state.eid} id="uemail" name="email"/></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="first_name"><strong>Mobile Number</strong></label><input class="form-control" type="text" defaultValue=""id="uph_no" name="phone_num"/></div>
+                                                    <div class="form-group"><label for="first_name"><strong>Mobile Number</strong></label><input class="form-control" type="text" defaultValue={this.state.phone}id="uph_no" name="phone_num"/></div>
                                                 </div>
                                                 {/* <div class="col">
                                                     <div class="form-group"><label for="last_name"><strong>Last Name</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name"/></div>

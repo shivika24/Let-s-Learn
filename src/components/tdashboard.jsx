@@ -149,7 +149,7 @@ var file = document.querySelector('#file').files[0];
       {
         const doubled = this.state.quotess.map((number) => 
         <div class="carousel-item">
-        <img class="d-block w-100" src="https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+        <img class="d-block w-100" src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
         <div class="carousel-caption d-none d-md-block">
         <h5>{number.data}</h5>
         </div>
@@ -801,12 +801,8 @@ var file = document.querySelector('#file').files[0];
                 <center><h5 className="my-auto" style={{color:"black"}}>QUOTES</h5></center>
                 </div>
                 </div>
-                {this.state.quotess.map((number) => <div className="carousel-item">
-                <img className="d-block w-100" src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
-                <div className="carousel-caption d-none d-md-block">
-                <h5>{number.data}</h5>
-                </div>
-                </div>)}
+                {this.myfunc2()}
+                
                 </div>
                 <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -2,6 +2,7 @@ var express    =  require("express");
 var login =  require('./routes/loginroutes');
 var handleFileRouter =  require('./routes/handlingFile');
 var mcqRouter=require('./routes/mcq')
+var profileRouter=require('./routes/profileSetting')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
@@ -29,6 +30,8 @@ app.post('/register',login.register);
 app.post('/tregister',login.tregister);
 app.post('/handleFile',handleFileRouter.handleFile);
 app.post('/testid',handleFileRouter.checkTestId);
+app.put('/savesetting',profileRouter.settings);
+app.get('/phone',profileRouter.phone);
 // app.get('/register',(res)=>{
 //     console.log("hello");
 // });
