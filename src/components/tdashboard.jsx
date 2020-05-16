@@ -129,9 +129,16 @@ var file = document.querySelector('#file').files[0];
       {
         const doubled = this.state.data.map((number) => 
         <div>
-        <p style={{fontSize: "14px"}}>{number.data}</p>
-        <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button>
-        <hr style={{border: "1px solid #008CBA"}} />
+        {/* <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button> */}
+        <div class="row align-items-center no-gutters">
+         <div class="col mr-2">
+        <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{number.date}</span></div>
+        <div class="col-auto">
+          <a class="btn btn-danger btn-circle ml-1"  onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow" role="button">
+            <i class="fas fa-trash text-white"></i>
+          </a></div>
+        </div>
+        <hr/>
         </div>
       );
         return doubled;
@@ -344,6 +351,8 @@ var file = document.querySelector('#file').files[0];
         console.log("done");
       }); 
     }
+
+    
 
     handleFiles = files => {
       var reader = new FileReader();
@@ -741,10 +750,9 @@ var file = document.querySelector('#file').files[0];
 
                 <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 className="m-0 font-weight-bold text-primary">Notices & Alerts</h6>
+                  <a class="btn btn-success btn-circle ml-1" role="button" style={{float: "right"}}  data-toggle="modal" data-target="#noticeModal" rel="nofollow"><i class="icon ion-android-add text-white"></i></a>
                 </div>
-
                 <div className="card-body" style={{height: "360px"}}>
-                <center><button className="btn-primary" data-toggle="modal" data-target="#noticeModal" rel="nofollow">Add New Notice</button></center>
                 {this.myfunc()}         
                 </div>
               </div>
@@ -760,7 +768,9 @@ var file = document.querySelector('#file').files[0];
               </div>
                 <div className="card-body">
                 <center>
-                <Calender/>
+                <Calender
+                
+                 />
                 </center>
                 </div>
               </div>
