@@ -33,26 +33,14 @@ class App extends Component {
     this.state={
       flag:true,
       history:[],
-      arr:[],
-      test:[
-        // {
-        //     ques:"Which of the following can be operands of arithmetic operators?",
-        //     choices:["Numeric","Boolean","Character","Both Numeric & Characters"]
-        // },
-        // {
-        //     ques:"Modulus operator, %, can be applied to which of these?",
-        //     choices:["Integers","Floating-NUmbers","Both Integers and floating – point numbers","NOT"]
-        // },
-        // {
-        //     ques:"Decrement operator, −−, decreases the value of variable by what number?",
-        //     choices:["1","2","3","4"]
-        // }
-    ]
+      arry:[],
+      test:[]
     }
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
     this.clickedMcq=this.clickedMcq.bind(this);
     this.sethistory=this.sethistory.bind(this);
+    this.showTest=this.showTest.bind(this);
   }
   componentDidMount(){
    // var temp:[]
@@ -81,7 +69,7 @@ class App extends Component {
   showTest(tid)
   {
   console.log(tid)
-  const user={
+  const userss={
     testid:tid
   }
   fetch("http://localhost:8082/testdetails", {
@@ -89,11 +77,12 @@ class App extends Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(userss)
       })
     .then(res=> res.json())
       .then(res => {
         console.log(res.code)
+        this.setState({arry:res.code})
 
       })
   }
@@ -142,7 +131,7 @@ class App extends Component {
         <Route path="/profile" render={() => ( <Profile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
-        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.arr}></ViewTeachTest>}></Route>
+        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.arry}/>}/>
       </Switch>
     </div>
     <Footer/>

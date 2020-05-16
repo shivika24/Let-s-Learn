@@ -412,8 +412,7 @@ module.exports.register = async function(req,res){
                module.exports.testdetails = async function(req,res){
                 var users={
                      tid:req.body.testid
-                   }
-        
+                   }        
                    con.query("SELECT *  FROM mcq WHERE testid = ? " , users.tid , function(err , data){
                     if (err) {
                       return res.status(400).json({code:0});
