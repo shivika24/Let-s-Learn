@@ -299,6 +299,8 @@ reader.onload = function(event) {
       }); 
     }
 
+    
+
     handleFiles = files => {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -709,7 +711,9 @@ reader.onload = function(event) {
               </div>
                 <div className="card-body">
                 <center>
-                <Calender/>
+                <Calender
+                
+                 />
                 </center>
                 </div>
               </div>
