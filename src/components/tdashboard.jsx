@@ -113,6 +113,7 @@ var file = document.querySelector('#file').files[0];
 
     //get the file.
     var csv = event.target.result;
+    var temp=[];
 
     //split and get the rows in an array
     let rows = csv.split('\n');
@@ -287,9 +288,12 @@ var file = document.querySelector('#file').files[0];
    setFlag=e=>{
     //console.log(e);
      this.setState({testid:e},()=>{
-     var obj={testid:this.state.testid};
+     var obj={
+      testid:this.state.testid,
+      email:JSON.parse(localStorage.getItem("jwt")).user.id,    
+    };
      console.log(this.state.testid);
-     fetch(" http://localhost:8082/testid",{
+     fetch("http://localhost:8082/testid",{
       method:"POST",
       headers:{
        Accept: "application/json",
@@ -364,7 +368,6 @@ var file = document.querySelector('#file').files[0];
         }
       }); 
     }
-  }
  
     
 
@@ -1012,5 +1015,5 @@ var file = document.querySelector('#file').files[0];
             </div>
         )
     }
-}
+  }
 export default tDashboard;

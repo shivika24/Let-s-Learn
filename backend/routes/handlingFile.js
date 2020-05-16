@@ -15,11 +15,14 @@ const router=require('express').Router();
                 else
                 {
                     testId=req.body.testid;
-                    con.query("SELECT tid FROM teacher WHERE temail=?",req.query.temail,function(err,data){
+                    console.log(req.body.email)
+
+                    con.query("SELECT tid FROM teacher WHERE temail=?",req.body.email,function(err,data){
+                        console.log(data[0].tid);
                         if(err)
                         console.log(err);
                         else{
-                    var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`) VALUES('"+ req.query.temail+"','"+data[0].tid +"','"+ testId+"') ";
+                    var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`) VALUES('"+ req.body.email+"','"+data[0].tid +"','"+ testId+"') ";
                     con.query(sql,function(err,result){
                         if(err)
                         console.log(err);
