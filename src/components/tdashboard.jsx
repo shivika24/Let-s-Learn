@@ -83,8 +83,6 @@ class tDashboard extends Component
       })
     .then(res=> res.json())
       .then(res => {
-        console.log("asajij")
-        console.log(res.code)
         this.setState({hhistory:res.code})
       })
     }
@@ -674,7 +672,6 @@ var file = document.querySelector('#file').files[0];
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</div>
-                      {console.log(this.state.hhistory)}
                       <Link to="/testhistory" onClick={()=>this.props.setHist(this.state.hhistory)} className="btn btn-primary btn-sm">View</Link>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">11</div>
                     </div>

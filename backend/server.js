@@ -49,6 +49,7 @@ app.get('/getquote',login.getquote)
 app.post('/testhistory',login.testhistory)
 app.post('/checkpass',login.checkpassword)
 app.post('/changepass',login.changepassword)
+app.post('/testdetails',login.testdetails)
 app.use('/api', router);
 
 app.listen(8082,()=>{ 

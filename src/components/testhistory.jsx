@@ -46,7 +46,7 @@ class Testhistory extends Component
                                         <td>{t.testid}</td>
                                         <td>{t.testName}</td>
                                         <td>{t.Date}</td>
-                                        <td><Link className="page-link" to="/viewteachtest"  aria-label="Next"><span aria-hidden="true">View More»</span></Link></td>
+                                        <td><Link className="page-link" to="/viewteachtest"  aria-label="Next" onClick={()=>this.props.showT(t.testid)}><span aria-hidden="true">View More»</span></Link></td>
                                     </tr>
                                   })
                                }
