@@ -197,11 +197,23 @@ var file = document.querySelector('#file').files[0];
       if(this.state.list)
       {
         const doubled = this.state.list.map((number) => 
-        <div>
-        <p style={{fontSize: "14px"}}>{number.data}</p>
-        <button onClick={()=>{this.deleten(number.sno)}}>Delete</button>
-        <hr style={{border: "1px solid #008CBA"}} />
-        </div>
+        // <div class="row align-items-center no-gutters mb-3">
+        // <div class="col mr-2">
+        // <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{number.date}</span></div>
+        // <div class="col-auto">
+        // <a class="btn btn-danger btn-circle ml-1" role="button" onClick={()=>{this.deleten(number.sno)}}><i class="fas fa-trash text-white"></i></a></div>
+        // </div>
+         <li class="list-group-item">
+         <div class="row align-items-center no-gutters">
+             <div class="col mr-2">
+                 <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">10:30 AM</span></div>
+             <div class="col-auto">
+             <a class="btn btn-danger btn-circle ml-1" role="button" onClick={()=>{this.deleten(number.sno)}}>
+               <i class="fas fa-trash text-white"></i>
+            </a></div>
+         </div>
+     </li>
+       
       );
         return doubled;
       }
@@ -212,15 +224,15 @@ var file = document.querySelector('#file').files[0];
 
     myfunc2 = () =>{
         if(this.state.quotess)
-      {
+       {
         const doubled = this.state.quotess.map((number) => 
-        <div class="carousel-item active">
-        <img class="d-block w-100" src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-item">
+        <img class="d-block w-100" style={{height:"300px"}} src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+        <div class="d-flex h-100 align-items-center justify-content-center" >
         <h5>{number.data}</h5>
         </div>
-        </div>
-      );
+        </div>       
+       );
         return doubled;
       }
       else{
@@ -828,26 +840,25 @@ var file = document.querySelector('#file').files[0];
                 </center>
                 </div>
               </div>
+<div class="card shadow mb-4" style={{height: "303px"}}>
+    <div class="card-header py-3">
+        <h6 class="text-primary font-weight-bold m-0">
+          Todo List
+        </h6>
+        <div className="row mt-2 mb-2 p-3" style={{background:"rgb(0, 140, 186)"}}>
+                      <div className="col-12">
+                      <input type="text" id="todo" placeholder="Title..."/>
+                    <a class="btn btn-success btn-circle ml-1" role="button"  onClick={()=>{this.todolist(document.getElementById('todo').value)}} style={{float: "right"}} data-toggle="modal" data-target="#modal">
+                    <i class="icon ion-android-add text-white"></i></a>
+                      </div>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush" style={{overflow: "scroll",height: "100%"}}>
+    {this.myfunc1()} 
+    </ul>
+</div>
 
-              <div className="card shadow mb-4">
-                <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary">To Do List</h6>
-                </div>
-                <div className="card-body">
-                  <div id="myDIV" className="header">
-                     <input type="text" id="todo" placeholder="Title..."/>
-                     <button className="btn btn-primary btn-circle ml-1" role="button" onClick={()=>{this.todolist(document.getElementById('todo').value)}}>
-                     <i className="fas fa-edit text-white" ></i>
-                   </button>
-                   {this.myfunc1()}  
-                  </div>
-                <ul id="myUL">
-                </ul>
-
-                </div>
-              </div>
-
-            </div>
+             </div>
 
             <div className="col-lg-6 mb-4">
               <div className="card shadow mb-4">
@@ -865,7 +876,9 @@ var file = document.querySelector('#file').files[0];
 
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary">Quote For The Day</h6>
+                  
+                  <h6 className="m-0 font-weight-bold text-primary my-auto">Quote For The Day<button className="btn btn-primary btn-sm d-none d-sm-inline-block" data-toggle="modal" data-target="#quoteModal" rel="nofollow" style={{float: "right"}}>Add New Quotes</button></h6>
+
                 </div>   
                 <div className="card-body">
 
@@ -879,9 +892,9 @@ var file = document.querySelector('#file').files[0];
                 </ol>
                 <div className="carousel-inner">
                 <div className="carousel-item active">
-                <img className="d-block w-100" src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+                <img className="d-block w-100" style={{height:"300px"}} src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
                 <div className="carousel-caption d-none d-md-block">
-                <center><h5 className="my-auto" style={{color:"black"}}>QUOTES</h5></center>
+                
                 </div>
                 </div>
                 {this.myfunc2()}
@@ -896,7 +909,6 @@ var file = document.querySelector('#file').files[0];
                 <span className="sr-only">Next</span>
                 </a>
                </div>
-                  <center><button className="btn-primary" data-toggle="modal" data-target="#quoteModal" rel="nofollow">Add New Quotes</button></center>
                   
                   
                 </div>
