@@ -15,11 +15,14 @@ const router=require('express').Router();
                 else
                 {
                     testId=req.body.testid;
-                    con.query("SELECT tid FROM teacher WHERE temail=?",req.query.temail,function(err,data){
+                    console.log(req.body.email)
+
+                    con.query("SELECT tid FROM teacher WHERE temail=?",req.body.email,function(err,data){
+                        console.log(data[0].tid);
                         if(err)
                         console.log(err);
                         else{
-                    var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`) VALUES('"+ req.query.temail+"','"+data[0].tid +"','"+ testId+"') ";
+                    var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`) VALUES('"+ req.body.email+"','"+data[0].tid +"','"+ testId+"') ";
                     con.query(sql,function(err,result){
                         if(err)
                         console.log(err);
@@ -36,8 +39,15 @@ const router=require('express').Router();
         var temp=req.body;
       //  console.log(testId)
       //  console.log(temp);
+      
         temp.map((t)=>{
-              var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + t.qno + "','" + testId + "','" + t.ques + "','" + t.choices[0] + "','" + t.choices[1] + "','" +t.choices[2] +"','" +t.choices[3] +"','"+t.ans +"')";
+            var obj="";
+       var q=t.ques.split("?");
+       console.log(q);
+        for(var l=0;l<q.length-1;l++)
+          obj=obj+q[l]+" ";
+           obj=obj+q[q.length-1]+"?";
+              var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + t.qno + "','" + testId + "','" + obj + "','" + t.choices[0] + "','" + t.choices[1] + "','" +t.choices[2] +"','" +t.choices[3] +"','"+t.ans +"')";
               con.query(sql,function(err,result){
                   if(err)
                   console.log("**"+err+"**")
