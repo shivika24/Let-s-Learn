@@ -8,10 +8,10 @@ class ViewTeachTest extends Component
         var len=this.props.prevTest.length;
         return (
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Previous Tests Uploaded</h3>
+                {/* <h3 class="text-dark mb-4">Previous Tests Uploaded</h3> */}
                 <div class="card shadow">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 font-weight-bold">Test Info</p>
+                        <p class="text-primary m-0 font-weight-bold">Test Details</p>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -27,23 +27,24 @@ class ViewTeachTest extends Component
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
-                                        <th>tid</th>
-                                        <th>Email</th>
-                                        <th>Test Id</th>
-                                        <th>Test Name</th>
-                                        <th>Date</th>
+                                        <th>Ques</th>
+                                        <th>Option 1</th>
+                                        <th>Option 2</th>
+                                        <th>Option 3</th>
+                                        <th>Option 4</th>
+                                        <th>Answer</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {this.props.prevTest.map((t,index)=>{
                                 return <tr>
-                                        <td>{index+1}</td>
-                                        <td>{t.tid}</td>
-                                         <td>{t.temail}</td>
-                                        <td>{t.testid}</td>
-                                        <td>{t.testName}</td>
-                                        <td>{t.Date}</td>
-                                        <td><Link className="page-link" to="/viewteachtest"  aria-label="Next"><span aria-hidden="true">View More»</span></Link></td>
+                                        <td>{t.sno}</td>
+                                        <td>{t.question}</td>
+                                         <td>{t.option1}</td>
+                                        <td>{t.option2}</td>
+                                        <td>{t.option3}</td>
+                                        <td>{t.option4}</td>
+                                        <td>{t.answer}</td>
                                     </tr>
                                   })
                                }
@@ -51,11 +52,12 @@ class ViewTeachTest extends Component
                                 <tfoot>
                                     <tr>
                                         <td><strong>S.No</strong></td>
-                                        <td><strong>tid</strong></td>
-                                        <td><strong>email</strong></td>
-                                        <td><strong>Test Id</strong></td>
-                                        <td><strong>Test Name</strong></td>
-                                        <td><strong>Date</strong></td>
+                                        <td><strong>Ques</strong></td>
+                                        <td><strong>Option1</strong></td>
+                                        <td><strong>Option2</strong></td>
+                                        <td><strong>Option3</strong></td>
+                                        <td><strong>Option4</strong></td>
+                                        <td><strong>Answer</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>

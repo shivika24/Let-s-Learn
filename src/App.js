@@ -33,7 +33,7 @@ class App extends Component {
     this.state={
       flag:true,
       history:[],
-      arr:[],
+      viewTestArr:[],
       test:[
         // {
         //     ques:"Which of the following can be operands of arithmetic operators?",
@@ -53,6 +53,7 @@ class App extends Component {
     this.selectMcq=this.selectMcq.bind(this);
     this.clickedMcq=this.clickedMcq.bind(this);
     this.sethistory=this.sethistory.bind(this);
+    this.showTest=this.showTest.bind(this);
   }
   componentDidMount(){
    // var temp:[]
@@ -93,8 +94,8 @@ class App extends Component {
       })
     .then(res=> res.json())
       .then(res => {
-        console.log(res.code)
-
+       // console.log(JSON.stringify(res));
+        this.setState({viewTestArr:res})
       })
   }
   sethistory(hist)
@@ -142,7 +143,7 @@ class App extends Component {
         <Route path="/profile" render={() => ( <Profile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
-        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.arr}></ViewTeachTest>}></Route>
+        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
       </Switch>
     </div>
     <Footer/>

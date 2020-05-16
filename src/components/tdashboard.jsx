@@ -164,10 +164,19 @@ var file = document.querySelector('#file').files[0];
        })
        .then(res => {
          alert(JSON.stringify(res));
+         window.location="http://localhost:3000/teacherDashboard";
        });   
     }
   }
-  
+  handleCancel1=()=>{
+    document.getElementById("testId").value="";
+    document.getElementById("testname").value="";
+    this.setState({msg:""})
+  }
+  handleCancel2=()=>{
+    document.getElementById("file").value="";
+    this.setState({flag:false});
+  }
     myfunc = () =>{
       if(this.state.data)
       {
@@ -318,7 +327,6 @@ var file = document.querySelector('#file').files[0];
     {
       this.setState({msg:"Please enter another key.This key already exists!!!"})
       document.getElementById("msg").innerHTML=this.state.msg;
-      window.location="http://localhost:3000/teacherDashboard";
     }
    });  
   })
@@ -636,10 +644,10 @@ var file = document.querySelector('#file').files[0];
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </Link>
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="/profile">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
-                </a>
+                </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Previous Uploaded Tests
@@ -901,11 +909,11 @@ var file = document.querySelector('#file').files[0];
                         )}
                         {this.state.flag==false?
                         <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal" onClick={this.handleCancel1}>Cancel</button>
                           <button class="btn btn-primary" onClick={()=>this.setFlag(document.getElementById("testId").value)}>Next</button>
                         </div>:
                           <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal"onClick={this.handleCancel2}>Cancel</button>
                           <button class="btn btn-primary" onClick={this.sendfile}>UPLOAD</button>
                        </div>
                         }
