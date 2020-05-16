@@ -129,11 +129,44 @@ var file = document.querySelector('#file').files[0];
         rowdata[i].push(cols[j]);
       }
     }
+    console.log(rowdata);
+    console.log(rowdata.length);
+    console.log(JSON.stringify(rowdata));
     // rowdata json array isko strigyfy kra kruse krlo
-    console.log(rowdata[0]);
-    console.log(rowdata[1]);
-  }        
+    for(var k=1;k<rowdata.length-1;k++)
+    {
+      var obj={qno:"",ques:"",choices:[],ans:""};
+      obj.qno=rowdata[k][0];
+     // obj.testid=this.state.testid;
+      //  var q=rowdata[k][1].split('?');
+      //  for(var l=0;l<q.length-1;l++)
+      // obj.ques=obj.ques+q[l]+" ";
+      //        obj.ques=obj.ques+q[q.length-1]+"?";
+             obj.ques=rowdata[k][1];
+             obj.choices.push(rowdata[k][2]);
+             obj.choices.push(rowdata[k][3]);
+             obj.choices.push(rowdata[k][4]);
+             obj.choices.push(rowdata[k][5]);
+             obj.ans=rowdata[k][6];
+             temp.push(obj)
     }
+    fetch(" http://localhost:8082/handleFile",{
+          method:"POST",
+          headers:{
+           Accept: "application/json",
+             "Content-Type":"application/json",
+             },
+          body:JSON.stringify(temp)
+       })
+       .then(res => {
+          if(res.ok){return res.json();}
+       })
+       .then(res => {
+         alert(JSON.stringify(res));
+       });   
+    }
+  }
+  
     myfunc = () =>{
       if(this.state.data)
       {
@@ -331,6 +364,9 @@ var file = document.querySelector('#file').files[0];
         }
       }); 
     }
+  }
+ 
+    
 
     todolist = e => {
       console.log(e);

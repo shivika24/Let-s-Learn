@@ -11,8 +11,16 @@ module.exports.phone= async function(req,res)
     })
 }
 module.exports.settings= async function(req,res){
-    var sql = "UPDATE trn_employee set tname =? , tpno =?  WHERE temail = ?";
+    console.log(req.body.name+" "+req.body.ph_num+" "+req.body.email);
+    var sql="UPDATE teacher SET tname =? , tpno =?  WHERE temail = ?";
     con.query(sql,[req.body.name,req.body.ph_num,req.body.email],function(err,data){
-        console.log('updated');
+       
+        if(err)
+        throw err;
+        else
+        {
+            console.log('updated');
+            res.json('profile updated');
+        }
     })
 }

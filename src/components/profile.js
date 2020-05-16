@@ -29,8 +29,9 @@ export default class Profile extends Component
                       }
             )
     }
-    saveSettings()
+    saveSettings=(e)=>
     {
+        e.preventDefault();
         var obj={
             name:document.getElementById("uname").value,
            email:document.getElementById("uemail").value,
@@ -46,6 +47,22 @@ export default class Profile extends Component
       .then(res => {
          if(res.ok){return res.json();}
       })
+      .then(res=>{
+          var n=JSON.parse(localStorage.getItem("jwt")).user.name;
+          var i=JSON.parse(localStorage.getItem("jwt")).user.id;
+          var tok=JSON.parse(localStorage.getItem("jwt")).token;
+          var ljwt={
+              token:tok,
+              user:{id:i,name:obj.name}
+            };
+        localStorage.removeItem("jwt");
+        localStorage.setItem("jwt",JSON.stringify(ljwt));
+        this.setState({username:JSON.parse(localStorage.getItem("jwt")).user.name,phone:obj.ph_num});
+        console.log(this.state.username+" "+this.state.phone);
+          alert(JSON.stringify(res))
+      })
+      //.catch(res=>console.log(res))
+      
       
     }
     render(){
@@ -126,7 +143,7 @@ export default class Profile extends Component
                                         <p class="text-primary m-0 font-weight-bold">User Settings</p>
                                     </div>
                                     <div class="card-body">
-                                        <form>
+                                        <form onSubmit={this.saveSettings}>
                                             <div class="form-row">
                                                 <div class="col">
                                                     <div class="form-group"><label for="username"><strong>Name</strong></label><input class="form-control" type="text" defaultValue={this.state.username}id="uname" name="username"/></div>
@@ -152,7 +169,7 @@ export default class Profile extends Component
                                         <p class="text-primary m-0 font-weight-bold">Contact Settings</p>
                                     </div>
                                     <div class="card-body">
-                                        <form onSubmit={()=>this.saveSettings()}>
+                                        <form >
                                             <div class="form-group"><label for="address"><strong>Address</strong></label><input class="form-control" type="text" placeholder="Sunset Blvd, 38" name="address"/></div>
                                             <div class="form-row">
                                                 <div class="col">

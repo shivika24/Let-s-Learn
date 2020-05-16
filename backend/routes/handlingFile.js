@@ -36,8 +36,15 @@ const router=require('express').Router();
         var temp=req.body;
       //  console.log(testId)
       //  console.log(temp);
+      
         temp.map((t)=>{
-              var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + t.qno + "','" + testId + "','" + t.ques + "','" + t.choices[0] + "','" + t.choices[1] + "','" +t.choices[2] +"','" +t.choices[3] +"','"+t.ans +"')";
+            var obj="";
+       var q=t.ques.split("?");
+       console.log(q);
+        for(var l=0;l<q.length-1;l++)
+          obj=obj+q[l]+" ";
+           obj=obj+q[q.length-1]+"?";
+              var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + t.qno + "','" + testId + "','" + obj + "','" + t.choices[0] + "','" + t.choices[1] + "','" +t.choices[2] +"','" +t.choices[3] +"','"+t.ans +"')";
               con.query(sql,function(err,result){
                   if(err)
                   console.log("**"+err+"**")
