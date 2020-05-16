@@ -16,7 +16,8 @@ class tDashboard extends Component
         date:[],
         del:'',
         list:[],
-        quotess:[]
+        quotess:[],
+        hhistory:[]
       }
       
     }
@@ -44,7 +45,7 @@ class tDashboard extends Component
         "Content-Type": "application/json"
       },
       body: JSON.stringify(user)
-    })
+      })
     .then(res=> res.json())
       .then(res => {
         this.setState({list:res.code})
@@ -55,10 +56,23 @@ class tDashboard extends Component
       headers: {
         "Content-Type": "application/json"
       },
-    })
-    .then(res=> res.json())
+      })
+      .then(res=> res.json())
       .then(res => {
         this.setState({quotess:res.code})
+      })
+
+      fetch("http://localhost:8082/testhistory", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        console.log(res.code)
+        this.setState({hhistory:res.code})
       })
     }
     sendfile =()=>{
@@ -629,6 +643,11 @@ var file = document.querySelector('#file').files[0];
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</div>
+                      {console.log(this.state.hhistory)}
+                      <Link to={{
+                        pathname:'/testhistory',
+                        state:{historydata:this.state.hhistory}                      
+                      }}><button>View</button></Link>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">11</div>
                     </div>
                     <div className="col-auto">

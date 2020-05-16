@@ -334,5 +334,20 @@ module.exports.register = async function(req,res){
                     } 
                 });
               }
-                        
+                     
+              
+              module.exports.testhistory = async function(req,res){
+                var users={
+                     "email":req.body.email,
+                   }
+                   console.log(users);
+        
+                   con.query("SELECT testid  FROM test WHERE temail = ? " , users.email , function(err , data){
+                    if (err) {
+                      return res.status(400).json({code:0});
+                    } else {
+                      return res.status(400).json({code:data});
+                      } 
+                  });
+                }
            
