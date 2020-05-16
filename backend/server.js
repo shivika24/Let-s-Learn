@@ -41,6 +41,8 @@ app.post('/deleten',login.ddelete)
 app.post('/addtodo',login.todo)
 app.post('/gettodo',login.gettodo)
 app.post('/deletetodo',login.tododelete)
+app.post('/quote',login.addquote)
+app.get('/getquote',login.getquote)
 app.use('/api', router);
 
 app.listen(8082,()=>{ 

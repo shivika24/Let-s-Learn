@@ -206,7 +206,7 @@ module.exports.register = async function(req,res){
       }
   
       module.exports.nnotice = async function(req,res){
-        var d=new Date();
+        var d=new Date().toISOString().slice(0, 19).replace('T',' ');
         var users={
              "email":req.body.email,
              "data":req.body.data,
@@ -226,7 +226,6 @@ module.exports.register = async function(req,res){
       }
 
       module.exports.getnotice = async function(req,res){
-        var d=new Date();
         var users={
              "email":req.body.email,
            }
@@ -304,5 +303,36 @@ module.exports.register = async function(req,res){
                   } 
               });
             }
+
+            module.exports.addquote = async function(req,res){
+              var d=new Date().toISOString().slice(0, 19).replace('T',' ');
+              var users={
+                   "email":req.body.email,
+                   "data":req.body.data,
+                   "date":d
+                 }
+                 console.log(users);
+      
+                        var sql = "INSERT INTO `quotes`(`email`,`data`,`date`) VALUES ('" + users.email + "','" + users.data + "','" + users.date  +"')";
+                        var query = con.query(sql, function(err, result) {  
+                          if (err) {
+                            return res.status(400).json({code:0});
+                          } else {
+                            return res.status(400).json({code:1});
+                            }
+                        });         
+                      
+            }
+
+            module.exports.getquote = async function(req,res){
+      
+                 con.query("SELECT *  FROM quotes ORDER BY date DESC LIMIT 5" , function(err , data){
+                  if (err) {
+                    return res.status(400).json({code:0});
+                  } else {
+                    return res.status(400).json({code:data});
+                    } 
+                });
+              }
                         
           

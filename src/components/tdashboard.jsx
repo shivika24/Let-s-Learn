@@ -15,7 +15,8 @@ class tDashboard extends Component
         data:[],
         date:[],
         del:'',
-        list:[]
+        list:[],
+        quotess:[]
       }
       
     }
@@ -47,6 +48,17 @@ class tDashboard extends Component
     .then(res=> res.json())
       .then(res => {
         this.setState({list:res.code})
+      })
+
+      fetch("http://localhost:8082/getquote", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    .then(res=> res.json())
+      .then(res => {
+        this.setState({quotess:res.code})
       })
     }
     sendfile =()=>{
@@ -126,12 +138,31 @@ var file = document.querySelector('#file').files[0];
         </div>
       );
         return doubled;
-
       }
       else{
         console.log("error") 
       }
     }
+
+    myfunc2 = () =>{
+        if(this.state.quotess)
+      {
+        const doubled = this.state.quotess.map((number) => 
+        <div class="carousel-item">
+        <img class="d-block w-100" src="https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+        <div class="carousel-caption d-none d-md-block">
+        <h5>{number.data}</h5>
+        </div>
+        </div>
+      );
+        return doubled;
+      }
+      else{
+        console.log("error") 
+      }
+      
+    }
+
   f1 = e =>{
     //console.log(e)
     {this.setState({del:e})}
@@ -240,6 +271,33 @@ var file = document.querySelector('#file').files[0];
         window.location='http://localhost:3000/teacherDashboard';
         }
         console.log("done");
+      }); 
+    }
+
+    quote = e => {
+      const user={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+        data:e
+      }
+      fetch("http://localhost:8082/quote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(res => {
+        if(res.code === 0)
+        {
+          alert("Quote Not Added");
+          window.location='http://localhost:3000/teacherDashboard';
+        }
+        else
+        {
+        alert(`QUOTE ADDED SUCCESFULLY!!`);
+        window.location='http://localhost:3000/teacherDashboard';
+        }
       }); 
     }
 
@@ -725,11 +783,44 @@ var file = document.querySelector('#file').files[0];
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
                   <h6 className="m-0 font-weight-bold text-primary">Quote For The Day</h6>
-                </div>
+                </div>   
                 <div className="card-body">
-                  <p>Unless you Try To Do Something Beyond What You Have Already Mastered You Will Never Grow!!</p>
-                  <center><button className="btn-primary">Add New Quotes</button></center>
-                  </div>
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol className="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                </ol>
+                <div className="carousel-inner">
+                <div className="carousel-item active">
+                <img className="d-block w-100" src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+                <div className="carousel-caption d-none d-md-block">
+                <center><h5 className="my-auto" style={{color:"black"}}>QUOTES</h5></center>
+                </div>
+                </div>
+                {this.state.quotess.map((number) => <div className="carousel-item">
+                <img className="d-block w-100" src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+                <div className="carousel-caption d-none d-md-block">
+                <h5>{number.data}</h5>
+                </div>
+                </div>)}
+                </div>
+                <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="sr-only">Previous</span>
+                </a>
+                <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="sr-only">Next</span>
+                </a>
+               </div>
+                  <center><button className="btn-primary" data-toggle="modal" data-target="#quoteModal" rel="nofollow">Add New Quotes</button></center>
+                  
+                  
+                </div>
                 
               </div>
 
@@ -809,7 +900,7 @@ var file = document.querySelector('#file').files[0];
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header bg-info">
-                      <h5 class="modal-title text-gray-800" id="exampleModalLabel">ADD NEW NOTICE</h5>
+                      <h5 class="modal-title text-gray-800" id="exampleModalLabel">DELETE NOTICE</h5>
                       <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                       </button>
@@ -825,6 +916,27 @@ var file = document.querySelector('#file').files[0];
                 </div>
               </div>
 
+              <div class="modal fade " id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header bg-info">
+                        <h5 class="modal-title text-gray-800" id="exampleModalLabel">ADD NEW QUOTE</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">                        
+                      <div class="form-group">
+                      <input type="text" class="form-control" id="quote01" placeholder="Add Quote"/>
+                      </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" onClick={()=>this.quote(document.getElementById("quote01").value)}>ADD</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
             </div>
         )

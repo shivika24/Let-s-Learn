@@ -32,7 +32,6 @@ class Calender extends Component{
 
     eventDisplay()
     {
-        console.log("hii");
         this.state.eventname = 'none';
 
         const date1 = this.state.date.getDate();
