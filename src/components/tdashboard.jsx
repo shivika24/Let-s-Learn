@@ -619,10 +619,10 @@ var file = document.querySelector('#file').files[0];
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="/profile">
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
