@@ -27,7 +27,9 @@ class tDashboard extends Component
         hhistory:[],
         flag:false,
         msg:'',
-        testid:0
+        testid:0,
+        name:u,
+        testName:""
       }
       
     }
@@ -36,6 +38,7 @@ class tDashboard extends Component
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
       }
+      //bconsole.log(user);
       fetch("http://localhost:8082/getnotice", {
       method: "POST",
       headers: {
@@ -85,33 +88,62 @@ class tDashboard extends Component
       })
     }
     sendfile =()=>{
+   
+        // let event=document.getElementById('file');
+        // const fileInput = document.getElementById('file') ;
         const fileInput =document.querySelector('input[type="file"]');
+// const reader = new FileReader()
+
+// 	const csv = fileInput.files[0]
+// 	reader.readAsText(csv)
+
+// reader.onload = (e)=>{
+//   console.log(e.target.result);
+
+// }
 
 var file = document.querySelector('#file').files[0];
   var reader = new FileReader();
   reader.readAsText(file);
 
+  //if you need to read a csv file with a 'ISO-8859-1' encoding
+  /*reader.readAsText(file,'ISO-8859-1');*/
+
+  //When the file finish load
   let rowdata=[];
   reader.onload = function(event) {
 
+    //get the file.
     var csv = event.target.result;
-    var temp=[];
+    var temp=[]
+    //split and get the rows in an array
     let rows = csv.split('\n');
+    //move line by line
     for (var i = 0; i < rows.length; i++) {
+      //split by separator (,) and get the columns
      let cols = rows[i].split(',');
      rowdata.push([]);
+      //move column by column
       for (var j = 0; j < cols.length; j++) {
+        /*the value of the current column.
+        Do whatever you want with the value*/
         var value = cols[j];
         rowdata[i].push(cols[j]);
       }
     }
-    // console.log(rowdata);
-    // console.log(rowdata.length);
-    // console.log(JSON.stringify(rowdata));
+    console.log(rowdata);
+    console.log(rowdata.length);
+    console.log(JSON.stringify(rowdata));
+    // rowdata json array isko strigyfy kra kruse krlo
     for(var k=1;k<rowdata.length-1;k++)
     {
       var obj={qno:"",ques:"",choices:[],ans:""};
       obj.qno=rowdata[k][0];
+     // obj.testid=this.state.testid;
+      //  var q=rowdata[k][1].split('?');
+      //  for(var l=0;l<q.length-1;l++)
+      // obj.ques=obj.ques+q[l]+" ";
+      //        obj.ques=obj.ques+q[q.length-1]+"?";
              obj.ques=rowdata[k][1];
              obj.choices.push(rowdata[k][2]);
              obj.choices.push(rowdata[k][3]);
@@ -120,7 +152,7 @@ var file = document.querySelector('#file').files[0];
              obj.ans=rowdata[k][6];
              temp.push(obj)
     }
-    fetch(" http://localhost:8082/handleFile",{
+    fetch(`http://localhost:8082/handleFile?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`,{
           method:"POST",
           headers:{
            Accept: "application/json",
@@ -142,7 +174,7 @@ var file = document.querySelector('#file').files[0];
       {
         const doubled = this.state.data.map((number) => 
         <div>
-        {}
+        {/* <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button> */}
         <div class="row align-items-center no-gutters">
          <div class="col mr-2">
         <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{number.date}</span></div>
@@ -198,6 +230,7 @@ var file = document.querySelector('#file').files[0];
     }
 
   f1 = e =>{
+    //console.log(e)
     {this.setState({del:e})}
   }
   deleten = id => {
@@ -255,12 +288,9 @@ var file = document.querySelector('#file').files[0];
     
    setFlag=e=>{
     //console.log(e);
-     this.setState({testid:e},()=>{
-     var obj={
-      testid:this.state.testid,
-      email:JSON.parse(localStorage.getItem("jwt")).user.id,    
-    };
-     console.log(this.state.testid);
+     this.setState({testid:e,testName:document.getElementById("testname").value},()=>{
+     var obj={testid:this.state.testid,testname:this.state.testName};
+     console.log(this.state.testid+" "+this.state.testName);
      fetch("http://localhost:8082/testid",{
       method:"POST",
       headers:{
@@ -280,6 +310,7 @@ var file = document.querySelector('#file').files[0];
     }
    });  
   })
+     //this.setState({flag:true})
    }
     nnotice = e => {
       const user={
@@ -335,6 +366,7 @@ var file = document.querySelector('#file').files[0];
         }
       }); 
     }
+  
  
     
 
@@ -391,7 +423,6 @@ var file = document.querySelector('#file').files[0];
      })
      .then(res => {
        alert(JSON.stringify(res));
-       window.locationbar="http://localhost:3000/teacherDashboard";
      });
       
   }
@@ -583,15 +614,15 @@ var file = document.querySelector('#file').files[0];
 
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Nitin Goel</span>
+                <span className="mr-2 d-none d-lg-inline text-gray-600 small">{this.state.name}</span>
                 <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <Link to="/profile" style={{color:"black",textDecoration:"none"}}>
-                  <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style={{marginLeft:"25px"}}></i>
+                <a className="dropdown-item" href="#">
+                  <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                  </Link>
+                </a>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -629,10 +660,7 @@ var file = document.querySelector('#file').files[0];
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</div>
                       {console.log(this.state.hhistory)}
-                      <Link to={{
-                        pathname:'/testhistory',
-                        state:{historydata:this.state.hhistory}                      
-                      }}><button>View</button></Link>
+                      <Link to="/testhistory" onClick={()=>this.props.setHist(this.state.hhistory)} className="btn btn-primary btn-sm">View</Link>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">11</div>
                     </div>
                     <div className="col-auto">
@@ -847,7 +875,8 @@ var file = document.querySelector('#file').files[0];
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="msg"className="text-danger">{this.state.msg}</p>
-                            <input type="text" class="form-control" id="testId" placeholder="Enter Test Id"/>
+                            <input type="text" class="form-control" id="testId" placeholder="Enter Test Id" required/>
+                            <input type="text" class="form-control" id="testname" placeholder="Enter Test Name" required/>
                             </div>
                           </div>
                         </div>):

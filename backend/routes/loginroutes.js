@@ -344,7 +344,7 @@ module.exports.register = async function(req,res){
                    }
                    console.log(users);
         
-                   con.query("SELECT testid  FROM test WHERE temail = ? " , users.email , function(err , data){
+                   con.query("SELECT * FROM test WHERE temail = ? " , users.email , function(err , data){
                     if (err) {
                       return res.status(400).json({code:0});
                     } else {
