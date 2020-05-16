@@ -77,12 +77,12 @@ class Calender extends Component{
     render() {
         return (
             <div className="row">
-                <div className="col-7">
+                <div className="col-12 col-md-7">
                 {this.addData()}
                 {this.eventDisplay()}
                 <Calendar  onChange = {this.onChange}  value = {this.state.date} />  
                 </div>
-                <div className="col-5" style={{overflow:"scroll"}}>
+                <div className="col-12 col-md-5" style={{overflow:"scroll"}}>
                 <ul class="list-group">
                 <li class="list-group-item active btn" data-toggle="modal" data-target="#exampleModal">Add Event</li>
                 <li class="list-group-item active">{this.state.date.toLocaleDateString().toString()}</li>
