@@ -30,8 +30,8 @@ class Testhistory extends Component
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
-                                        <th>tid</th>
-                                        <th>Email</th>
+                                        <th>TeacherId</th>
+                                        <th>Email-Id</th>
                                         <th>Test Id</th>
                                         <th>Test Name</th>
                                         <th>Date</th>

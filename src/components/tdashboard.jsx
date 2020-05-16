@@ -320,6 +320,7 @@ var file = document.querySelector('#file').files[0];
     {
       this.setState({msg:"Please enter another key.This key already exists!!!"})
       document.getElementById("msg").innerHTML=this.state.msg;
+      window.location="http://localhost:3000/teacherDashboard";
     }
    });  
   })
@@ -436,6 +437,7 @@ var file = document.querySelector('#file').files[0];
      })
      .then(res => {
        alert(JSON.stringify(res));
+       window.location="http://localhost:3000/teacherDashboard";
      });
       
   }
