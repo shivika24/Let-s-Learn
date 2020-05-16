@@ -1,10 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
-class Testhistory extends Component
+class ViewTeachTest extends Component
 {
-    componentDidMount(){
-        console.log(this.location);
-    }
     render()
     {
         console.log(this.props.prevTest);
@@ -87,4 +84,4 @@ class Testhistory extends Component
         )
     }
 }
-export default Testhistory;
+export default ViewTeachTest;

@@ -27,7 +27,9 @@ class tDashboard extends Component
         hhistory:[],
         flag:false,
         msg:'',
-        testid:0
+        testid:0,
+        name:u,
+        testName:""
       }
       
     }
@@ -114,8 +116,7 @@ var file = document.querySelector('#file').files[0];
 
     //get the file.
     var csv = event.target.result;
-    var temp=[];
-
+    var temp=[]
     //split and get the rows in an array
     let rows = csv.split('\n');
     //move line by line
@@ -152,7 +153,7 @@ var file = document.querySelector('#file').files[0];
              obj.ans=rowdata[k][6];
              temp.push(obj)
     }
-    fetch(" http://localhost:8082/handleFile",{
+    fetch(`http://localhost:8082/handleFile?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`,{
           method:"POST",
           headers:{
            Accept: "application/json",
@@ -300,12 +301,9 @@ var file = document.querySelector('#file').files[0];
     
    setFlag=e=>{
     //console.log(e);
-     this.setState({testid:e},()=>{
-     var obj={
-      testid:this.state.testid,
-      email:JSON.parse(localStorage.getItem("jwt")).user.id,    
-    };
-     console.log(this.state.testid);
+     this.setState({testid:e,testName:document.getElementById("testname").value},()=>{
+     var obj={testid:this.state.testid,testname:this.state.testName};
+     console.log(this.state.testid+" "+this.state.testName);
      fetch("http://localhost:8082/testid",{
       method:"POST",
       headers:{
@@ -381,6 +379,7 @@ var file = document.querySelector('#file').files[0];
         }
       }); 
     }
+  
  
     
 
@@ -440,48 +439,7 @@ var file = document.querySelector('#file').files[0];
      });
       
   }
-//     csvreader()
-//     {
-//       fs.createReadStream(document.getElementById("inputGroupFile02").value)
-//       .pipe(csv())
-//       .on('data', (data) => this.state.testFile.push(data))
-//       .on('end', () => {
-//         console.log(this.state.testFile);
-       
-//   });
-//         //   var csv=document.getElementById('inputGroupFile02').files[0];
-//         // var formData=new FormData();
-//         // formData.append("uploadCsv",csv);
-//         // var request = new XMLHttpRequest();
 
-//  //here you can set the request header to set the content type, this can be avoided.
-//  //The browser sets the setRequestHeader and other headers by default based on the formData that is being passed in the request.
-//  fetch(" http://localhost:8082/handleFile",{
-//          method:"POST",
-//          headers:{
-//           Accept: "application/json",
-//             "Content-Type":"application/json",
-//             },
-//          body:JSON.stringify(this.state.testFile)
-//       })
-//       .then(res => {
-//          if(res.ok){return res.json();}
-//       })
-//       .then(res => {
-//         alert("File is succesfully uploaded!!");
-//       });
-// //   request.open("POST","/handleFile", true);        
-// //  request.setRequestHeader("Content-type", "multipart/form-data"); //----(*)
-          
-//           // request.onreadystatechange = function (){
-//           //     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-//           //     console.log("yey");
-//           //     }
-//           //   }
-
-// // request.send(formData);
-  
-//     }
     render()
     {
         return(
@@ -669,15 +627,15 @@ var file = document.querySelector('#file').files[0];
 
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Nitin Goel</span>
+                <span className="mr-2 d-none d-lg-inline text-gray-600 small">{this.state.name}</span>
                 <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="/profile">
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -714,15 +672,8 @@ var file = document.querySelector('#file').files[0];
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</div>
-                      {console.log("ass"),
-                      console.log(this.state.hhistory)}
-                      <Link
-                      to="/testhistory" params={{ testvalue: "hello" }}
-                      //  to={{
-                      //   pathname:'/testhistory',
-                      //   state:{data:"asas"}                      
-                      // }}
-                      ><button>View</button></Link>
+                      {console.log(this.state.hhistory)}
+                      <Link to="/testhistory" onClick={()=>this.props.setHist(this.state.hhistory)} className="btn btn-primary btn-sm">View</Link>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">11</div>
                     </div>
                     <div className="col-auto">
@@ -937,7 +888,8 @@ var file = document.querySelector('#file').files[0];
                         <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="msg"className="text-danger">{this.state.msg}</p>
-                            <input type="text" class="form-control" id="testId" placeholder="Enter Test Id"/>
+                            <input type="text" class="form-control" id="testId" placeholder="Enter Test Id" required/>
+                            <input type="text" class="form-control" id="testname" placeholder="Enter Test Name" required/>
                             </div>
                           </div>
                         </div>):

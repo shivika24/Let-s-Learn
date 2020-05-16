@@ -47,6 +47,8 @@ app.post('/deletetodo',login.tododelete)
 app.post('/quote',login.addquote)
 app.get('/getquote',login.getquote)
 app.post('/testhistory',login.testhistory)
+app.post('/checkpass',login.checkpassword)
+app.post('/changepass',login.changepassword)
 app.use('/api', router);
 
 app.listen(8082,()=>{ 

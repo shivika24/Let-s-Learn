@@ -3,9 +3,10 @@ const router=require('express').Router();
     var app = express()
     var con= require('./../dbconnection');
     var testId;
+    var testName="";
     module.exports.checkTestId=async function(req,res,next){
         console.log(req.body);
-        con.query("SELECT COUNT(*) AS cnt from mcq WHERE testid = ?",req.body.testid,function(err,data){
+        con.query("SELECT COUNT(*) AS cnt from test WHERE testid = ?",req.body.testid,function(err,data){
             if(err)
             console.log(err);
             else
@@ -15,21 +16,7 @@ const router=require('express').Router();
                 else
                 {
                     testId=req.body.testid;
-                    console.log(req.body.email)
-
-                    con.query("SELECT tid FROM teacher WHERE temail=?",req.body.email,function(err,data){
-                        console.log(data[0].tid);
-                        if(err)
-                        console.log(err);
-                        else{
-                    var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`) VALUES('"+ req.body.email+"','"+data[0].tid +"','"+ testId+"') ";
-                    con.query(sql,function(err,result){
-                        if(err)
-                        console.log(err);
-                        console.log('test table updated');
-                    })
-                }
-                })
+                    testName=req.body.testname;
                     return res.json({resType:1});
                 }
             }
@@ -52,8 +39,22 @@ const router=require('express').Router();
                   if(err)
                   console.log("**"+err+"**")
                  // else res.json('');
+                 
               })
         })
+        var d=new Date().toISOString().slice(0, 19).replace('T',' ');
+                 con.query("SELECT tid FROM teacher WHERE temail=?",req.query.temail,function(err,data){
+                    if(err)
+                    console.log(err);
+                    else{
+                var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`,`testName`,`Date`) VALUES('"+ req.query.temail+"','"+data[0].tid +"','"+ testId+"','"+ testName +"','"+ d+"') ";
+                con.query(sql,function(err,result){
+                    if(err)
+                    console.log(err);
+                    console.log('test table updated');
+                })
+            }
+            })
         res.json('Uploaded');
     }
      // module.exports=router;

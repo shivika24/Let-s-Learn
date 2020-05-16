@@ -18,7 +18,7 @@ import Tdashboard from './components/tdashboard';
 import Home from './components/home';
 import Calender from './components/calender';
 import Testhistory from './components/testhistory';
-
+import ViewTeachTest from './components/viewTeachtest';
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,6 +32,7 @@ class App extends Component {
     super();
     this.state={
       flag:true,
+      history:[],
       test:[
         // {
         //     ques:"Which of the following can be operands of arithmetic operators?",
@@ -50,6 +51,7 @@ class App extends Component {
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
     this.clickedMcq=this.clickedMcq.bind(this);
+    this.sethistory=this.sethistory.bind(this);
   }
   componentDidMount(){
    // var temp:[]
@@ -74,6 +76,10 @@ class App extends Component {
      this.setState({test:temp})
      console.log(this.state.test)
 })
+  }
+  sethistory(hist)
+  {
+    this.setState({history:hist});
   }
    selectMcq(mcq,i){
     // console.log(event);
@@ -108,14 +114,15 @@ class App extends Component {
           <Services/>
         </Route>
         <Route path="/studentDashboard"  render={() => (<Dashboard/>)}/>
-        <Route path="/teacherDashboard"  render={() => (<Tdashboard/>)}/>
+        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory}/>)}/>
         <Route path="/Registers" render={() => ( <Registers/>)} />  
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
         <Route path="/profile" render={() => ( <Profile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
-        <Route path="/testhistory" render={() => ( <Testhistory/>)} /> 
+        <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history}/>)} /> 
+        <Route path='/viewteachtest' render={()=><ViewTeachTest></ViewTeachTest>}></Route>
       </Switch>
     </div>
     <Footer/>
