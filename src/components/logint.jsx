@@ -53,23 +53,15 @@ class Logint extends Component
 
 
     func=()=>{
-    var y = document.getElementById("i11");
-    console.log(y);
-
-    if(y.className==="fa fa-toggle-on")
-    y.className="fa fa-toggle-off";
-    else
-    y.className="fa fa-toggle-on";
-    
+    var y = document.getElementById("formCheck-1").checked;
+    // console.log(y);
     var x = document.getElementById("spass");
-
-    if (x.type === "password") {
+    if (y==true) {
     x.type = "text";
     } 
-    else {
+    if (y==false) {
     x.type = "password";
     }
-   
     }
     render()
     {
@@ -100,12 +92,23 @@ class Logint extends Component
         <div className="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
 
         <form>
-            <input type="email" name="semail" placeholder="Enter your email-id" onChange={this.onChange} required/>
+           <div className="row">
+           <div className="col">
+           <input type="email" name="semail" placeholder="Enter your email-id" onChange={this.onChange} required/>
             <input type="password" name="spassword" id="spass" placeholder="Enter your password" pattern=".{6,}" title="Six or more characters" maxLength="10" onChange={this.onChange} required/> 
+           </div>
+           </div>
             <br/>
-            <i id="i11" className="fa fa-toggle-off" style={{marginLeft:"50px"}}>
-            </i>  
-            <span id="span1" onClick={() =>this.func()}>Show Password</span><br/><br/>
+            {/* <i id="i11" className="fa fa-toggle-off" style={{marginLeft:"50px"}}>    </i>  */}
+            <div className="row">
+                <div className="col-12" style={{marginLeft:"10%",marginBottom:"5%"}}>
+                <div class="custom-control custom-switch">
+                <input class="custom-control-input" onClick={() =>this.func()} type="checkbox" id="formCheck-1"  />
+                <label class="custom-control-label" for="formCheck-1"></label>
+                <span id="span1">Show Password</span>
+            </div> 
+                </div>
+            </div>
             <center>
             <button className="btn"  id="submitbut1" onClick={(e)=>{this.onfunc1(e)}}>Sign In</button>
             </center>

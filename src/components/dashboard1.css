@@ -73,6 +73,12 @@
   background-color: #36b9cc;
   color: white;
 }
+.ss{
+  position: absolute;
+  top: 0;
+  height: 100%;
+    text-align: center;
+}
 
 /* Style the header */
 .header {
