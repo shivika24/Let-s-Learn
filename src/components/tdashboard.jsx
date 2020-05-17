@@ -39,7 +39,7 @@ class tDashboard extends Component
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
       }
       //bconsole.log(user);
-      fetch("http://localhost:8082/getnotice", {
+      fetch("http://localhost:8082/getnotice", { 
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -205,12 +205,6 @@ var file = document.querySelector('#file').files[0];
       if(this.state.list)
       {
         const doubled = this.state.list.map((number) => 
-        // <div class="row align-items-center no-gutters mb-3">
-        // <div class="col mr-2">
-        // <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{number.date}</span></div>
-        // <div class="col-auto">
-        // <a class="btn btn-danger btn-circle ml-1" role="button" onClick={()=>{this.deleten(number.sno)}}><i class="fas fa-trash text-white"></i></a></div>
-        // </div>
          <li class="list-group-item">
          <div class="row align-items-center no-gutters">
              <div class="col mr-2">
@@ -640,7 +634,7 @@ var file = document.querySelector('#file').files[0];
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <Link className="dropdown-item" to="/profile">
+                <Link className="dropdown-item" to="/profile" style={{color:"black",textDecoration:"none"}}>
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </Link>
@@ -792,9 +786,7 @@ var file = document.querySelector('#file').files[0];
               </div>
                 <div className="card-body">
                 <center>
-                <Calender
-                
-                 />
+                <Calender/>
                 </center>
                 </div>
               </div>

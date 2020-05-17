@@ -421,3 +421,63 @@ module.exports.register = async function(req,res){
                       } 
                   });
                 }
+
+                module.exports.getnotice1 = async function(req,res){
+                  con.query("SELECT *  FROM notifications", function(err , data){
+                      if (err) {
+                        return res.status(400).json({code:0});
+                      } else {
+                        return res.status(400).json({code:data});
+                        } 
+                    });
+                  }
+
+                  module.exports.checkpassword1=async function(req,res,next){
+                    var users={
+                      "email":req.body.email,
+                      "password":req.body.oldp
+                    }
+                    con.query("SELECT spassword FROM student WHERE semail = ? " , users.email ,async function(err , data){
+                      if (err) {
+                        return res.status(400).json({pass:0});
+                      } else {
+                        let comparision = await bcrypt.compare(users.password, data[0].spassword)
+                        if(comparision)
+                        {
+                          console.log("password matched");
+                          return res.status(400).json({pass:1});
+                        }
+                        else
+                        {
+                        console.log("error")
+                        return res.status(400).json({pass:0});
+                        }
+                        } 
+                    });
+                  }
+
+                  module.exports.changepassword1=async function(req,res,next){
+                    var users={
+                      "npass1":req.body.npass1,
+                      "npass2":req.body.npass2,
+                      "email":req.body.email
+                    }
+                    if(users.npass1==users.npass2)
+                    {
+                      console.log("pass matched");
+                      const encryptedPassword = await bcrypt.hash(users.npass1, saltRounds)
+                      var sql = "UPDATE student SET spassword ='" + encryptedPassword + "' WHERE semail = '"+users.email + "'" ;
+                      con.query(sql,function(err , data){
+                        if (err) {
+                          console.log(err);
+                          return res.status(400).json({pass:0});
+                        } else {
+                          return res.status(400).json({pass:1});
+                          } 
+                      });
+                    }
+                    else
+                    {
+                      return res.status(400).json({pass:2});
+                    }            
+                  }
