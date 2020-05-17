@@ -19,10 +19,10 @@ class Contactus extends Component{
     <div className="container" id="info-container">
         <div className="row" >
             <div className="col-12 col-sm-6 col-md-6" id="contact-box">
-                <p id="contact-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel nam magnam natus tempora cumque, aliquam deleniti voluptatibus voluptas. Repellat vel, et itaque commodi iste ab, laudantium voluptas deserunt nobis. </p>
-                <div className="info-box"><i className="fa fa-map-marker my-info-icons"></i><span className="text-uppercase text-info">Address: </span><span>MCC Road, Aba, Abia State Nigeria</span></div>
-                <div className="info-box"><i className="fa fa-envelope my-info-icons"></i><span className="text-uppercase text-info">Email: </span><span>contact@ensignhospital.org </span></div>
-                <div className="info-box"><i className="fa fa-phone-square my-info-icons"></i><span className="text-uppercase text-info">Phone: </span><span>+234000000000 </span></div>
+                <p id="contact-text">Looking to identify the best tech candidates in your pipeline?Get in touch with our platform for Work representative who can assist you with assessing technical talent so you can hire the right developers for your company.</p>
+                <div className="info-box"><i className="fa fa-map-marker my-info-icons"></i><span className="text-uppercase text-info">Address: </span><span>MCC Road, Aba, Abia State Zirakpur</span></div>
+                <div className="info-box"><i className="fa fa-envelope my-info-icons"></i><span className="text-uppercase text-info">Email: </span><span>contact@myiq.org </span></div>
+                <div className="info-box"><i className="fa fa-phone-square my-info-icons"></i><span className="text-uppercase text-info">Phone: </span><span>+91 8968884748 </span></div>
             </div>
             <div className="col-12 col-sm-6 col-md-6 site-form">
             <form id="my-form" class="gform"

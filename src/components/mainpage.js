@@ -46,11 +46,11 @@ class Mainpage extends Component{
             {/* <!-- Start: Wrapper For Slides --> */}
             <div className="carousel-inner" role="listbox" style={{color: "#58a5ff"}}>
                 {/* <!-- Start: 1st Slide --> */}
-                <div className="carousel-item active"><img src="assets/img/w_shop_105_01.png" alt="w_shop_105_01"/>
+                <div className="carousel-item active"><img src="https://www.hackerrank.com/wp-content/uploads/2018/08/Piggy_2.png" alt="w_shop_105_01"/>
                     {/* <!-- Start: Left Box --> */}
-                    <div className="w_shop_105_left_box"><span data-animation="animated fadeInLeft" style={{fontFamily: "roboto"}}>$535.00</span>
+                    <div className="w_shop_105_left_box"><span data-animation="animated fadeInLeft" style={{fontFamily: "roboto"}}>Raised $9.2M Series B</span>
                         <h1 className="left-h" data-animation="animated fadeInLeft">product name and modal number</h1>
-                        <p data-animation="animated fadeInLeft">Lorem ipsum dolor sit amet onsectetuer adipiscing elit unc varius facilisis eros in velit quis arcu ornare laoreet urabitur adipiscing luctus massa.</p><a href="#" data-animation="animated fadeInLeft" style={{backgroundColor: "#58a5ff"}}>order now</a></div>
+                        <p data-animation="animated fadeInLeft">The demand for platform to identify the right developer skills has grown in tandem with the demand for software engineers.</p></div>
                     {/* <!-- End: Left Box --> */}
                     {/* <!-- Start: Right Box --> */}
                     <div className="w_shop_105_right_box" data-animation="animated fadeInRight">
@@ -66,11 +66,11 @@ class Mainpage extends Component{
                 </div>
                 {/* <!-- End: 1st Slide --> */}
                 {/* <!-- Start: 2nd Slide --> */}
-                <div className="carousel-item"><img src="assets/img/w_shop_105_02.png" alt="w_shop_105_02"/>
+                <div className="carousel-item"><img src="https://www.hackerrank.com/wp-content/uploads/2018/08/hackerrank.png" alt="w_shop_105_02"/>
                     {/* <!-- Start: Left Box --> */}
                     <div className="w_shop_105_left_box"><span data-animation="animated fadeInLeft" style={{fontFamily: "roboto"}}>$535.00</span>
                         <h1 className="left-h" data-animation="animated fadeInLeft">product name and modal number</h1>
-                        <p data-animation="animated fadeInLeft">Lorem ipsum dolor sit amet onsectetuer adipiscing elit unc varius facilisis eros in velit quis arcu ornare laoreet urabitur adipiscing luctus massa.</p><a href="#" data-animation="animated fadeInLeft" style={{backgroundColor: "#58a5ff"}}>order now</a></div>
+                        <p data-animation="animated fadeInLeft"> Our first customers were primarily in technology (like Airbnb, Dropbox). By December 2020, our customer base not only grew to over 1,000 companies but also prevailed across several verticals, from auto to retail to finance.</p><a href="#" data-animation="animated fadeInLeft" style={{backgroundColor: "#58a5ff"}}>order now</a></div>
                     {/* <!-- End: Left Box --> */}
                     {/* <!-- Start: Right Box --> */}
                     <div className="w_shop_105_right_box" data-animation="animated fadeInRight">
@@ -86,11 +86,11 @@ class Mainpage extends Component{
                 </div>
                 {/* <!-- End: 2nd Slide --> */}
                 {/* <!-- Start: 3rd Slide --> */}
-                <div className="carousel-item"><img src="assets/img/w_shop_105_03.png" alt="w_shop_105_03"/>
+                <div className="carousel-item"><img src="https://www.hackerrank.com/wp-content/uploads/2018/08/Hello-Computer.png" alt="w_shop_105_03"/>
                     {/* <!-- Start: Left Box --> */}
                     <div className="w_shop_105_left_box"><span data-animation="animated fadeInLeft" style={{fontFamily: "roboto"}}>$535.00</span>
                         <h1 className="left-h" data-animation="animated fadeInLeft">product name and modal number</h1>
-                        <p data-animation="animated fadeInLeft">Lorem ipsum dolor sit amet onsectetuer adipiscing elit unc varius facilisis eros in velit quis arcu ornare laoreet urabitur adipiscing luctus massa.</p><a href="#" data-animation="animated fadeInLeft" style={{backgroundColor: "#58a5ff"}}>order now</a></div>
+                        <p data-animation="animated fadeInLeft">Without even spending $1 on marketing to developers, the HackerRank community organically grew to 1,000,000 developers by February 2015. We continued to invest in helping developers by expanding challenges to a variety of different technical tracks</p><a href="#" data-animation="animated fadeInLeft" style={{backgroundColor: "#58a5ff"}}>order now</a></div>
                     {/* <!-- End: Left Box --> */}
                     {/* <!-- Start: Right Box --> */}
                     <div className="w_shop_105_right_box" data-animation="animated fadeInRight">
@@ -116,38 +116,39 @@ class Mainpage extends Component{
             <div className="row">
                 <div className="col-lg-12 text-center">
                     <h2 data-aos="zoom-in" className="section-heading">Our Amazing Team</h2>
-                    <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur. </h3>
+                    <h3 className="section-subheading text-muted">Skilled developers </h3>
                 </div>
             </div>
             <div className="row">
                 <div className="col-sm-4 col-md-3">
-                    <div className="team-member"><img className="rounded-circle img-fluid" src="assets/img/Kay.jpg"/>
-                        <h4>Kay Garland</h4>
+                    <div className="team-member"><img className="rounded-circle img-fluid" src="assets/img/Larry.jpg"/>
+                        <h4>Shivesh Gupta</h4>
                         <p className="text-muted">Lead Designer</p>
                     </div>
                 </div>
                 <div className="col-sm-4 col-md-3">
                     <div className="team-member"><img className="rounded-circle img-fluid" src="assets/img/Kay.jpg"/>
-                        <h4>Kay Garland</h4>
-                        <p className="text-muted">Lead Designer</p>
+                        <h4>Shivika Singla</h4>
+                        <p className="text-muted">Lead Developer</p>
+                    </div>
+                </div>
+                <div className="col-sm-4 col-md-3">
+                    <div className="team-member"><img className="rounded-circle img-fluid" src="assets/img/Kay.jpg"/>
+                        <h4>Shivani Goyal</h4>
+                        <p className="text-muted">Lead Developer</p>
                     </div>
                 </div>
                 <div className="col-sm-4 col-md-3">
                     <div className="team-member"><img className="rounded-circle img-fluid" src="assets/img/Larry.jpg"/>
-                        <h4>Larry Parker</h4>
-                        <p className="text-muted">Lead Marketer</p>
-                    </div>
-                </div>
-                <div className="col-sm-4 col-md-3">
-                    <div className="team-member"><img className="rounded-circle img-fluid" src="assets/img/Diana.jpg"/>
-                        <h4>Diana Pertersen</h4>
+                        <h4>Sanchit Goyal</h4>
                         <p className="text-muted">Lead Developer</p>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-lg-8 offset-lg-2 text-center" data-aos="fade-up">
-                    <p className="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                    <p className="large text-muted">3M+ Developers
+MyIq developer community grew 3x by May 2020. This growth is a testament to our product and engineering teams, dedication to producing high-quality coding challenges, curation of inclusive events, and commitment to putting the developer experience first.</p>
                 </div>
             </div>
         </div>

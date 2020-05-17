@@ -54,8 +54,8 @@ class Testhistory extends Component
                                 <tfoot>
                                     <tr>
                                         <td><strong>S.No</strong></td>
-                                        <td><strong>tid</strong></td>
-                                        <td><strong>email</strong></td>
+                                        <td><strong>TeacherId</strong></td>
+                                        <td><strong>Email-Id</strong></td>
                                         <td><strong>Test Id</strong></td>
                                         <td><strong>Test Name</strong></td>
                                         <td><strong>Date</strong></td>
