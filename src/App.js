@@ -79,6 +79,16 @@ class App extends Component {
      this.setState({test:temp})
      console.log(this.state.test)
 })
+fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`, {
+  method: "GET",
+  headers:{  "Content-Type":"application/json" },
+})
+.then(res => {return res.json();})
+.then(res => {
+  console.log(res.code);
+ this.setState({prevTot:res.code})
+ console.log(this.state.prevTot)
+})
   }
   showTest(tid)
   {
@@ -96,7 +106,7 @@ class App extends Component {
     .then(res=> res.json())
       .then(res => {
        // console.log(JSON.stringify(res));
-        this.setState({viewTestArr:res})
+        this.setState({viewTestArr:res,prevTot:res.length})
       })
   }
   sethistory(hist)
@@ -136,7 +146,7 @@ class App extends Component {
           <Services/>
         </Route>
         <Route path="/studentDashboard"  render={() => (<Dashboard/>)}/>
-        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory}/>)}/>
+        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
         <Route path="/Registers" render={() => ( <Registers/>)} />  
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
