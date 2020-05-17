@@ -32,6 +32,9 @@ app.post('/handleFile',handleFileRouter.handleFile);
 app.post('/testid',handleFileRouter.checkTestId);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
+
+app.put('/savesetting1',profileRouter.settings1);
+app.get('/phone1',profileRouter.phone1);
 // app.get('/register',(res)=>{
 //     console.log("hello");
 // });
@@ -51,6 +54,10 @@ app.post('/testhistory',login.testhistory)
 app.post('/checkpass',login.checkpassword)
 app.post('/changepass',login.changepassword)
 app.post('/testdetails',login.testdetails)
+
+app.get('/getnotice1',login.getnotice1)
+app.post('/checkpass1',login.checkpassword1)
+app.post('/changepass1',login.changepassword1)
 app.use('/api', router);
 
 app.listen(8082,()=>{ 

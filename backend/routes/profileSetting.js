@@ -24,3 +24,28 @@ module.exports.settings= async function(req,res){
         }
     })
 }
+
+module.exports.phone1= async function(req,res)
+{
+    console.log("**"+req.query.tId+"**");
+    con.query("SELECT spno FROM student WHERE semail = ?",req.query.tId,function(err,data){
+        console.log(data[0]);
+        if(err)
+        console.log(err);
+        else res.json(data[0]);
+    })
+}
+module.exports.settings1= async function(req,res){
+    console.log(req.body.name+" "+req.body.ph_num+" "+req.body.email);
+    var sql="UPDATE student SET sname =? , spno =?  WHERE semail = ?";
+    con.query(sql,[req.body.name,req.body.ph_num,req.body.email],function(err,data){
+       
+        if(err)
+        throw err;
+        else
+        {
+            console.log('updated');
+            res.json('profile updated');
+        }
+    })
+}

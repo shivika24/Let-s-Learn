@@ -4,6 +4,7 @@ class ViewTeachTest extends Component
 {
     render()
     {
+        if(this.props.prevTest){
         console.log(this.props.prevTest);
         var len=this.props.prevTest.length;
         return (
@@ -83,7 +84,13 @@ class ViewTeachTest extends Component
                     </div>
                 </div>
             </div>
+                                
         )
+        }
+        else
+        {
+            console.log("loading")
+        }
     }
 }
 export default ViewTeachTest;

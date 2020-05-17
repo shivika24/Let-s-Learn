@@ -5,6 +5,177 @@ import Calender from './calender';
 import './dashboard1.css';
 class Dashboard extends Component
 {
+  constructor(){
+    super();
+    let u="Name";
+    try{
+      u=JSON.parse(localStorage.getItem("jwt")).user.name;
+    }
+    catch(e){
+      u="";
+    }
+    this.state={
+      quotess:[],
+      name:u,
+      list:[],
+      data:[]
+
+    }    
+  }
+  componentDidMount()
+  {
+    const user={
+      email:JSON.parse(localStorage.getItem("jwt")).user.id,
+    }
+    fetch("http://localhost:8082/getquote", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      })
+      .then(res=> res.json())
+      .then(res => {
+        this.setState({quotess:res.code})
+      })
+      fetch("http://localhost:8082/gettodo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        this.setState({list:res.code})
+      })
+
+      fetch("http://localhost:8082/getnotice1", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        })
+      .then(res=> res.json())
+        .then(res => {
+          this.setState({data:res.code})
+        })
+  }
+  myfunc1 = () =>{
+    if(this.state.list)
+    {
+      const doubled = this.state.list.map((number) => 
+       <li class="list-group-item">
+       <div class="row align-items-center no-gutters">
+           <div class="col mr-2">
+               <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">10:30 AM</span></div>
+           <div class="col-auto">
+           <a class="btn btn-danger btn-circle ml-1" role="button" onClick={()=>{this.deleten(number.sno)}}>
+             <i class="fas fa-trash text-white"></i>
+          </a></div>
+       </div>
+   </li>
+     
+    );
+      return doubled;
+    }
+    else{
+      console.log("error") 
+    }
+  }
+  myfunc2 = () =>{
+    if(this.state.quotess)
+   {
+    const doubled = this.state.quotess.map((number) => 
+    <div class="carousel-item">
+    <img class="d-block w-100" style={{height:"300px"}} src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+    <div  class="ss">
+    <h5 className="my-auto">{number.data}</h5>
+    </div>
+    </div>       
+   );
+    return doubled;
+  }
+  else{
+    console.log("error") 
+  }
+  
+}
+myfunc = () =>{
+  if(this.state.data)
+  {
+    const doubled = this.state.data.map((number) => 
+    <div>
+    {/* <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button> */}
+    <div class="row align-items-center no-gutters">
+     <div class="col mr-2">
+    <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{number.date}</span></div>
+    </div>
+    <hr/>
+    </div>
+  );
+    return doubled;
+
+  }
+  else{
+    console.log("error") 
+  }
+}
+todolist = e => {
+  console.log(e);
+  const ttuser={
+    email:JSON.parse(localStorage.getItem("jwt")).user.id,
+    data:e
+  }
+  console.log(ttuser);
+  fetch("http://localhost:8082/addtodo", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(ttuser)
+})
+  .then(res => res.json())
+  .then(res => {
+    if(res.code === 0)
+    {
+      alert("Item Not Added");
+      window.location='http://localhost:3000/studentDashboard';
+    }
+    else
+    {
+    alert(`ITEM ADDED SUCCESFULLY!!`);
+    window.location='http://localhost:3000/studentDashboard';
+    }
+    console.log("done");
+  }); 
+}
+deleten = id => {
+  console.log(id)
+  const user={
+    sno:id
+  }
+  fetch("http://localhost:8082/deletetodo", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(user)
+})
+  .then(res => res.json())
+  .then(res => {
+    if(res.code === 0)
+    {
+      alert("Could Not Delete ITEM");
+      window.location='http://localhost:3000/studentDashboard';
+    }
+    else
+    {
+    alert(`ITEM DELETED SUCCESFULLY!!`);
+    window.location='http://localhost:3000/studentDashboard';
+    }
+  }); 
+}
+
 
     render()
     {
@@ -198,10 +369,10 @@ class Dashboard extends Component
               </a>
 
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to="/sprofile" style={{color:"black",textDecoration:"none"}}>
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
-                </a>
+                </Link>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -327,30 +498,16 @@ class Dashboard extends Component
 
 
             <div className="col-xl-4 col-lg-5">
-              <div className="card shadow mb-4" style={{overflow: "scroll"}}>
+            <div className="card shadow mb-4">
 
-                <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 className="m-0 font-weight-bold text-primary">Notices & Alerts</h6>
-                </div>
-
-                <div className="card-body" style={{height: "360px"}}>
-                  <div>
-                    <p style={{fontSize: "14px"}}>New Assignment amid COVID-19 for students to develop something that cause awareness among people for COVID-19</p>
-                    <hr style={{border: "1px solid #008CBA"}} />
-                  </div>
-                  
-                  <div>
-                    <p style={{fontSize: "14px"}}>For Upcoming Placements Mock tests to be held on every wednesday till 10th june containing frequently asked interview questions</p>
-                    <hr style={{border: "1px solid #008CBA"}} />
-                  </div>
-
-                  <div>
-                    <p style={{fontSize: "14px"}}>For Every 3rd and 4th year student it is mandatory to take atleast 1 UGC course and tell the details to their mentors.</p>
-                    <hr style={{border: "1px solid #008CBA"}} />
-                  </div>                 
-                </div>
+              <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 className="m-0 font-weight-bold text-primary">Notices & Alerts</h6>
+              </div>
+              <div className="card-body" style={{height: "360px", overflow: "scroll"}}>
+              {this.myfunc()}         
               </div>
             </div>
+          </div>
           </div>
 
           <div className="row">
@@ -368,23 +525,23 @@ class Dashboard extends Component
                 </div>
               </div>
 
-              <div className="card shadow mb-4">
-                <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary">To Do List</h6>
-                </div>
-                <div className="card-body">
-                  <div id="myDIV" className="header">
-                     <input type="text" id="myInput" placeholder="Title..."/>
-                     <a className="btn btn-primary btn-circle ml-1" role="button" onClick="newElement()">
-                     <i className="fas fa-edit text-white" ></i>
-                   </a>
-                     
+              <div class="card shadow mb-4" style={{height: "303px"}}>
+              <div class="card-header py-3">
+                  <h6 class="text-primary font-weight-bold m-0">
+                    Todo List
+                  </h6>
+                  <div className="row mt-2 mb-2 p-3" style={{background:"rgb(0, 140, 186)"}}>
+                                <div className="col-12">
+                                <input type="text" id="todo" placeholder="Title..."/>
+                              <a class="btn btn-success btn-circle ml-1" role="button"  onClick={()=>{this.todolist(document.getElementById('todo').value)}} style={{float: "right"}} data-toggle="modal" data-target="#modal">
+                              <i class="icon ion-android-add text-white"></i></a>
+                                </div>
                   </div>
-                <ul id="myUL">
-                </ul>
-
-                </div>
               </div>
+              <ul class="list-group list-group-flush" style={{overflow: "scroll",height: "100%"}}>
+              {this.myfunc1()} 
+              </ul>
+          </div>
 
             </div>
 
@@ -403,15 +560,44 @@ class Dashboard extends Component
               </div>
 
               <div className="card shadow mb-4">
-                <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary">Quote For The Day</h6>
-                </div>
-                <div className="card-body">
-                  <p>Unless you Try To Do Something Beyond What You Have Already Mastered You Will Never Grow!!</p>
-                </div>
-              </div>
+              <div className="card-header py-3">
+                <h6 className="m-0 font-weight-bold text-primary my-auto">Quote For The Day</h6>
+              </div>   
+              <div className="card-body">
 
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol className="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+              </ol>
+              <div className="carousel-inner">
+              <div className="carousel-item active">
+              <img className="d-block w-100" style={{height:"300px"}} src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
+              <div className="carousel-caption d-none d-md-block">
+              
+              </div>
+              </div>
+              {this.myfunc2()}
+              
+              </div>
+              <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+              </a>
+              <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+              </a>
+             </div>               
             </div>
+             </div>
+
+            
+            
+              </div>
           </div>
 
         </div>

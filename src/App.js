@@ -9,6 +9,7 @@ import Sidebar from './components/sideBar.js';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Profile from './components/profile';
+import Sprofile from './components/sprofile';
 import Registers from './components/registers';
 import Registert from './components/registert';
 import Logins from './components/logins';
@@ -96,7 +97,7 @@ fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("
   showTest(tid)
   {
   console.log(tid)
-  const user={
+  const userss={
     testid:tid
   }
   fetch("http://localhost:8082/testdetails", {
@@ -104,7 +105,7 @@ fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(userss)
       })
     .then(res=> res.json())
       .then(res => {
@@ -155,6 +156,7 @@ fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
         <Route path="/profile" render={() => ( <Profile/>)} /> 
+        <Route path="/sprofile" render={() => ( <Sprofile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
         <Route path="/testlogin" render={()=><Testlogin/>} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
