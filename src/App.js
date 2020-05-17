@@ -41,6 +41,7 @@ class App extends Component {
     this.state={
       flag:true,
       history:[],
+      testid1:"",
       viewTestArr:[],
       test:[
         // {
@@ -62,30 +63,12 @@ class App extends Component {
     this.clickedMcq=this.clickedMcq.bind(this);
     this.sethistory=this.sethistory.bind(this);
     this.showTest=this.showTest.bind(this);
+    // this.testCorresToId=this.testCorresToId.bind(this);
+   this.settest=this.settest.bind(this);
   }
   componentDidMount(){
    // var temp:[]
-    fetch(` http://localhost:8082/mcq`, {
-      method: "GET",
-      headers:{  "Content-Type":"application/json" },
-  })
-.then(res => {return res.json();})
-.then(res => {
-      console.log(res);
-      var temp=[]
-      
-      res.map((r)=>{
-        var obj={ques:"",choices:[]}
-            obj.ques=r.question;
-            obj.choices.push(r.option1);
-            obj.choices.push(r.option2)
-            obj.choices.push(r.option3)
-            obj.choices.push(r.option4)
-            temp.push(obj);
-      })
-     this.setState({test:temp})
-     console.log(this.state.test)
-})
+  
 if(JSON.parse(localStorage.getItem("jwt")))
 {
   fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`, {
@@ -101,6 +84,37 @@ if(JSON.parse(localStorage.getItem("jwt")))
 }
 
   }
+  settest(t)
+  {
+    this.setState({test:t})
+  }
+//   testCorresToId(tid)
+//   {
+//     this.setState({testid1:tid},()=>{
+//     console.log("testid:"+this.state.testid1);
+//     fetch(` http://localhost:8082/mcq?testid=${this.state.testid1}`, {
+//       method: "GET",
+//       headers:{  "Content-Type":"application/json" },
+//   })
+// .then(res => {return res.json();})
+// .then(res => {
+//       console.log(res);
+//       var temp=[]
+      
+//       res.map((r)=>{
+//         var obj={ques:"",choices:[]}
+//             obj.ques=r.question;
+//             obj.choices.push(r.option1);
+//             obj.choices.push(r.option2)
+//             obj.choices.push(r.option3)
+//             obj.choices.push(r.option4)
+//             temp.push(obj);
+//       })
+//      this.setState({test:temp})
+//      console.log(this.state.test)
+// })
+//     })
+//   }
   showTest(tid)
   {
   console.log(tid)
@@ -120,6 +134,10 @@ if(JSON.parse(localStorage.getItem("jwt")))
         this.setState({viewTestArr:res,prevTot:res.length})
       })
   }
+  // settestid(tid)
+  // {
+  //   this.setState({testid:tid});
+  // }
   sethistory(hist)
   {
     this.setState({history:hist});
@@ -165,10 +183,10 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/profile" render={() => ( <Profile/>)} /> 
         <Route path="/sprofile" render={() => ( <Sprofile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
-        <Route path="/testlogin" render={()=><Testlogin/>} />
-        <Route path="/testloginsign" render={()=><Testloginsign/>} /> 
-        <Route path="/test1" render={()=><Test1/>} /> 
-        <Route path="/testloginregister" render={()=><Testloginregister/>} /> 
+        <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
+        <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
+        <Route path="/testloginregister" render={()=><Testloginregister />} /> 
+        <Route path="/testlogin" render={()=><Testlogin/>} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
         <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
       </Switch>
@@ -185,7 +203,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
        <div class="container-fluid">
        
          <Switch>
-         <Route exact path = "/test" render={()=><TestDashboard test={this.state.test} selectMCQ={this.selectMcq}></TestDashboard>}/> 
+         <Route exact path = "/test" render={()=><TestDashboard test={this.settest} selectMCQ={this.selectMcq} ></TestDashboard>}/> 
          <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
          </Switch>
       

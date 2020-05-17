@@ -9,7 +9,8 @@ class Testloginsign extends Component
         super();
         this.state={
             semail:"",
-            spassword:""
+            spassword:"",
+            test1:[]
         }
         this.func=this.func.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -20,6 +21,9 @@ class Testloginsign extends Component
       }
     onfunc1(e) {
     e.preventDefault();
+    var url = new URL(window.location.href); 
+        var params = new URLSearchParams(url.search);
+  //  var testid=this.props.tID1;
     console.log("user");
         const newUser = {
             semail:this.state.semail,
@@ -42,12 +46,12 @@ class Testloginsign extends Component
         else if(res.code === 206)
         {
             alert("Email Not Registered");
-            window.location='http://localhost:3000/testloginregister';
+            window.location=`http://localhost:3000/testloginregister?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
         }
         else
         {
             localStorage.setItem("jwt", JSON.stringify(res));
-            window.location='http://localhost:3000/test1';
+            window.location=`http://localhost:3000/test1?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
         }
       });
       }
@@ -64,6 +68,9 @@ class Testloginsign extends Component
         }
     render()
     {
+       // console.log(this.props.test)
+       var url = new URL(window.location.href); 
+        var params = new URLSearchParams(url.search);
         return (
             <div>
             <div className="row" style={{margin:0,padding:0}}>
@@ -107,7 +114,7 @@ class Testloginsign extends Component
             </div>
             <center><button className="btn"  id="submitbut1" onClick={(e)=>{this.onfunc1(e)}}>Sign In</button></center>
         </form>
-        <center style={{marginTop: "20px",marginBottom:"10%"}}><Link to="/testloginregister" style={{textDecoration:"none",color:"black"}}>Not Registered Yet...?click here to register.</Link></center>
+        <center style={{marginTop: "20px",marginBottom:"10%"}}><Link to={`/testloginregister?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`} style={{textDecoration:"none",color:"black"}}>Not Registered Yet...?click here to register.</Link></center>
         <br/>
         </div>
             </div>

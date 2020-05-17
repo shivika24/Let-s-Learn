@@ -5,7 +5,8 @@ export default class extends Component{
  
     render()
     {
-       
+      var url = new URL(window.location.href); 
+      var params = new URLSearchParams(url.search);
         return(
           
             
@@ -34,7 +35,7 @@ export default class extends Component{
                     <div className="col-auto ">
                  <button type="button" className="btn btn mt-2 mx-2" style={{backgroundColor:"rgb(8, 169, 222)", color:"white"}}>Submit Answer</button>
                  {this.props.idx<(this.props.len-1)?
-                   <Link to="/mcq" className="btn mt-2 mx-2" onClick={()=>this.props.nextMcq(this.props.idx+1)} style={{backgroundColor:"rgb(8, 169, 222)", color:"white"}}>Next Question</Link>:
+                   <Link to={`/mcq?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`} className="btn mt-2 mx-2" onClick={()=>this.props.nextMcq(this.props.idx+1)} style={{backgroundColor:"rgb(8, 169, 222)", color:"white"}}>Next Question</Link>:
                    <a href="#" className="btn btn-danger mt-2 mx-2" data-toggle="modal" data-target="#logoutModal">
                         Finish Test
                     </a>

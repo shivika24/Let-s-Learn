@@ -14,15 +14,17 @@ class Test1 extends Component{
             studentroll:"",
             testcode:"",
             studentemail:"",
-            password:""
+            password:"",
+            msg:""
         }
         this.tname="";
         this.teaid="";
         this.tid="";
-
+        //this.msg=""
       
     }
     componentDidMount(){
+      //console.log(this.props.tID1);
         var url = new URL(window.location.href); 
         var params = new URLSearchParams(url.search);
           this.tname=params.get('name');
@@ -41,12 +43,17 @@ class Test1 extends Component{
       }
       submitfunc=()=>{
         // this.setState({ testname: this.tname ,teacherid:this.teaid ,testid:this.tid});
+        var testcode=document.getElementById("tcode").value;
+        if(this.state.testid!==testcode)
+        this.setState({msg:"Please enter valid test key!!"});
+        else this.props.setfalse(false);
         console.log(this.state);
       }
      
     // http://localhost:3000/testlogin/?name=c++&id=6356&code=88989
     // test link
     render(){
+        // console.log(this.props.test)
         return(
           <div>
           <div className="container5" style={{width:"60%",marginTop:"5%"}}>
@@ -58,6 +65,7 @@ class Test1 extends Component{
           <div className="row">
           <div className="col-12">
           <br/><br/>
+          <p className="text text-danger">{this.state.msg}</p>
           <div className="form-group">
     <input type="text" className="form-control" id="tcode" name="testcode" onChange={this.onChange} placeholder="Test-code"/>
   </div>
@@ -68,7 +76,7 @@ class Test1 extends Component{
         </div><br/>
       <div className="row">
       <div className="col-12">
-      <center><button id="button2" style={{marginLeft:"3%"}}>Proceed</button></center>
+      <center><Link to={`/test?name=${this.state.testname}&id=${this.state.teacherid}&code=${this.state.testid}`} onClick={()=>this.submitfunc()}id="button2" style={{marginLeft:"3%"}}>Proceed</Link></center>
       </div>
       </div><br/>
       </div> 

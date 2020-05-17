@@ -29,7 +29,8 @@ class tDashboard extends Component
         msg:'',
         testid:0,
         name:u,
-        testName:""
+        testName:"",
+        link:""
       }
       
     }
@@ -90,6 +91,7 @@ class tDashboard extends Component
    
         // let event=document.getElementById('file');
         // const fileInput = document.getElementById('file') ;
+        var ln=this.state.link;
         const fileInput =document.querySelector('input[type="file"]');
 // const reader = new FileReader()
 
@@ -136,7 +138,7 @@ var file = document.querySelector('#file').files[0];
     // rowdata json array isko strigyfy kra kruse krlo
     for(var k=1;k<rowdata.length-1;k++)
     {
-      var obj={qno:"",ques:"",choices:[],ans:""};
+      var obj={qno:"",ques:"",choices:[],ans:"",link:""};
       obj.qno=rowdata[k][0];
      // obj.testid=this.state.testid;
       //  var q=rowdata[k][1].split('?');
@@ -149,6 +151,7 @@ var file = document.querySelector('#file').files[0];
              obj.choices.push(rowdata[k][4]);
              obj.choices.push(rowdata[k][5]);
              obj.ans=rowdata[k][6];
+             obj.link=ln;
              temp.push(obj)
     }
     fetch(`http://localhost:8082/handleFile?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`,{
@@ -305,7 +308,7 @@ var file = document.querySelector('#file').files[0];
      this.setState({testid:e,testName:document.getElementById("testname").value},()=>{
      var obj={testid:this.state.testid,testname:this.state.testName};
      console.log(this.state.testid+" "+this.state.testName);
-     fetch("http://localhost:8082/testid",{
+     fetch(`http://localhost:8082/testid?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`,{
       method:"POST",
       headers:{
        Accept: "application/json",
@@ -316,7 +319,12 @@ var file = document.querySelector('#file').files[0];
    .then(res => res.json())
       .then(res => {
         if(res.resType === 1)
-    this.setState({flag:true})
+       {
+        var lnk=`http://localhost:3000/testlogin?name=${this.state.testName}&id=${res.code}&code=${this.state.testid}`;
+        console.log(res.code);
+        this.setState({flag:true,link:lnk})
+        console.log(this.state.link)
+       }
     else 
     {
       this.setState({msg:"Please enter another key.This key already exists!!!"})
