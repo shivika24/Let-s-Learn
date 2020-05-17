@@ -19,6 +19,10 @@ import Home from './components/home';
 import Calender from './components/calender';
 import Testhistory from './components/testhistory';
 import ViewTeachTest from './components/viewTeachtest';
+
+
+import Testlogin from './components/testlogin'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -152,6 +156,7 @@ fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("
         <Route path="/Logint" render={() => ( <Logint/>)} />   
         <Route path="/profile" render={() => ( <Profile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
+        <Route path="/testlogin" render={()=><Testlogin/>} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
         <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
       </Switch>
