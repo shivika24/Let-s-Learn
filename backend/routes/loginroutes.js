@@ -417,7 +417,7 @@ module.exports.register = async function(req,res){
                     if (err) {
                       return res.status(400).json({code:0});
                     } else {
-                      return res.status(400).json({code:data});
+                      return res.send(data);
                       } 
                   });
                 }

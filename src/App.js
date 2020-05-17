@@ -33,8 +33,26 @@ class App extends Component {
     this.state={
       flag:true,
       history:[],
+<<<<<<< HEAD
       arry:[],
       test:[]
+=======
+      viewTestArr:[],
+      test:[
+        // {
+        //     ques:"Which of the following can be operands of arithmetic operators?",
+        //     choices:["Numeric","Boolean","Character","Both Numeric & Characters"]
+        // },
+        // {
+        //     ques:"Modulus operator, %, can be applied to which of these?",
+        //     choices:["Integers","Floating-NUmbers","Both Integers and floating – point numbers","NOT"]
+        // },
+        // {
+        //     ques:"Decrement operator, −−, decreases the value of variable by what number?",
+        //     choices:["1","2","3","4"]
+        // }
+    ]
+>>>>>>> 04f6b650075465628b05ea482f22a66b36cd4fdb
     }
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
@@ -81,9 +99,14 @@ class App extends Component {
       })
     .then(res=> res.json())
       .then(res => {
+<<<<<<< HEAD
         console.log(res.code)
         this.setState({arry:res.code})
 
+=======
+       // console.log(JSON.stringify(res));
+        this.setState({viewTestArr:res})
+>>>>>>> 04f6b650075465628b05ea482f22a66b36cd4fdb
       })
   }
   sethistory(hist)
@@ -131,7 +154,11 @@ class App extends Component {
         <Route path="/profile" render={() => ( <Profile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
+<<<<<<< HEAD
         <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.arry}/>}/>
+=======
+        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
+>>>>>>> 04f6b650075465628b05ea482f22a66b36cd4fdb
       </Switch>
     </div>
     <Footer/>
