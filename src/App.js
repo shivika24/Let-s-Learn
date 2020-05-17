@@ -83,7 +83,9 @@ class App extends Component {
      this.setState({test:temp})
      console.log(this.state.test)
 })
-fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`, {
+if(JSON.parse(localStorage.getItem("jwt")))
+{
+  fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`, {
   method: "GET",
   headers:{  "Content-Type":"application/json" },
 })
@@ -93,6 +95,8 @@ fetch(` http://localhost:8082/prevTot?temail=${JSON.parse(localStorage.getItem("
  this.setState({prevTot:res.code})
  console.log(this.state.prevTot)
 })
+}
+
   }
   showTest(tid)
   {
