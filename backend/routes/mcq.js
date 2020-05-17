@@ -20,3 +20,11 @@ module.exports.mcq= async function(req,res)
     //    }
     })
 }
+module.exports.prevTot= async function(req,res)
+{
+    con.query("SELECT Count(*) AS cnt FROM test WHERE temail= ?",req.query.temail,function(err,data){
+        if(err)
+        console.log(err);
+        else res.send({code:data[0].cnt});
+    })
+}

@@ -36,6 +36,7 @@ app.get('/phone',profileRouter.phone);
 //     console.log("hello");
 // });
 app.get('/mcq',mcqRouter.mcq);
+app.get('/prevTot',mcqRouter.prevTot);
 app.post('/login',login.login)
 app.post('/tlogin',login.tlogin)
 app.post('/notice',login.nnotice)

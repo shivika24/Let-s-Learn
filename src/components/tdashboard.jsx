@@ -681,7 +681,7 @@ var file = document.querySelector('#file').files[0];
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</div>
                       <Link to="/testhistory" onClick={()=>this.props.setHist(this.state.hhistory)} className="btn btn-primary btn-sm">View</Link>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">11</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.tot}</div>
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-clipboard-list fa-2x text-gray-300"></i>
