@@ -29,7 +29,7 @@ class Navbar extends Component{
                 localStorage.getItem('jwt')
                 ?
                 <div>
-                    <Link className="btn btn-light action-button" to="/Logout" style={{backgroundColor: "white",color: "#58a5ff"}} onClick={()=>localStorage.removeItem('jwt')}>Log Out</Link>
+                    <Link className="btn btn-light action-button" to="/" style={{backgroundColor: "white",color: "#58a5ff"}} onClick={()=>localStorage.removeItem('jwt')}>Log Out</Link>
                 </div>
                 :
                 <div>
