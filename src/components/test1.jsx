@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './testlogin.css';
 import img from '../images/test1.svg';
 import { Link } from 'react-router-dom';
-class Testlogin extends Component{
+class Test1 extends Component{
     
     constructor(){
         super();
@@ -58,15 +58,17 @@ class Testlogin extends Component{
           <div className="row">
           <div className="col-12">
           <br/><br/>
-          <center><h1 id="s1">Test Name : {this.state.testname}</h1></center>
-          <center><h3 id="s2">Test Id : {this.state.testid}</h3></center>
+          <div className="form-group">
+    <input type="text" className="form-control" id="tcode" name="testcode" onChange={this.onChange} placeholder="Test-code"/>
+  </div>
+  <div className="form-group">
+    <input type="text" className="form-control" id="rollno" name="studentroll" onChange={this.onChange} placeholder="Roll no"/>
+  </div>
           </div>                      
         </div><br/>
       <div className="row">
       <div className="col-12">
-      <center>
-      <Link to="/testloginsign"><button id="button2" style={{marginLeft:"3%"}}>Login</button></Link>
-      <Link to="/testloginregister"><button id="button2" style={{marginLeft:"2%"}}>SignUp</button></Link></center>
+      <center><button id="button2" style={{marginLeft:"3%"}}>Proceed</button></center>
       </div>
       </div><br/>
       </div> 
@@ -75,30 +77,4 @@ class Testlogin extends Component{
       )
     }
 }
-export default Testlogin;
-
-/*
-               <form>
- <div className="form-group">
-    <label for="exampleInputEmail1">Name</label>
-    <input type="text" className="form-control" id="name" name="studentname"  onChange={this.onChange} placeholder="Full Name"/>
-  </div>
-  <div className="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" className="form-control" id="email" name="studentemail"  onChange={this.onChange} placeholder="Enter email"/>
-  </div>
-  <div className="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" className="form-control" id="pass" name="password" onChange={this.onChange} placeholder="Password"/>
-  </div>
-  <div className="form-group">
-    <label for="exampleInputPassword1">Test-code</label>
-    <input type="text" className="form-control" id="tcode" name="testcode" onChange={this.onChange} placeholder="Test-code"/>
-  </div>
-  <div className="form-group">
-    <label for="exampleInputPassword1">Roll no</label>
-    <input type="text" className="form-control" id="rollno" name="studentroll" onChange={this.onChange} placeholder="Roll no"/>
-  </div>
-  
-  <button type="button" className="btn btn-primary mb-3 mt-3" onClick={()=>{this.submitfunc()}}>Submit</button>
-</form>*/
+export default Test1;

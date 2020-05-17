@@ -23,6 +23,9 @@ import ViewTeachTest from './components/viewTeachtest';
 
 
 import Testlogin from './components/testlogin'
+import Testloginsign from './components/testloginsign'
+import Testloginregister from './components/testloginregister'
+import Test1 from './components/test1'
 
 import {
   BrowserRouter as Router,
@@ -162,7 +165,10 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/profile" render={() => ( <Profile/>)} /> 
         <Route path="/sprofile" render={() => ( <Sprofile/>)} /> 
         <Route path="/calender" render={() => ( <Calender/>)} /> 
-        <Route path="/testlogin" render={()=><Testlogin/>} /> 
+        <Route path="/testlogin" render={()=><Testlogin/>} />
+        <Route path="/testloginsign" render={()=><Testloginsign/>} /> 
+        <Route path="/test1" render={()=><Test1/>} /> 
+        <Route path="/testloginregister" render={()=><Testloginregister/>} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
         <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
       </Switch>
