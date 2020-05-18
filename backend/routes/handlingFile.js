@@ -78,4 +78,7 @@ const router=require('express').Router();
          console.log("*"+link+"*")   
         
     }
-     // module.exports=router;
+     module.exports.submittedQues=async function(req,res,next)
+     {
+         console.log(req.body);
+     }
