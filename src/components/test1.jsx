@@ -76,7 +76,7 @@ class Test1 extends Component{
         </div><br/>
       <div className="row">
       <div className="col-12">
-      <center><Link to={`/test?name=${this.state.testname}&id=${this.state.teacherid}&code=${this.state.testid}`} onClick={()=>this.submitfunc()}id="button2" style={{marginLeft:"3%"}}>Proceed</Link></center>
+      <center><Link to={`/test?name=${this.state.testname}&id=${this.state.teacherid}&code=${this.state.testid}`}><button onClick={()=>this.submitfunc()} id="button2" style={{marginLeft:"3%"}}>Proceed</button></Link></center>
       </div>
       </div><br/>
       </div> 
