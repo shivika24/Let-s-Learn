@@ -157,7 +157,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
     .then(res=> res.json())
       .then(res => {
        // console.log(JSON.stringify(res));
-        this.setState({viewTestArr:res,prevTot:res.length})
+        this.setState({viewTestArr:res})
       })
   }
   // settestid(tid)

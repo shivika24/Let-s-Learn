@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+//import {CopyToClipboard} from 'react-copy-to-clipboard';
 class Testdatainsert extends Component
 {
     constructor(){
@@ -8,9 +9,15 @@ class Testdatainsert extends Component
             testid:'',
             testname:'',
             flag:false,
-            teachid:''
+            teachid:'',
+            link:""
         }
     }
+    copyCodeToClipboard = () => {
+        const el = this.textArea
+        el.select()
+        document.execCommand("copy")
+      }
     componentDidMount(){
         document.getElementById('onmodal').click();
     }
@@ -58,7 +65,11 @@ class Testdatainsert extends Component
          .then(res => {
         //    alert(JSON.stringify(res));
         // alert("http://localhost:3000/testlogin/?name="+this.state.testid+"&id="+JSON.parse(localStorage.getItem("jwt")).user.id+"&code="+this.state.testName);
-           window.location="http://localhost:3000/teacherDashboard";
+         this.setState({link:res.ln},()=>{console.log(this.state.link);
+            document.getElementById("testlink").value=this.state.link;})
+       //  console.log(this.state.link)
+         
+      //     window.location="http://localhost:3000/teacherDashboard";
          });   
     }
     handleCancel1=()=>{
@@ -138,7 +149,7 @@ class Testdatainsert extends Component
                     </div>
                     <div className="form-group mt-3">
                     <a className="btn btn-danger btn-icon-split mr-2" role="button" onClick={()=>this.add()}><span className="text-white-50 icon"><i className="fa fa-plus"></i></span><span className="text-white text">Add</span></a>
-                    <a className="btn btn-info btn-icon-split" role="button" onClick={()=>this.submit()}><span className="text-white-50 icon"><i className="fa fa-upload"></i></span><span className="text-white text">Submit</span></a>
+                    <a className="btn btn-info btn-icon-split" data-toggle="modal" data-target="#submitModal" role="button" onClick={()=>this.submit()}><span className="text-white-50 icon"><i className="fa fa-upload"></i></span><span className="text-white text">Submit</span></a>
                     </div>
                 </div>
             </div>
@@ -205,6 +216,31 @@ class Testdatainsert extends Component
     </div>
   </div>
 </div>
+<div class="modal fade " id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header bg-info">
+                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">Test uploaded Successfully!!</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <p className="text text-gray-800">Copy the link..</p>
+                            <input type="text" class="form-control" id="testlink"ref={(textarea) => this.textArea = textarea} vlaue={this.state.link} required/>
+                            <button className="btn btn-primary btn-sm"onClick={() => this.copyCodeToClipboard()}>Copy</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-primary" type="button" onClick={()=>{ window.location="http://localhost:3000/teacherDashboard"}}>OK</button>
+                          {/* <a class="btn btn-primary" href="login.html">OK</a> */}
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
 
 </div>
     )
