@@ -29,7 +29,8 @@ class tDashboard extends Component
         msg:'',
         testid:0,
         name:u,
-        testName:""
+        testName:"",
+        link:""
       }
       
     }

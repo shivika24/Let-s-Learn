@@ -65,8 +65,8 @@ class Testlogin extends Component{
       <div className="row">
       <div className="col-12">
       <center>
-      <Link to="/testloginsign"><button id="button2" style={{marginLeft:"3%"}}>Login</button></Link>
-      <Link to="/testloginregister"><button id="button2" style={{marginLeft:"2%"}}>SignUp</button></Link></center>
+      <Link to={`/testloginsign?name=${this.state.testname}&id=${this.state.teacherid}&code=${this.state.testid}`} ><button id="button2"   style={{marginLeft:"3%"}}>Login</button></Link>
+      <Link to={`/testloginsign?name=${this.state.testname}&id=${this.state.teacherid}&code=${this.state.testid}`}><button id="button2"  style={{marginLeft:"2%"}}>SignUp</button></Link></center>
       </div>
       </div><br/>
       </div> 

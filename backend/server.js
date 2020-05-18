@@ -29,6 +29,7 @@ app.get('/', function(req, res) {
 app.post('/register',login.register);
 app.post('/tregister',login.tregister);
 app.post('/handleFile',handleFileRouter.handleFile);
+//app.post('/savelink',handleFileRouter.saveLink);
 app.post('/testid',handleFileRouter.checkTestId);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);

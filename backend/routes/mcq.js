@@ -3,7 +3,8 @@ var con= require('./../dbconnection');
 //var result=[]
 module.exports.mcq= async function(req,res)
 {
-    con.query("SELECT * FROM mcq",function(err,result,fields){
+    console.log("++"+req.query.testid+"+++")
+    con.query("SELECT * FROM mcq WHERE testid= ?",req.query.testid,function(err,result,fields){
         if(err)
         console.log(err);
         console.log(JSON.stringify(result));

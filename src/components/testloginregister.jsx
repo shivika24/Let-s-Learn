@@ -18,13 +18,15 @@ class Testloginregister extends Component
         }
         this.onChange = this.onChange.bind(this);
         this.onfunc = this.onfunc.bind(this);
-        this.f1=this.f1.bind(this);
+      //  this.f1=this.f1.bind(this);
     }
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
       }
     onfunc(e) {
     e.preventDefault();
+    var url = new URL(window.location.href); 
+        var params = new URLSearchParams(url.search);
       const email=document.getElementById("semail").value;
       const year=document.getElementById("syear").value;
         const newUser = {
@@ -50,7 +52,7 @@ class Testloginregister extends Component
         if(res.resType === 0)
         {
           alert("Student Already Exists");
-          window.location='http://localhost:3000/testloginsign';
+          window.location=`http://localhost:3000/testloginsign?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
         }
         else if(res.resType === 101)
         {
@@ -59,7 +61,7 @@ class Testloginregister extends Component
         else
         {
         alert(`NEW STUDENT REGISTERED SUCCESFULLY!!`);
-        window.location="http://localhost:3000/testloginsign";
+        window.location=`http://localhost:3000/testloginsign?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
         }
         console.log("done");
       });     
@@ -93,6 +95,8 @@ class Testloginregister extends Component
     //   }
     render()
     {
+      var url = new URL(window.location.href); 
+        var params = new URLSearchParams(url.search);
         return (
             <div>
             <div className="row" style={{margin:0,padding:0}}>
@@ -132,7 +136,7 @@ class Testloginregister extends Component
             <br/><br/>
             <center><button type="submit" className="btn" style={{backgroundColor:"#1aa1d0",width:"200px",color:"white"}}>Submit</button></center>
         </form>
-        <center style={{marginTop: "20px",marginBottom:"10%"}}><Link to="/testloginsign" style={{textDecoration:"none",color:"black"}}>Already Registered Yet...?click here to login.</Link></center>
+        <center style={{marginTop: "20px",marginBottom:"10%"}}><Link to={`/testloginsign?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`} style={{textDecoration:"none",color:"black"}}>Already Registered Yet...?click here to login.</Link></center>
            </div>
            </div>
             <br/>
