@@ -74,15 +74,14 @@ class Testdatainsert extends Component
             body:JSON.stringify(this.state.arr)
          })
          .then(res => {
-            if(res.ok){
-                return res.json();
-            }
-         })
-         .then(res => {
         //    alert(JSON.stringify(res));
         // alert("http://localhost:3000/testlogin/?name="+this.state.testid+"&id="+JSON.parse(localStorage.getItem("jwt")).user.id+"&code="+this.state.testName);
          this.setState({link:res.ln},()=>{console.log(this.state.link);
             document.getElementById("testlink").value=this.state.link;})
+            if(res.pass===2)
+            {
+              window.location="http://localhost:3000/testhistory";
+            }
        //  console.log(this.state.link)
          
       //     window.location="http://localhost:3000/teacherDashboard";
