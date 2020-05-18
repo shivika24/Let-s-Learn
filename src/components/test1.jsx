@@ -30,6 +30,9 @@ class Test1 extends Component{
           this.tname=params.get('name');
           this.teaid=params.get('id');
           this.tid=params.get('code');
+          console.log(this.tname)
+          console.log(this.teaid)
+          console.log(this.tid)
           this.setState({testname: this.tname });
           this.setState({teacherid:this.teaid});
           this.setState({testid:this.tid});
@@ -44,8 +47,16 @@ class Test1 extends Component{
       submitfunc=()=>{
         // this.setState({ testname: this.tname ,teacherid:this.teaid ,testid:this.tid});
         var testcode=document.getElementById("tcode").value;
-        if(this.state.testid!==testcode)
+        var url = new URL(window.location.href); 
+        var params = new URLSearchParams(url.search);
+        var x=params.get('name');
+        var y=params.get('id');
+        var z=params.get('code');
+        if(this.state.testid!==testcode){
+        alert("Please enter valid test key!!")
+        window.location=`/test1?name=`+x+`&id=`+y+`&code=`+z;
         this.setState({msg:"Please enter valid test key!!"});
+        }
         else this.props.setfalse(false);
         console.log(this.state);
       }
@@ -67,10 +78,10 @@ class Test1 extends Component{
           <br/><br/>
           <p className="text text-danger">{this.state.msg}</p>
           <div className="form-group">
-    <input type="text" className="form-control" id="tcode" name="testcode" onChange={this.onChange} placeholder="Test-code"/>
+    <input type="text" className="form-control" id="tcode" name="testcode" onChange={this.onChange} placeholder="Test-code" required/>
   </div>
   <div className="form-group">
-    <input type="text" className="form-control" id="rollno" name="studentroll" onChange={this.onChange} placeholder="Roll no"/>
+    <input type="text" className="form-control" id="rollno" name="studentroll" onChange={this.onChange} placeholder="Roll no" required/>
   </div>
           </div>                      
         </div><br/>

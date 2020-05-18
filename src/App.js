@@ -224,6 +224,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
          {/* {this.allroutes()} */}
         
        {/* <Route path="/testloginsign" render={()=><Testloginsign/>} />  */}
+       <Route path="/testlogin" render={()=><Testlogin/>} /> 
         <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
            {/* <Route path="/test1" render={()=><Test1/>} />  */}
            <Route path="/testloginregister" render={()=><Testloginregister/>} /> 
