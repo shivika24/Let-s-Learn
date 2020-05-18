@@ -7,7 +7,8 @@ class Testdatainsert extends Component
             arr:[],
             testid:'',
             testname:'',
-            flag:false
+            flag:false,
+            teachid:''
         }
     }
     componentDidMount(){
@@ -61,6 +62,7 @@ class Testdatainsert extends Component
         //console.log(e);
         var tn=document.getElementById("testname").value;
          this.setState({testid:e,testName:tn},()=>{
+
          var obj={testid:this.state.testid,testname:this.state.testName};
          console.log(this.state.testid+" "+this.state.testName);
          fetch("http://localhost:8082/testid",{
@@ -100,6 +102,8 @@ class Testdatainsert extends Component
             <div className="card-header py-3">
                 <p className="text-primary m-0 font-weight-bold">Test ID : {this.state.testid} </p>
                 <p className="text-primary m-0 font-weight-bold">Test Name : {this.state.testName}</p>
+                <p className="text-primary m-0 font-weight-bold">Teacher ID : {this.state.teachid}</p>
+
             </div>
             <div className="card-body">
                 <h3>Upload question</h3>

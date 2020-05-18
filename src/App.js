@@ -179,24 +179,26 @@ if(JSON.parse(localStorage.getItem("jwt")))
   setTofalse()
   {
     this.setState({flag:false})
+    console.log("as");
+    console.log(this.state.flag);
   }
-  allroutes=()=>{
-    if(this.state.typelogin=='teacher'){
-      return(
-        <div>
-        <Route path="/testdataentry" render={()=><Testdatainsert/>} />
-        <Route path="/profile" render={() => ( <Profile/>)} /> 
-        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
-        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
-      </div>
-      )
-    }
-  }
+  // allroutes=()=>{
+  //   if(this.state.typelogin=='teacher'){
+  //     return(
+  //       <div>
+  //       <Route path="/testdataentry" render={()=><Testdatainsert/>} />
+  //       <Route path="/profile" render={() => ( <Profile/>)} /> 
+  //       <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
+  //       <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
+  //      </div>
+  //     )
+  //   }
+  // }
   render(){
   return (
     this.state.flag === true?
     <div className="App">
-       <Router>
+    <Router>
     <div>
     <Navbar test={this.setTofalse}/>
       <Switch>
@@ -218,28 +220,26 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
+         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} />zZZ
+         {/* {this.allroutes()} */}
         
-         {this.allroutes()}
-        
-       <Route path="/testloginsign" render={()=><Testloginsign/>} /> 
-           <Route path="/test1" render={()=><Test1/>} /> 
+       {/* <Route path="/testloginsign" render={()=><Testloginsign/>} />  */}
+        <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
+           {/* <Route path="/test1" render={()=><Test1/>} />  */}
            <Route path="/testloginregister" render={()=><Testloginregister/>} /> 
-
-        
+        <Route path="/testlogin" render={()=><Testlogin/>} /> 
         <Route path="/studentDashboard"  render={() => (<Dashboard/>)}/>
-        
+        <Route path="/testdataentry" render={()=><Testdatainsert/>} />
+        <Route path="/profile" render={() => ( <Profile/>)} /> 
+        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
+        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
         <Route path="/sprofile" render={() => ( <Sprofile/>)} />
         <Route path="/calender" render={() => ( <Calender/>)} /> 
-        <Route path="/testlogin" render={()=><Testlogin/>} />
-        <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
-        <Route path="/testloginregister" render={()=><Testloginregister />} /> 
-        <Route path="/testlogin" render={()=><Testlogin/>} /> 
-        <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
       </Switch>
     </div>
     <Footer/>
-  </Router>
+    </Router>
     </div>:
     <div id="wrapper">
     <Router>
@@ -252,7 +252,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
          <Route exact path = "/test" render={()=><TestDashboard test={this.settest} selectMCQ={this.selectMcq} ></TestDashboard>}/> 
          <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
          </Switch>
-      </div>
+         </div>
       </div>
       </div>
       </Router> 
