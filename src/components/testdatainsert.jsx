@@ -23,9 +23,7 @@ class Testdatainsert extends Component
           {
               console.log(resp.cols)
               console.log(resp.rows)
-              this.setState(prevState => ({
-                arr: [...prevState.arr, [resp.rows.Ques,resp.rows.choice1,resp.rows.choice2,resp.rows.choice3,resp.rows.choice4,resp.rows.Ans] ]
-              }))
+              this.setState({arr:resp.rows})
               this.submit();
           }
       })
@@ -274,7 +272,7 @@ class Testdatainsert extends Component
                           <div class="input-group mb-3">
                             <div class="custom-file">
                               <p id="fileName"></p>
-                              <input type="file" accept=".csv,.xls,.xlsx/*"  name="file" id="input" size="150" required />
+                              <input type="file" accept=".xls,.xlsx/*"  name="file" id="input" size="150" required />
                             </div>
                           </div>
                         </div>

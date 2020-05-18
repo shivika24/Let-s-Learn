@@ -6,7 +6,6 @@ const router=require('express').Router();
     var testName="";
     var teachId="";
     module.exports.checkTestId=async function(req,res,next){
-        console.log(req.body);
         con.query("SELECT COUNT(*) AS cnt from test WHERE testid = ?",req.body.testid,function(err,data){
             
             if(err)
