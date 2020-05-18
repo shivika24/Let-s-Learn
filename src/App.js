@@ -27,6 +27,7 @@ import Testlogin from './components/testlogin';
 import Testloginsign from './components/testloginsign';
 import Testloginregister from './components/testloginregister';
 import Test1 from './components/test1';
+import Sample from './components/sample';
 import {
   BrowserRouter as Router,
   Switch,
@@ -214,6 +215,9 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Pricing">
           <Services/>
         </Route>
+        <Route path="/sample">
+        <Sample/>
+      </Route>
          
 
         <Route path="/Registers" render={() => ( <Registers/>)} />  

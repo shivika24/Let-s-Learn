@@ -2,6 +2,7 @@ var bcrypt = require ('bcrypt');
 const saltRounds=10;
 var con= require('./../dbconnection');
 const config=require('config');
+const readXlsxFile = require('read-excel-file/node');
 const jwt=require('jsonwebtoken');
 module.exports.register = async function(req,res){
     const password = req.body.spassword;
@@ -481,3 +482,5 @@ module.exports.register = async function(req,res){
                       return res.status(400).json({pass:2});
                     }            
                   }
+
+                  

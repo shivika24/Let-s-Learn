@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {ExcelRenderer, OutTable} from 'react-excel-renderer';
 //import {CopyToClipboard} from 'react-copy-to-clipboard';
 class Testdatainsert extends Component
 {
@@ -13,6 +14,23 @@ class Testdatainsert extends Component
             link:""
         }
     }
+    f1=()=>{
+      const input = document.getElementById('input').files[0];
+      ExcelRenderer(input,(err,resp)=>{
+          if(err)
+          console.log(err)
+          else
+          {
+              console.log(resp.cols)
+              console.log(resp.rows)
+              this.setState(prevState => ({
+                arr: [...prevState.arr, [resp.rows.Ques,resp.rows.choice1,resp.rows.choice2,resp.rows.choice3,resp.rows.choice4,resp.rows.Ans] ]
+              }))
+              this.submit();
+          }
+      })
+
+      }
     copyCodeToClipboard = () => {
         const el = this.textArea
         el.select()
@@ -120,7 +138,7 @@ class Testdatainsert extends Component
                 <p className="text-primary m-0 font-weight-bold">Test ID : {this.state.testid} </p>
                 <p className="text-primary m-0 font-weight-bold">Test Name : {this.state.testName}</p>
                 <p className="text-primary m-0 font-weight-bold">Teacher ID : {this.state.teachid}</p>
-
+                <button data-toggle="modal" data-target="#testModal" rel="nofollow">UPLOAD EXCEL SHEET</button>
             </div>
             <div className="card-body">
                 <h3>Upload question</h3>
@@ -216,7 +234,7 @@ class Testdatainsert extends Component
     </div>
   </div>
 </div>
-<div class="modal fade " id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade " id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header bg-info">
@@ -240,9 +258,36 @@ class Testdatainsert extends Component
                         </div>
                       </div>
                     </div>
+                    </div>
+
+
+                    <div class="modal fade " id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header bg-info">
+                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">UPLOAD EXCEL SHEET</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <p id="fileName"></p>
+                              <input type="file" accept=".csv,.xls,.xlsx/*"  name="file" id="input" size="150" required />
+                            </div>
+                          </div>
+                        </div>
+                        
+                          <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal"onClick={this.handleCancel2}>Cancel</button>
+                          <button class="btn btn-primary" onClick={()=>{this.f1()}}>UPLOAD</button>
+                       </div>                        
+                      </div>
+                    </div>
+                  </div> 
                   </div> 
 
-</div>
     )
     }
 }

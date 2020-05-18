@@ -8,6 +8,8 @@ var cors = require('cors');
 var app = express();
 var nodemailer = require("nodemailer");
 require('./dbconnection');
+
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -60,6 +62,7 @@ app.get('/getnotice1',login.getnotice1)
 app.post('/checkpass1',login.checkpassword1)
 app.post('/changepass1',login.changepassword1)
 app.use('/api', router);
+
 
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  
