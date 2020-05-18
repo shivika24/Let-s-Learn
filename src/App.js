@@ -27,6 +27,9 @@ import Testlogin from './components/testlogin';
 import Testloginsign from './components/testloginsign';
 import Testloginregister from './components/testloginregister';
 import Test1 from './components/test1';
+
+import StudentAnalysis from './components/studentAnalysis';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -237,6 +240,8 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/sprofile" render={() => ( <Sprofile/>)} />
         <Route path="/calender" render={() => ( <Calender/>)} /> 
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
+        <Route path="/studentAnalysis" render={() => ( <StudentAnalysis/>)} /> 
+        
       </Switch>
     </div>
     <Footer/>

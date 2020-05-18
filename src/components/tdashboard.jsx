@@ -797,7 +797,7 @@ class tDashboard extends Component
                 </center>
                 </div>
               </div>
-<div class="card shadow mb-4" style={{height: "303px"}}>
+<div class="card shadow mb-4" style={{height: "403px"}}>
     <div class="card-header py-3">
         <h6 class="text-primary font-weight-bold m-0">
           Todo List
