@@ -26,10 +26,25 @@ const router=require('express').Router();
     }
     module.exports.handleFile = async function(req,res,next){
         var temp=req.body;
-      //  console.log(testId)
+       console.log(testId)
       //  console.log(temp);
       var link="";
+        console.log(temp);
         temp.map((t,index)=>{
+         
+            var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + (parseInt(index)+1) + "','" + testId + "','" + t[0] + "','" + t[1] + "','" + t[2] + "','" +t[3] +"','" +t[4] +"','"+t[5] +"')";
+            con.query(sql,function(err,result)
+            {
+            if(err)
+               {
+                console.log("**"+err+"**");
+               }
+            else{
+                    console.log(result);
+                }
+            }
+            )
+        })
             
     //         var obj="";
     //    var q=t.ques.split("?");
@@ -45,12 +60,13 @@ const router=require('express').Router();
     //           })
       
         var d=new Date().toISOString().slice(0, 19).replace('T',' ');
+        
                  con.query("SELECT tid FROM teacher WHERE temail=?",req.query.temail,function(err,data){
                     if(err)
                     console.log(err);
                     else{
-                teachId=data[0].tid;
-                link='http://localhost:3000/testloginsign?name='+testName+'&id='+teachId+'&code='+testId;
+                        teachId=data[0].tid;
+                        link='http://localhost:3000/testloginsign?name='+testName+'&id='+teachId+'&code='+testId;
                 var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`,`testName`,`Date`,`url`) VALUES('"+ req.query.temail+"','"+data[0].tid +"','"+ testId+"','"+ testName +"','"+ d+"','"+link+"') ";
                 con.query(sql,function(err,result){
                     if(err)
@@ -60,15 +76,6 @@ const router=require('express').Router();
             }
             })
             
-            var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + (parseInt(index)+1) + "','" + testId + "','" + t[0] + "','" + t[1] + "','" + t[2] + "','" +t[3] +"','" +t[4] +"','"+t[5] +"')";
-            con.query(sql,function(err,result)
-            {if(err)
-                console.log("**"+err+"**")
-            })
-      })
-
-
-
         res.json('Uploaded');
     }
      // module.exports=router;
