@@ -29,6 +29,12 @@ class Testdatainsert extends Component
                 arr: [...prevState.arr, [q,a,b,c,d,r] ]
               }))
             alert("added");
+            document.getElementById('ques').value="";
+            document.getElementById('op1').value="";
+            document.getElementById('op2').value="";
+            document.getElementById('op3').value="";
+            document.getElementById('op4').value="";
+            document.getElementById('op5').value="";
         }
         else{
             alert("fill all data");
