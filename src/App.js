@@ -22,15 +22,16 @@ import Testhistory from './components/testhistory';
 import ViewTeachTest from './components/viewTeachtest';
 
 
-import Testlogin from './components/testlogin'
-import Testloginsign from './components/testloginsign'
-import Testloginregister from './components/testloginregister'
-import Test1 from './components/test1'
-
+import Testdatainsert from './components/testdatainsert';
+import Testlogin from './components/testlogin';
+import Testloginsign from './components/testloginsign';
+import Testloginregister from './components/testloginregister';
+import Test1 from './components/test1';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect 
 } from "react-router-dom";
 
 import './App.css';
@@ -42,6 +43,7 @@ class App extends Component {
       flag:true,
       history:[],
       viewTestArr:[],
+      typelogin:'',
       test:[
         // {
         //     ques:"Which of the following can be operands of arithmetic operators?",
@@ -65,6 +67,10 @@ class App extends Component {
   }
   componentDidMount(){
    // var temp:[]
+    if(localStorage.getItem('jwt')!=null)
+    {
+      this.setState({typelogin:JSON.parse(localStorage.getItem('jwt')).user.type})
+    }
     fetch(` http://localhost:8082/mcq`, {
       method: "GET",
       headers:{  "Content-Type":"application/json" },
@@ -136,6 +142,18 @@ if(JSON.parse(localStorage.getItem("jwt")))
   {
     this.setState({flag:false})
   }
+  allroutes=()=>{
+    if(this.state.typelogin=='teacher'){
+      return(
+        <div>
+        <Route path="/testdataentry" render={()=><Testdatainsert/>} />
+        <Route path="/profile" render={() => ( <Profile/>)} /> 
+        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
+        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
+      </div>
+      )
+    }
+  }
   render(){
   return (
     this.state.flag === true?
@@ -156,21 +174,26 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Pricing">
           <Services/>
         </Route>
-        <Route path="/studentDashboard"  render={() => (<Dashboard/>)}/>
-        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
+         
+
         <Route path="/Registers" render={() => ( <Registers/>)} />  
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
-        <Route path="/profile" render={() => ( <Profile/>)} /> 
-        <Route path="/sprofile" render={() => ( <Sprofile/>)} /> 
+        
+         {this.allroutes()}
+        
+       <Route path="/testloginsign" render={()=><Testloginsign/>} /> 
+           <Route path="/test1" render={()=><Test1/>} /> 
+           <Route path="/testloginregister" render={()=><Testloginregister/>} /> 
+
+        
+        <Route path="/studentDashboard"  render={() => (<Dashboard/>)}/>
+        
+        <Route path="/sprofile" render={() => ( <Sprofile/>)} />
         <Route path="/calender" render={() => ( <Calender/>)} /> 
         <Route path="/testlogin" render={()=><Testlogin/>} />
-        <Route path="/testloginsign" render={()=><Testloginsign/>} /> 
-        <Route path="/test1" render={()=><Test1/>} /> 
-        <Route path="/testloginregister" render={()=><Testloginregister/>} /> 
         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} /> 
-        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
       </Switch>
     </div>
     <Footer/>
@@ -181,14 +204,12 @@ if(JSON.parse(localStorage.getItem("jwt")))
     <Sidebar len={this.state.test.length} selectMCQ={this.clickedMcq}></Sidebar>
     <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
-       <TestNavbar  ></TestNavbar>
+       <TestNavbar></TestNavbar>
        <div class="container-fluid">
-       
          <Switch>
          <Route exact path = "/test" render={()=><TestDashboard test={this.state.test} selectMCQ={this.selectMcq}></TestDashboard>}/> 
          <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
          </Switch>
-      
       </div>
       </div>
       </div>

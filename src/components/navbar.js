@@ -6,6 +6,10 @@ import {
     Link
   } from "react-router-dom";
 class Navbar extends Component{
+    logoutfun=()=>{
+       localStorage.removeItem('jwt');
+       window.location="http://localhost:3000/";
+    }
     render(){
         return(
     <div className="Navbar">
@@ -19,7 +23,7 @@ class Navbar extends Component{
             <div className="collapse navbar-collapse"
                 id="navcol-1">
                 <ul className="nav navbar-nav mr-auto">
-                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/" style={{color: "white"}}>Home</Link></li>
+                    <li className="nav-item" role="presentation"><Link className="nav-link"  to="/" style={{color: "white"}}>Home</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="about" style={{color: "white"}}>About Us</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Pricing">Pricing &amp; Plans</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Contact" style={{color: "white"}}>Contact Us</Link></li>
@@ -29,7 +33,7 @@ class Navbar extends Component{
                 localStorage.getItem('jwt')
                 ?
                 <div>
-                    <Link className="btn btn-light action-button" to="/" style={{backgroundColor: "white",color: "#58a5ff"}} onClick={()=>localStorage.removeItem('jwt')}>Log Out</Link>
+                    <Link className="btn btn-light action-button" to="/" style={{backgroundColor: "white",color: "#58a5ff"}} onClick={()=>{this.logoutfun()}}>Log Out</Link>
                 </div>
                 :
                 <div>

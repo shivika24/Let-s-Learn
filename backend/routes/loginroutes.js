@@ -41,7 +41,7 @@ module.exports.register = async function(req,res){
                     {expiresIn:3600},
                     (err,token)=>{
                         if(err) throw err;
-                        res.json({token,user:{id:users.semail,name:users.sname}})
+                        res.json({token,user:{id:users.semail,name:users.sname,type:"student"}})
                     }
                   )
                   res.send({
@@ -98,7 +98,7 @@ module.exports.register = async function(req,res){
                     {expiresIn:3600},
                     (err,token)=>{
                         if(err) throw err;
-                        res.json({token,user:{id:users.temail,name:users.tname}})
+                        res.json({token,user:{id:users.temail,name:users.tname,type:"teacher"}})
                     }
                   )
                   res.send({
@@ -143,7 +143,7 @@ module.exports.register = async function(req,res){
                 "code":200,
                 "success":"login sucessfull",
                 token,
-                user:{id:results[0].semail,name:results[0].sname}
+                user:{id:results[0].semail,name:results[0].sname,type:"student"}
               })
           }
           else{
@@ -185,7 +185,7 @@ module.exports.register = async function(req,res){
                   "code":200,
                   "success":"login sucessfull",
                   token,
-                  user:{id:results[0].temail,name:results[0].tname}
+                  user:{id:results[0].temail,name:results[0].tname,type:"teacher"}
                 })
             }
             else{

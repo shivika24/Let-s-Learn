@@ -12,7 +12,7 @@ const router=require('express').Router();
             else
             {
                 if(data[0].cnt > 0)  
-                return res.status(400).json({resType:0});
+                return res.json({resType:0});
                 else
                 {
                     testId=req.body.testid;
@@ -27,19 +27,24 @@ const router=require('express').Router();
       //  console.log(testId)
       //  console.log(temp);
       
-        temp.map((t)=>{
-            var obj="";
-       var q=t.ques.split("?");
-       console.log(q);
-        for(var l=0;l<q.length-1;l++)
-          obj=obj+q[l]+" ";
-           obj=obj+q[q.length-1]+"?";
-              var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + t.qno + "','" + testId + "','" + obj + "','" + t.choices[0] + "','" + t.choices[1] + "','" +t.choices[2] +"','" +t.choices[3] +"','"+t.ans +"')";
-              con.query(sql,function(err,result){
-                  if(err)
-                  console.log("**"+err+"**")
-                 // else res.json('');
+        temp.map((t,index)=>{
+    //         var obj="";
+    //    var q=t.ques.split("?");
+    //    console.log(q);
+    //     for(var l=0;l<q.length-1;l++)
+    //       obj=obj+q[l]+" ";
+    //        obj=obj+q[q.length-1]+"?";
+    //           var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + t.qno + "','" + testId + "','" + obj + "','" + t.choices[0] + "','" + t.choices[1] + "','" +t.choices[2] +"','" +t.choices[3] +"','"+t.ans +"')";
+    //           con.query(sql,function(err,result){
+    //               if(err)
+    //               console.log("**"+err+"**")
+    //              // else res.json('');
                  
+    //           })
+    var sql = "INSERT INTO `mcq`(`sno`,`testid`,`question`,`option1`, `option2`, `option3`,`option4`,`answer`) VALUES ('" + (parseInt(index)+1) + "','" + testId + "','" + t[0] + "','" + t[1] + "','" + t[2] + "','" +t[3] +"','" +t[4] +"','"+t[5] +"')";
+              con.query(sql,function(err,result)
+              {if(err)
+                  console.log("**"+err+"**")
               })
         })
         var d=new Date().toISOString().slice(0, 19).replace('T',' ');
