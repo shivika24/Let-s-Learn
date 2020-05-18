@@ -66,7 +66,7 @@ const router=require('express').Router();
                     console.log(err);
                     else{
                         teachId=data[0].tid;
-                        link='http://localhost:3000/testloginsign?name='+testName+'&id='+teachId+'&code='+testId;
+                        link='http://localhost:3000/testlogin?name='+testName+'&id='+teachId+'&code='+testId;
                 var sql = "INSERT INTO `test`(`temail`,`tid`,`testid`,`testName`,`Date`,`url`) VALUES('"+ req.query.temail+"','"+data[0].tid +"','"+ testId+"','"+ testName +"','"+ d+"','"+link+"') ";
                 con.query(sql,function(err,result){
                     if(err)
