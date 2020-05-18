@@ -58,7 +58,6 @@ const router=require('express').Router();
     //               console.log("**"+err+"**")
     //              // else res.json('');
     //           })
-      
         var d=new Date().toISOString().slice(0, 19).replace('T',' ');
         
                  con.query("SELECT tid FROM teacher WHERE temail=?",req.query.temail,function(err,data){

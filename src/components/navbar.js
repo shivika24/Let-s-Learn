@@ -6,8 +6,26 @@ import {
     Link
   } from "react-router-dom";
 class Navbar extends Component{
+    state={
+        homepath:'/'
+    }
+    componentDidMount(){
+        if(localStorage.getItem("jwt"))
+        {
+            if(JSON.parse(localStorage.getItem("jwt")).user.type=='teacher')
+            {
+                this.setState({homepath:'teacherDashboard'});
+            }
+            if(JSON.parse(localStorage.getItem("jwt")).user.type=='student')
+            {
+                this.setState({homepath:'studentDashboard'});
+            }
+        }
+        
+    }
     logoutfun=()=>{
        localStorage.removeItem('jwt');
+       this.setState({homepath:'/'});
        window.location="http://localhost:3000/";
     }
     render(){
@@ -16,14 +34,14 @@ class Navbar extends Component{
              {/* <!-- Start: Navigation with Button --> */}
     <nav className="navbar navbar-light navbar-expand-md navigation-clean-button" style={{backgroundImage: "linear-gradient(90deg, #008CBA 17%, rgb(63, 98, 114) 100%)"}}>
         <div className="container">
-            <Link className="navbar-brand" to="/">Company Name</Link>
+            <Link className="navbar-brand" to={this.state.homepath}>Company Name</Link>
         <button data-toggle="collapse" className="navbar-toggler" data-target="#navcol-1">
             <span className="sr-only">Toggle navigation</span><span className="navbar-toggler-icon"></span>
         </button>
             <div className="collapse navbar-collapse"
                 id="navcol-1">
                 <ul className="nav navbar-nav mr-auto">
-                    <li className="nav-item" role="presentation"><Link className="nav-link"  to="/" style={{color: "white"}}>Home</Link></li>
+                    <li className="nav-item" role="presentation"><Link className="nav-link"  to={this.state.homepath} style={{color: "white"}}>Home</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="about" style={{color: "white"}}>About Us</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Pricing">Pricing &amp; Plans</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Contact" style={{color: "white"}}>Contact Us</Link></li>

@@ -186,7 +186,7 @@ class tDashboard extends Component
         {/* <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button> */}
         <div class="row align-items-center no-gutters">
          <div class="col mr-2">
-        <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{number.date}</span></div>
+        <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{this.funcdate(number.date)}</span></div>
         <div class="col-auto">
           <a class="btn btn-danger btn-circle ml-1"  onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow" role="button">
             <i class="fas fa-trash text-white"></i>
@@ -209,7 +209,7 @@ class tDashboard extends Component
          <li class="list-group-item">
          <div class="row align-items-center no-gutters">
              <div class="col mr-2">
-                 <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">10:30 AM</span></div>
+                 <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{this.funcdate(number.date)}</span></div>
              <div class="col-auto">
              <a class="btn btn-danger btn-circle ml-1" role="button" onClick={()=>{this.deleten(number.sno)}}>
                <i class="fas fa-trash text-white"></i>
@@ -233,6 +233,7 @@ class tDashboard extends Component
         <img class="d-block w-100" style={{height:"300px"}} src="https://images.pexels.com/photos/220182/pexels-photo-220182.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="First slide"/>
         <div  class="ss">
         <h5 className="my-auto">{number.data}</h5>
+        <small>{this.funcdate(number.date)}</small>
         </div>
         </div>       
        );
@@ -442,6 +443,11 @@ class tDashboard extends Component
   //    });
       
   // }
+  funcdate=(str)=>{
+    str=str.split('T')
+   let time=str[1].split('.')
+   return(time[0]+" "+str[0]);
+}
 
     render()
     {

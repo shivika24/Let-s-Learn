@@ -5,6 +5,11 @@ class Testhistory extends Component
     componentDidMount(){
         console.log(this.location);
     }
+    funcdate=(str)=>{
+         str=str.split('T')
+        let time=str[1].split('.')
+        return(str[0]+" "+time[0]);
+    }
     render()
     {
         console.log(this.props.prevTest);
@@ -46,8 +51,8 @@ class Testhistory extends Component
                                          <td>{t.temail}</td>
                                         <td>{t.testid}</td>
                                         <td>{t.testName}</td>
-                                        <td>{t.Date}</td>
-                                        <td>{t.url}</td>
+                                        <td>{this.funcdate(t.Date)}</td>
+                                        <td><Link to={t.url}>Test Link</Link></td>
                                         <td><Link className="page-link" to="/viewteachtest"  aria-label="Next" onClick={()=>this.props.showT(t.testid)}><span aria-hidden="true">View More»</span></Link></td>
                                     </tr>
                                   })
