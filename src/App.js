@@ -74,26 +74,26 @@ class App extends Component {
     {
       this.setState({typelogin:JSON.parse(localStorage.getItem('jwt')).user.type})
     }
-    fetch(` http://localhost:8082/mcq`, {
-      method: "GET",
-      headers:{  "Content-Type":"application/json" },
-  })
-.then(res => {return res.json();})
-.then(res => {
-      console.log(res);
-      var temp=[]
-      res.map((r)=>{
-        var obj={ques:"",choices:[]}
-            obj.ques=r.question;
-            obj.choices.push(r.option1);
-            obj.choices.push(r.option2)
-            obj.choices.push(r.option3)
-            obj.choices.push(r.option4)
-            temp.push(obj);
-      })
-     this.setState({test:temp})
-     console.log(this.state.test)
-})
+//     fetch(` http://localhost:8082/mcq`, {
+//       method: "GET",
+//       headers:{  "Content-Type":"application/json" },
+//   })
+// .then(res => {return res.json();})
+// .then(res => {
+//       console.log(res);
+//       var temp=[]
+//       res.map((r)=>{
+//         var obj={ques:"",choices:[]}
+//             obj.ques=r.question;
+//             obj.choices.push(r.option1);
+//             obj.choices.push(r.option2)
+//             obj.choices.push(r.option3)
+//             obj.choices.push(r.option4)
+//             temp.push(obj);
+//       })
+//      this.setState({test:temp})
+//      console.log(this.state.test)
+// })
   
 if(JSON.parse(localStorage.getItem("jwt")))
 {
