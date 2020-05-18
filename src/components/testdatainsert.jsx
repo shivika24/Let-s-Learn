@@ -13,6 +13,7 @@ class Testdatainsert extends Component
             teachid:'',
             link:""
         }
+        this.submit=this.submit.bind(this);
     }
     f1=()=>{
       const input = document.getElementById('input').files[0];
@@ -73,15 +74,18 @@ class Testdatainsert extends Component
                },
             body:JSON.stringify(this.state.arr)
          })
+         .then(res=>res.json())
          .then(res => {
+           //  console.log(res.ln)
         //    alert(JSON.stringify(res));
         // alert("http://localhost:3000/testlogin/?name="+this.state.testid+"&id="+JSON.parse(localStorage.getItem("jwt")).user.id+"&code="+this.state.testName);
-         this.setState({link:res.ln},()=>{console.log(this.state.link);
+         // var ln=`http://localhost:3000/testlogin?name=${this.state.testName}&id=${this.state.teachid}&code=${this.state.testid}`
+      this.setState({link:res.ln},()=>{console.log(this.state.link);
             document.getElementById("testlink").value=this.state.link;})
-            if(res.pass===2)
-            {
-              window.location="http://localhost:3000/testhistory";
-            }
+            // if(res.pass===2)
+            // {
+            //   window.location="http://localhost:3000/testhistory";
+            // }
        //  console.log(this.state.link)
          
       //     window.location="http://localhost:3000/teacherDashboard";
@@ -231,7 +235,32 @@ class Testdatainsert extends Component
     </div>
   </div>
 </div>
-                <div class="modal fade " id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade " id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header bg-info">
+                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">UPLOAD EXCEL SHEET</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <p id="fileName"></p>
+                              <input type="file" accept=".xls,.xlsx/*"  name="file" id="input" size="150" required />
+                            </div>
+                          </div>
+                        </div>
+                        
+                          <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal"onClick={this.handleCancel2}>Cancel</button>
+                          <button class="btn btn-primary"data-toggle="modal" data-target="#submitModal" rel="nofollow" onClick={()=>{this.f1()}}>UPLOAD</button>
+                       </div>                        
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="modal fade " id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header bg-info">
@@ -256,33 +285,6 @@ class Testdatainsert extends Component
                       </div>
                     </div>
                     </div>
-
-
-                    <div class="modal fade " id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header bg-info">
-                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">UPLOAD EXCEL SHEET</h5>
-                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="input-group mb-3">
-                            <div class="custom-file">
-                              <p id="fileName"></p>
-                              <input type="file" accept=".xls,.xlsx/*"  name="file" id="input" size="150" required />
-                            </div>
-                          </div>
-                        </div>
-                        
-                          <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal"onClick={this.handleCancel2}>Cancel</button>
-                          <button class="btn btn-primary" onClick={()=>{this.f1()}}>UPLOAD</button>
-                       </div>                        
-                      </div>
-                    </div>
-                  </div> 
                   </div> 
 
     )
