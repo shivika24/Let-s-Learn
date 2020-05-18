@@ -29,6 +29,12 @@ class Testloginsign extends Component
             semail:this.state.semail,
             spassword:this.state.spassword,
         };
+        var url = new URL(window.location.href); 
+        var params = new URLSearchParams(url.search);
+        const t1={
+            email:this.state.semail,
+            testid:params.get('code'),
+        }
         console.log(newUser);
     fetch("http://localhost:8082/login", {
       method: "POST",
@@ -50,8 +56,26 @@ class Testloginsign extends Component
         }
         else
         {
-            localStorage.setItem("jwt", JSON.stringify(res));
+        //     fetch("http://localhost:8082/checkt", {
+        //      method: "POST",
+        //      headers: {
+        //     "Content-Type": "application/json"
+        //     },
+        //      body: JSON.stringify(t1)
+        //     })
+        //    .then(res=> res.json())
+        //    .then(res => {
+        //     if(res.pass===0)
+        //     {
+        //         alert("You have Already Given This Test From This Email Id");
+        //         window.location="http://localhost:3000/";
+        //     }
+        //     else
+        //     {
+                localStorage.setItem("jwt", JSON.stringify(res));
             window.location=`http://localhost:3000/test1?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
+         //   }
+     // })
         }
       });
       }

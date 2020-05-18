@@ -59,7 +59,7 @@ export default class TestNavbar extends Component
                         <div class="modal-body">Select "Yes" below if you are ready to end your test.</div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <a class="btn btn-primary" href="login.html">Yes</a>
+                          <Link class="btn btn-primary" to="/feedback">Yes</Link>
                         </div>
                       </div>
                     </div>
