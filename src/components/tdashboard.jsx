@@ -87,103 +87,11 @@ class tDashboard extends Component
         this.setState({hhistory:res.code})
       })
     }
-//     sendfile =()=>{
-   
-//         // let event=document.getElementById('file');
-//         // const fileInput = document.getElementById('file') ;
-//         const fileInput =document.querySelector('input[type="file"]');
-// // const reader = new FileReader()
-
-// // 	const csv = fileInput.files[0]
-// // 	reader.readAsText(csv)
-
-// // reader.onload = (e)=>{
-// //   console.log(e.target.result);
-
-// // }
-
-// var file = document.querySelector('#file').files[0];
-//   var reader = new FileReader();
-//   reader.readAsText(file);
-
-//   //if you need to read a csv file with a 'ISO-8859-1' encoding
-//   /*reader.readAsText(file,'ISO-8859-1');*/
-
-//   //When the file finish load
-//   let rowdata=[];
-//   reader.onload = function(event) {
-
-//     //get the file.
-//     var csv = event.target.result;
-//     var temp=[]
-//     //split and get the rows in an array
-//     let rows = csv.split('\n');
-//     //move line by line
-//     for (var i = 0; i < rows.length; i++) {
-//       //split by separator (,) and get the columns
-//      let cols = rows[i].split(',');
-//      rowdata.push([]);
-//       //move column by column
-//       for (var j = 0; j < cols.length; j++) {
-//         /*the value of the current column.
-//         Do whatever you want with the value*/
-//         var value = cols[j];
-//         rowdata[i].push(cols[j]);
-//       }
-//     }
-//     console.log(rowdata);
-//     console.log(rowdata.length);
-//     console.log(JSON.stringify(rowdata));
-//     // rowdata json array isko strigyfy kra kruse krlo
-//     for(var k=1;k<rowdata.length-1;k++)
-//     {
-//       var obj={qno:"",ques:"",choices:[],ans:""};
-//       obj.qno=rowdata[k][0];
-//      // obj.testid=this.state.testid;
-//       //  var q=rowdata[k][1].split('?');
-//       //  for(var l=0;l<q.length-1;l++)
-//       // obj.ques=obj.ques+q[l]+" ";
-//       //        obj.ques=obj.ques+q[q.length-1]+"?";
-//              obj.ques=rowdata[k][1];
-//              obj.choices.push(rowdata[k][2]);
-//              obj.choices.push(rowdata[k][3]);
-//              obj.choices.push(rowdata[k][4]);
-//              obj.choices.push(rowdata[k][5]);
-//              obj.ans=rowdata[k][6];
-//              temp.push(obj)
-//     }
-//     fetch(`http://localhost:8082/handleFile?temail=${JSON.parse(localStorage.getItem("jwt")).user.id}`,{
-//           method:"POST",
-//           headers:{
-//            Accept: "application/json",
-//              "Content-Type":"application/json",
-//              },
-//           body:JSON.stringify(temp)
-//        })
-//        .then(res => {
-//           if(res.ok){return res.json();}
-//        })
-//        .then(res => {
-//          alert(JSON.stringify(res));
-//          window.location="http://localhost:3000/teacherDashboard";
-//        });   
-//     }
-//   }
-  // handleCancel1=()=>{
-  //   document.getElementById("testId").value="";
-  //   document.getElementById("testname").value="";
-  //   this.setState({msg:""})
-  // }
-  // handleCancel2=()=>{
-  //   document.getElementById("file").value="";
-  //   this.setState({flag:false});
-  // }
     myfunc = () =>{
       if(this.state.data)
       {
         const doubled = this.state.data.map((number) => 
         <div>
-        {/* <button onClick={()=>{this.f1(number.sno)}} data-toggle="modal" data-target="#deleteModal" rel="nofollow">Delete</button> */}
         <div class="row align-items-center no-gutters">
          <div class="col mr-2">
         <h6 class="mb-0"><strong>{number.data}</strong></h6><span class="text-xs">{this.funcdate(number.date)}</span></div>
@@ -300,34 +208,7 @@ class tDashboard extends Component
         }
       }); 
     }
-        
-    
-  //  setFlag=e=>{
-  //   //console.log(e);
-  //    this.setState({testid:e,testName:document.getElementById("testname").value},()=>{
-  //    var obj={testid:this.state.testid,testname:this.state.testName};
-  //    console.log(this.state.testid+" "+this.state.testName);
-  //    fetch("http://localhost:8082/testid",{
-  //     method:"POST",
-  //     headers:{
-  //      Accept: "application/json",
-  //        "Content-Type":"application/json",
-  //        },
-  //     body:JSON.stringify(obj)
-  //  })
-  //  .then(res => res.json())
-  //     .then(res => {
-  //       if(res.resType === 1)
-  //   this.setState({flag:true})
-  //   else 
-  //   {
-  //     this.setState({msg:"Please enter another key.This key already exists!!!"})
-  //     document.getElementById("msg").innerHTML=this.state.msg;
-  //   }
-  //  });  
-  // })
-  //    //this.setState({flag:true})
-  //  }
+
     nnotice = e => {
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
@@ -416,33 +297,6 @@ class tDashboard extends Component
       }); 
     }
 
-    
-
-  //   handleFiles = files => {
-  //     var reader = new FileReader();
-  //     reader.onload = function(e) {
-  //         // Use reader.result
-  //         alert(reader.result)
-  //     }
-  //     reader.readAsText(files[0]);
-  //     this.state.testFile.push(reader.result);
-  //     fetch(" http://localhost:8082/handleFile",{
-  //       method:"POST",
-  //       headers:{
-  //        Accept: "application/json",
-  //          "Content-Type":"application/json",
-  //          },
-  //       body:JSON.stringify(this.state.testFile)
-  //    })
-  //    .then(res => {
-  //       if(res.ok){return res.json();}
-  //    })
-  //    .then(res => {
-  //      alert(JSON.stringify(res));
-  //      window.location="http://localhost:3000/teacherDashboard";
-  //    });
-      
-  // }
   funcdate=(str)=>{
     str=str.split('T')
    let time=str[1].split('.')
@@ -877,48 +731,6 @@ class tDashboard extends Component
       </div>
             </div>
             </div>
-            {/* <div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header bg-info">
-                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">UPLOAD TEST</h5>
-                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                          </button>
-                        </div>
-                        {this.state.flag==false?
-                        (<div class="modal-body">
-                          
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                              <p id="msg"className="text-danger">{this.state.msg}</p>
-                            <input type="text" class="form-control" id="testId" placeholder="Enter Test Id" required/>
-                            <input type="text" class="form-control" id="testname" placeholder="Enter Test Name" required/>
-                            </div>
-                          </div>
-                        </div>):
-                        (<div class="modal-body">
-                          <div class="input-group mb-3">
-                            <div class="custom-file">
-                              <p id="fileName"></p>
-                              <input type="file" accept=".csv,.xls,.xlsx/*"  name="file" id="file" size="150" required />
-                            </div>
-                          </div>
-                        </div>
-                        )}
-                        {this.state.flag==false?
-                        <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal" onClick={this.handleCancel1}>Cancel</button>
-                          <button class="btn btn-primary" onClick={()=>this.setFlag(document.getElementById("testId").value)}>Next</button>
-                        </div>:
-                          <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal"onClick={this.handleCancel2}>Cancel</button>
-                          <button class="btn btn-primary" onClick={this.sendfile}>UPLOAD</button>
-                       </div>
-                        }
-                      </div>
-                    </div>
-                  </div> */}
            
                   <div class="modal fade " id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">

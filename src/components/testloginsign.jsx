@@ -56,26 +56,24 @@ class Testloginsign extends Component
         }
         else
         {
-        //     fetch("http://localhost:8082/checkt", {
-        //      method: "POST",
-        //      headers: {
-        //     "Content-Type": "application/json"
-        //     },
-        //      body: JSON.stringify(t1)
-        //     })
-        //    .then(res=> res.json())
-        //    .then(res => {
-        //     if(res.pass===0)
-        //     {
-        //         alert("You have Already Given This Test From This Email Id");
-        //         window.location="http://localhost:3000/";
-        //     }
-        //     else
-        //     {
-                localStorage.setItem("jwt", JSON.stringify(res));
-            window.location=`http://localhost:3000/test1?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
-         //   }
-     // })
+            localStorage.setItem("jwt", JSON.stringify(res));
+            fetch("http://localhost:8082/checkt", {
+             method: "POST",
+             headers: {
+            "Content-Type": "application/json"
+            },
+             body: JSON.stringify(t1)
+            })
+           .then(res=> res.json())
+           .then(res => {
+            if(res.pass===0)
+            {
+                alert("You have Already Given This Test From This Email Id");
+                localStorage.removeItem("jwt");
+                window.location=`http://localhost:3000/testlogin?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
+            }           
+      })
+      window.location=`http://localhost:3000/test1?name=${params.get('name')}&id=${params.get('id')}&code=${params.get('code')}`;
         }
       });
       }

@@ -129,17 +129,17 @@ const router=require('express').Router();
              "testid":req.body.testid
            }
            console.log(users)
-           var sql = "SELECT COUNT(*) AS cnt FROM result WHERE email ='" + users.email + "' AND testid = '"+users.testid + "'" ;
+           var sql = "SELECT COUNT(*) AS cnt FROM result WHERE semail ='" + users.email + "' AND testid = '"+users.testid + "'" ;
            con.query(sql,function(err , data){
-               if(err)
-               console.log(err)
-               else
-               console.log(data[0].cnt)
-            // if (data[0].cnt>=1) {
-            //   console.log("already test");
-            //   return res.status(400).json({pass:0});
-            // } else {
-            //   return res.status(400).json({pass:1});
-            //   } 
+            //    if(err)
+            //    console.log(err)
+            //    else
+            //    console.log(data[0].cnt)
+            if (data[0].cnt>=1) {
+              console.log("already test");
+              return res.status(400).json({pass:0});
+            } else {
+              return res.status(400).json({pass:1});
+              } 
           });
       }
