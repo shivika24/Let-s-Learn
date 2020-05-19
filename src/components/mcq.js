@@ -10,6 +10,18 @@ export default class extends Component{
    }
    this.addSubmit=this.addSubmit.bind(this);
    this.sendToBack=this.sendToBack.bind(this);
+   this.settotrue=this.settotrue.bind(this);
+ }
+ componentDidMount()
+ {
+   for(var i=0;i<this.props.len;i++)
+   this.state.submitted.push(-1);
+   console.log(this.state.submitted)
+ }
+ settotrue()
+ {
+   console.log("settotrue");
+   this.props.setToTrue(true);
  }
  addSubmit(qno)
  {
@@ -99,7 +111,7 @@ export default class extends Component{
                         <div class="modal-body">Select "Yes" below if you are ready to end your test.</div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <Link class="btn btn-primary" to="/feedback">Yes</Link>
+                          <Link to="/feedback"class="btn btn-primary"  onClick={()=>this.settotrue(true)}>Yes</Link>
                         </div>
                       </div>
                     </div>

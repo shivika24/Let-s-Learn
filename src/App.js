@@ -67,6 +67,7 @@ class App extends Component {
     this.clickedMcq=this.clickedMcq.bind(this);
     this.sethistory=this.sethistory.bind(this);
     this.showTest=this.showTest.bind(this);
+    this.setTrue=this.setTrue.bind(this);
     // this.testCorresToId=this.testCorresToId.bind(this);
    this.settest=this.settest.bind(this);
   }
@@ -178,11 +179,17 @@ if(JSON.parse(localStorage.getItem("jwt")))
   {
     this.setState({selectedMcq:this.state.test[i],index:i})
   }
+  setTrue(t)
+  {
+    this.setState({flag:t},()=>{
+    console.log(this.state.flag)})
+  }
   setTofalse()
   {
-    this.setState({flag:false})
+    this.setState({flag:false},()=>{
     console.log("as");
     console.log(this.state.flag);
+  })
   }
   // allroutes=()=>{
   //   if(this.state.typelogin=='teacher'){
@@ -259,7 +266,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
        <div class="container-fluid">
          <Switch>
          <Route exact path = "/test" render={()=><TestDashboard test={this.settest} selectMCQ={this.selectMcq} ></TestDashboard>}/> 
-         <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
+         <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} setToTrue={this.setTrue} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
          </Switch>
          </div>
       </div>
