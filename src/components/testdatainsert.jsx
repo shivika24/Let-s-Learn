@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import {ExcelRenderer, OutTable} from 'react-excel-renderer';
+//import {CopyToClipboard} from 'react-copy-to-clipboard';
 class Testdatainsert extends Component
 {
     constructor(){
@@ -8,9 +10,32 @@ class Testdatainsert extends Component
             testid:'',
             testname:'',
             flag:false,
-            teachid:''
+            teachid:'',
+            link:""
         }
     }
+    f1=()=>{
+      const input = document.getElementById('input').files[0];
+      ExcelRenderer(input,(err,resp)=>{
+          if(err)
+          console.log(err)
+          else
+          {
+              console.log(resp.cols)
+              console.log(resp.rows)
+              this.setState(prevState => ({
+                arr:resp.rows
+              }))
+              this.submit();
+          }
+      })
+
+      }
+    copyCodeToClipboard = () => {
+        const el = this.textArea
+        el.select()
+        document.execCommand("copy")
+      }
     componentDidMount(){
         document.getElementById('onmodal').click();
     }
@@ -58,7 +83,11 @@ class Testdatainsert extends Component
          .then(res => {
         //    alert(JSON.stringify(res));
         // alert("http://localhost:3000/testlogin/?name="+this.state.testid+"&id="+JSON.parse(localStorage.getItem("jwt")).user.id+"&code="+this.state.testName);
-           window.location="http://localhost:3000/teacherDashboard";
+         this.setState({link:res.ln},()=>{console.log(this.state.link);
+            document.getElementById("testlink").value=this.state.link;})
+       //  console.log(this.state.link)
+         
+      //     window.location="http://localhost:3000/teacherDashboard";
          });   
     }
     handleCancel1=()=>{
@@ -86,6 +115,7 @@ class Testdatainsert extends Component
             this.setState({flag:true})
             if(tn && e)
             {
+             
                 document.getElementById('close').click();
             }
            }
@@ -109,7 +139,7 @@ class Testdatainsert extends Component
                 <p className="text-primary m-0 font-weight-bold">Test ID : {this.state.testid} </p>
                 <p className="text-primary m-0 font-weight-bold">Test Name : {this.state.testName}</p>
                 <p className="text-primary m-0 font-weight-bold">Teacher ID : {this.state.teachid}</p>
-
+                <button data-toggle="modal" data-target="#testModal" rel="nofollow">UPLOAD EXCEL SHEET</button>
             </div>
             <div className="card-body">
                 <h3>Upload question</h3>
@@ -138,7 +168,7 @@ class Testdatainsert extends Component
                     </div>
                     <div className="form-group mt-3">
                     <a className="btn btn-danger btn-icon-split mr-2" role="button" onClick={()=>this.add()}><span className="text-white-50 icon"><i className="fa fa-plus"></i></span><span className="text-white text">Add</span></a>
-                    <a className="btn btn-info btn-icon-split" role="button" onClick={()=>this.submit()}><span className="text-white-50 icon"><i className="fa fa-upload"></i></span><span className="text-white text">Submit</span></a>
+                    <a className="btn btn-info btn-icon-split" data-toggle="modal" data-target="#submitModal" role="button" onClick={()=>this.submit()}><span className="text-white-50 icon"><i className="fa fa-upload"></i></span><span className="text-white text">Submit</span></a>
                     </div>
                 </div>
             </div>
@@ -186,7 +216,7 @@ class Testdatainsert extends Component
 </button>
 
 <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog" role="document">
+  <div className="modal-dialog" role="document" id="modalchange" >
     <div className="modal-content">
       <div className="modal-header">
         <h5 className="modal-title" id="exampleModalLabel">Test Details</h5>
@@ -205,8 +235,59 @@ class Testdatainsert extends Component
     </div>
   </div>
 </div>
+                <div class="modal fade " id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header bg-info">
+                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">Test uploaded Successfully!!</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <p className="text text-gray-800">Copy the link..</p>
+                            <input type="text" class="form-control" id="testlink"ref={(textarea) => this.textArea = textarea} vlaue={this.state.link} required/>
+                            <button className="btn btn-primary btn-sm"onClick={() => this.copyCodeToClipboard()}>Copy</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-primary" type="button" onClick={()=>{ window.location="http://localhost:3000/teacherDashboard"}}>OK</button>
+                          {/* <a class="btn btn-primary" href="login.html">OK</a> */}
+                        </div>
+                      </div>
+                    </div>
+                    </div>
 
-</div>
+
+                    <div class="modal fade " id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header bg-info">
+                          <h5 class="modal-title text-gray-800" id="exampleModalLabel">UPLOAD EXCEL SHEET</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <p id="fileName"></p>
+                              <input type="file" accept=".xls,.xlsx/*"  name="file" id="input" size="150" required />
+                            </div>
+                          </div>
+                        </div>
+                          <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal"onClick={this.handleCancel2}>Cancel</button>
+                          <button class="btn btn-primary" onClick={()=>{this.f1()}}>UPLOAD</button>
+                       </div>                        
+                      </div>
+                    </div>
+                  </div> 
+                  </div> 
+
     )
     }
 }

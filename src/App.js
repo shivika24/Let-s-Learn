@@ -27,9 +27,8 @@ import Testlogin from './components/testlogin';
 import Testloginsign from './components/testloginsign';
 import Testloginregister from './components/testloginregister';
 import Test1 from './components/test1';
-
+import Sample from './components/sample';
 import StudentAnalysis from './components/studentAnalysis';
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -160,7 +159,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
     .then(res=> res.json())
       .then(res => {
        // console.log(JSON.stringify(res));
-        this.setState({viewTestArr:res,prevTot:res.length})
+        this.setState({viewTestArr:res})
       })
   }
   // settestid(tid)
@@ -217,6 +216,9 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Pricing">
           <Services/>
         </Route>
+        <Route path="/sample">
+        <Sample/>
+      </Route>
          
 
         <Route path="/Registers" render={() => ( <Registers/>)} />  

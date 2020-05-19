@@ -7,90 +7,127 @@ class Calender extends Component{
    constructor()
    {
     super();
-    this.eventDisplay=this.eventDisplay.bind(this);
-    this.addData=this.addData.bind(this);
 
     this.state = {
         date : new Date(),
-        eve :[
-            {
-                date:13,
-                month:5,
-                eventname:'Java Mock Test',
-                description:'good event'
-            },
-            {
-                date:30,
-                month:5,
-                eventname : 'Infosys Mock Test',
-                description : 'Good Event'
-            }
-        ],
-        eventname : 'none',
+        description:'',
+        eventname : '',
         p:0,
+        list:'',
+        alleventdates:''
     }
    } 
+   componentDidMount()
+   {
+    
+    const user={
+      email:JSON.parse(localStorage.getItem("jwt")).user.id,
+    }
+    fetch("http://localhost:8082/getallcalender", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        this.setState({alleventdates:res.code})
+        let x=document.getElementsByClassName('react-calendar__tile');
+        // console.log(x.length);
+        // for(var i=0;i<x.length;i++){
+        //   console.log(x[i].innerHTML)
+        // }
+      })
 
-    eventDisplay()
-    {
-        this.state.eventname = 'none';
-        const date1 = this.state.date.getDate();
-        const month1 = this.state.date.getMonth()+1;
+  }
 
-        this.state.eve.map( e => {
-            if( e.date==date1 && e.month==month1 )
-            {
-                this.state.eventname = e.eventname
-            }
-        })
+    getdata=(d)=>{
+        const user={
+            email:JSON.parse(localStorage.getItem("jwt")).user.id,
+            date:d,
+          }
+    console.log(user.date);
+    fetch("http://localhost:8082/getcalender", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        this.setState({list:res.code})
+      })
     }
 
     onChange = (d) =>
     { 
-         this.setState ( { date:d } )
-         console.log(d);
-
+        
+      this.setState ( { date:d } )
+      this.getdata(d.toLocaleDateString().toString());
     }    
+    addcalender = () => {
+        let ename=document.getElementById('evename').value;
+        let des=document.getElementById('descrip').value;
+        const ttuser={
+          email:JSON.parse(localStorage.getItem("jwt")).user.id,
+          date:this.state.date.toLocaleDateString().toString(),
+          event:ename,
+          description:des
+        }
+        // console.log(ttuser);
+        fetch("http://localhost:8082/addtocalender", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(ttuser)
+      })
+        .then(res => res.json())
+        .then(res => {
+          if(res.code === 0)
+          {
+            alert("Item Not Added");
+          }
+          else
+          {
+          alert(`ITEM ADDED SUCCESFULLY!!`);
+          console.log(ttuser.date);
+          this.getdata(ttuser.date);
+          }
+          console.log("done");
+        }); 
+      }
+      myfunc = () =>{
+        if(this.state.list)
+        {
+          const doubled = this.state.list.map((number,index) => 
+          <li key={number.sno} className="list-group-item list-group-item-secondary">
+            <p>{number.eventname}</p>
+            <small>{number.description}</small>
+            <hr/>
+          </li>
+        );
+          return doubled;
+  
+        }
+        else{
+          console.log("error") 
+        }
+      }
     
-    addData()
-    {
-        var obj=
-        {
-         date:0,
-         month:0,
-         eventname:'',
-         description:'',
-        }
-
-        if(this.props.h1 == 1)
-        {
-            obj.date = this.props.date1;
-            obj.month = this.props.month1;
-            obj.eventname = this.props.eventname1;
-            obj.description = this.props.description1;
-            this.state.eve.push(obj);
-            console.log(this.state.eve);
-            this.props.changeflag1();
-        }
-    }
-
     render() {
         return (
             <div className="row">
                 <div className="col-12 col-md-7">
-                {this.addData()}
-                {this.eventDisplay()}
                 <Calendar  onChange = {this.onChange}  value = {this.state.date} />  
                 </div>
-                <div className="col-12 col-md-5" style={{overflow:"scroll"}}>
-                <ul class="list-group">
-                <li class="list-group-item active btn" data-toggle="modal" data-target="#exampleModal">Add Event</li>
+                <div className="col-12 col-md-5">
+                <button class="btn btn-primary w-100 btn" data-toggle="modal" data-target="#exampleModal">Add Event</button>
+                <ul class="list-group" style={{ height: "250px",overflow: "scroll" ,marginTop:"10px"}}>
                 <li class="list-group-item active">{this.state.date.toLocaleDateString().toString()}</li>
-
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                {this.myfunc()}
                 </ul>
                 </div>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,11 +140,12 @@ class Calender extends Component{
         </button>
       </div>
       <div class="modal-body">
-      <input type="text" className="form-control" placeholder="Write your event..."/>
+      <input type="text" className="form-control" id="evename" placeholder="Event Name"/>
+      <input type="text" className="form-control" id="descrip" placeholder="Description"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" onClick={()=>this.addcalender()}>Save changes</button>
       </div>
     </div>
   </div>

@@ -71,10 +71,14 @@ const router=require('express').Router();
                     if(err)
                     console.log(err);
                     console.log('test table updated');
+                    res.json({ln:link});
                 })
             }
             })
-            
-        res.json('Uploaded');
+         console.log("*"+link+"*")   
+        
     }
-     // module.exports=router;
+     module.exports.submittedQues=async function(req,res,next)
+     {
+         console.log(req.body);
+     }

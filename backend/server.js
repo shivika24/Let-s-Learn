@@ -8,6 +8,8 @@ var cors = require('cors');
 var app = express();
 var nodemailer = require("nodemailer");
 require('./dbconnection');
+
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -31,6 +33,7 @@ app.post('/tregister',login.tregister);
 app.post('/handleFile',handleFileRouter.handleFile);
 //app.post('/savelink',handleFileRouter.saveLink);
 app.post('/testid',handleFileRouter.checkTestId);
+app.post('/submittedques',handleFileRouter.submittedQues);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
 
@@ -48,6 +51,13 @@ app.post('/getnotice',login.getnotice)
 app.post('/deleten',login.ddelete)
 app.post('/addtodo',login.todo)
 app.post('/gettodo',login.gettodo)
+
+app.post('/addtocalender',login.addtocalender)
+app.post('/getcalender',login.getcalender)
+
+app.post('/getallcalender',login.getallcalender)
+
+
 app.post('/deletetodo',login.tododelete)
 app.post('/quote',login.addquote)
 app.get('/getquote',login.getquote)
@@ -60,6 +70,7 @@ app.get('/getnotice1',login.getnotice1)
 app.post('/checkpass1',login.checkpassword1)
 app.post('/changepass1',login.changepassword1)
 app.use('/api', router);
+
 
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  

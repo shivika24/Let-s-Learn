@@ -2,7 +2,10 @@ var bcrypt = require ('bcrypt');
 const saltRounds=10;
 var con= require('./../dbconnection');
 const config=require('config');
+const readXlsxFile = require('read-excel-file/node');
 const jwt=require('jsonwebtoken');
+
+
 module.exports.register = async function(req,res){
     const password = req.body.spassword;
     const password1 = req.body.spassword1;
@@ -481,3 +484,56 @@ module.exports.register = async function(req,res){
                       return res.status(400).json({pass:2});
                     }            
                   }
+
+                  module.exports.addtocalender = async function(req,res){
+                    var users={
+                         "email":req.body.email,
+                         "date":req.body.date,
+                         "eventname":req.body.event,
+                         "eventdesc":req.body.description,
+                       }
+                       console.log(users);
+                              var sql = "INSERT INTO `calender` (`email`, `date`, `eventname`, `description`) VALUES ('" + users.email + "','" + users.date + "','" + users.eventname + "','"+users.eventdesc+"')";
+                              var query = con.query(sql, function(err, result) {  
+                                if (err) {
+                                  console.log(err);
+                                  return res.json({code:0});
+                                } else {
+                                  return res.status(400).json({code:1});
+                                  }
+                              });                  
+                  }
+
+                  module.exports.getcalender = async function(req,res){
+                    var users={
+                         "email":req.body.email,
+                         "date":req.body.date,
+
+                       }
+                       console.log(users);
+                       con.query("SELECT `sno`,`eventname`, `description` FROM `calender` WHERE `date`='"+users.date+"' AND `email`='"+users.email+"'", function(err , data){
+                        if (err) {
+                          console.log(err);
+                          return res.json({code:0});
+                        } else {
+                          return res.json({code:data});
+                          } 
+                      });
+                    }
+
+                    module.exports.getallcalender = async function(req,res){
+                      var users={
+                        "email":req.body.email,
+                      }
+                      con.query("SELECT `sno`,`date` FROM `calender` WHERE `email`='"+users.email+"'", function(err , data){
+                        if (err) {
+                          console.log(err);
+                          return res.json({code:0});
+                        } else {
+                          // console.log(data)
+                          return res.json({code:data});
+                          } 
+                      });
+                      }
+
+                  

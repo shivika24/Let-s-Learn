@@ -443,6 +443,8 @@ class tDashboard extends Component
   //    });
       
   // }
+
+ 
   funcdate=(str)=>{
     str=str.split('T')
    let time=str[1].split('.')
