@@ -34,12 +34,10 @@ class tDashboard extends Component
       }
       
     }
-    componentDidMount()
-    {
+    getnotice=()=>{
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
       }
-      //bconsole.log(user);
       fetch("http://localhost:8082/getnotice", { 
       method: "POST",
       headers: {
@@ -51,41 +49,108 @@ class tDashboard extends Component
       .then(res => {
         this.setState({data:res.code,date:res.code})
       })
-
+    }
+    gettodo=()=>{
+      const user={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+      }
       fetch("http://localhost:8082/gettodo", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
-      })
-    .then(res=> res.json())
-      .then(res => {
-        this.setState({list:res.code})
-      })
-
-      fetch("http://localhost:8082/getquote", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      })
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+        })
       .then(res=> res.json())
-      .then(res => {
-        this.setState({quotess:res.code})
-      })
-
+        .then(res => {
+          this.setState({list:res.code})
+        })
+  
+    }
+    getquote=()=>{
+      fetch("http://localhost:8082/getquote", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        })
+        .then(res=> res.json())
+        .then(res => {
+          this.setState({quotess:res.code})
+        })
+    }
+    testhistory=()=>{
+      const user={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+      }
       fetch("http://localhost:8082/testhistory", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
-      })
-    .then(res=> res.json())
-      .then(res => {
-        this.setState({hhistory:res.code})
-      })
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+        })
+      .then(res=> res.json())
+        .then(res => {
+          this.setState({hhistory:res.code})
+        })
+    }
+    componentDidMount()
+    {
+      {this.getnotice()}
+      {this.gettodo()}  
+      {this.getquote()}       
+      {this.testhistory()}           
+      // const user={
+      //   email:JSON.parse(localStorage.getItem("jwt")).user.id,
+      // }
+      //bconsole.log(user);
+    //   fetch("http://localhost:8082/getnotice", { 
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(user)
+    // })
+    // .then(res=> res.json())
+    //   .then(res => {
+    //     this.setState({data:res.code,date:res.code})
+    //   })
+
+    //   fetch("http://localhost:8082/gettodo", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(user)
+    //   })
+    // .then(res=> res.json())
+    //   .then(res => {
+    //     this.setState({list:res.code})
+    //   })
+
+      // fetch("http://localhost:8082/getquote", {
+      // method: "GET",
+      // headers: {
+      //   "Content-Type": "application/json"
+      // },
+      // })
+      // .then(res=> res.json())
+      // .then(res => {
+      //   this.setState({quotess:res.code})
+      // })
+
+    //   fetch("http://localhost:8082/testhistory", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(user)
+    //   })
+    // .then(res=> res.json())
+    //   .then(res => {
+    //     this.setState({hhistory:res.code})
+    //   })
     }
     myfunc = () =>{
       if(this.state.data)
@@ -174,12 +239,12 @@ class tDashboard extends Component
       if(res.code === 0)
       {
         alert("Could Not Delete ITEM");
-        window.location='http://localhost:3000/teacherDashboard';
+        {this.gettodo()} 
       }
       else
       {
       alert(`ITEM DELETED SUCCESFULLY!!`);
-      window.location='http://localhost:3000/teacherDashboard';
+      {this.gettodo()}     
       }
     }); 
   }
@@ -199,12 +264,12 @@ class tDashboard extends Component
         if(res.code === 0)
         {
           alert("Could Not Delete Notice");
-          window.location='http://localhost:3000/teacherDashboard';
+          {this.getnotice()} 
         }
         else
         {
         alert(`NOTICE DELETED SUCCESFULLY!!`);
-        window.location='http://localhost:3000/teacherDashboard';
+        {this.getnotice()} 
         }
       }); 
     }
@@ -226,14 +291,13 @@ class tDashboard extends Component
         if(res.code === 0)
         {
           alert("Notice Not Added");
-          window.location='http://localhost:3000/teacherDashboard';
+          {this.getnotice()} 
         }
         else
         {
         alert(`NOTICE ADDED SUCCESFULLY!!`);
-        window.location='http://localhost:3000/teacherDashboard';
+        {this.getnotice()} 
         }
-        console.log("done");
       }); 
     }
 
@@ -254,12 +318,12 @@ class tDashboard extends Component
         if(res.code === 0)
         {
           alert("Quote Not Added");
-          window.location='http://localhost:3000/teacherDashboard';
+          {this.getquote()} 
         }
         else
         {
         alert(`QUOTE ADDED SUCCESFULLY!!`);
-        window.location='http://localhost:3000/teacherDashboard';
+        {this.getquote()} 
         }
       }); 
     }
@@ -286,12 +350,12 @@ class tDashboard extends Component
         if(res.code === 0)
         {
           alert("Item Not Added");
-          window.location='http://localhost:3000/teacherDashboard';
+          {this.gettodo()} 
         }
         else
         {
         alert(`ITEM ADDED SUCCESFULLY!!`);
-        window.location='http://localhost:3000/teacherDashboard';
+        {this.gettodo()} 
         }
         console.log("done");
       }); 
