@@ -31,8 +31,14 @@ class tDashboard extends Component
         name:u,
         testName:"",
         link:""
-      }
-      
+      }      
+    }
+    componentDidMount()
+    {
+      {this.getnotice()}
+      {this.gettodo()}  
+      {this.getquote()}       
+      {this.testhistory()}           
     }
     getnotice=()=>{
       const user={
@@ -94,63 +100,6 @@ class tDashboard extends Component
         .then(res => {
           this.setState({hhistory:res.code})
         })
-    }
-    componentDidMount()
-    {
-      {this.getnotice()}
-      {this.gettodo()}  
-      {this.getquote()}       
-      {this.testhistory()}           
-      // const user={
-      //   email:JSON.parse(localStorage.getItem("jwt")).user.id,
-      // }
-      //bconsole.log(user);
-    //   fetch("http://localhost:8082/getnotice", { 
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(user)
-    // })
-    // .then(res=> res.json())
-    //   .then(res => {
-    //     this.setState({data:res.code,date:res.code})
-    //   })
-
-    //   fetch("http://localhost:8082/gettodo", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(user)
-    //   })
-    // .then(res=> res.json())
-    //   .then(res => {
-    //     this.setState({list:res.code})
-    //   })
-
-      // fetch("http://localhost:8082/getquote", {
-      // method: "GET",
-      // headers: {
-      //   "Content-Type": "application/json"
-      // },
-      // })
-      // .then(res=> res.json())
-      // .then(res => {
-      //   this.setState({quotess:res.code})
-      // })
-
-    //   fetch("http://localhost:8082/testhistory", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(user)
-    //   })
-    // .then(res=> res.json())
-    //   .then(res => {
-    //     this.setState({hhistory:res.code})
-    //   })
     }
     myfunc = () =>{
       if(this.state.data)
