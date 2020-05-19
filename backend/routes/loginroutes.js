@@ -186,7 +186,7 @@ module.exports.register = async function(req,res){
                   "code":200,
                   "success":"login sucessfull",
                   token,
-                  user:{id:results[0].temail,name:results[0].tname,type:"teacher"}
+                  user:{id:results[0].temail,name:results[0].tname,type:"teacher",tid:results[0].tid}
                 })
             }
             else{

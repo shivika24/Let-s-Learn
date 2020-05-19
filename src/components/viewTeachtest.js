@@ -5,7 +5,6 @@ class ViewTeachTest extends Component
     render()
     {
         if(this.props.prevTest){
-        console.log(this.props.prevTest);
         var len=this.props.prevTest.length;
         return (
             <div class="container-fluid">
