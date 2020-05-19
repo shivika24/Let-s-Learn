@@ -26,13 +26,20 @@ export default class extends Component{
  }
  sendToBack(){
    console.log(this.state.submitted);
+   var url = new URL(window.location.href); 
+   var params = new URLSearchParams(url.search);
+   var test={
+     res:this.state.submitted,
+     testid:params.get('code'),
+     semail:JSON.parse(localStorage.getItem("jwt")).user.id
+   }
     fetch("http://localhost:8082/submittedques",{
       method:"POST",
             headers:{
              Accept: "application/json",
                "Content-Type":"application/json",
                },
-            body:JSON.stringify(this.state.submitted)
+            body:JSON.stringify(test)
     })
     .then(res=>res.json())
     .then(res=>{
@@ -60,7 +67,6 @@ export default class extends Component{
                                 <input className="form-check-input" type="radio"  name="exampleRadios" id={index+1} value="option1"/>
                                   {choice}
                                   
-                                  {console.log(choice)}
                                  </h6>
                                  
                                  <br></br>
@@ -93,7 +99,7 @@ export default class extends Component{
                         <div class="modal-body">Select "Yes" below if you are ready to end your test.</div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <a class="btn btn-primary" href="login.html">Yes</a>
+                          <Link class="btn btn-primary" to="/feedback">Yes</Link>
                         </div>
                       </div>
                     </div>

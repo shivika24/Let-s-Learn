@@ -34,6 +34,9 @@ app.post('/handleFile',handleFileRouter.handleFile);
 //app.post('/savelink',handleFileRouter.saveLink);
 app.post('/testid',handleFileRouter.checkTestId);
 app.post('/submittedques',handleFileRouter.submittedQues);
+
+app.post('/checkt',handleFileRouter.checkt);
+
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
 
