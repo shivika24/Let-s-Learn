@@ -107,15 +107,31 @@ const router=require('express').Router();
                       count++;
                   }
                   console.log("marks"+count);
-                  var sql = "INSERT INTO `result`(`semail`,`testid`,`answers`,`marks`) VALUES ('" + req.body.semail + "','" + req.body.testid + "','" +s + "','" + count  +"')";
-                  var query = con.query(sql, function(err, result) {  
-                    if (err) {
-                    console.log(err)
-                    } 
-                    else
-                    {
-                        console.log("inserted");
-                    }})
+                  var roll='',year;
+                  var sql1="SELECT srollno,syear FROM student WHERE semail='"+req.body.semail+"'";
+                  var query1 = con.query(sql1, function(err, resultss) {  
+                      if(err)
+                      console.log(err);
+                      else
+                      {
+                      roll=resultss[0].srollno;
+                      year=resultss[0].syear;
+                      console.log(year)
+                      console.log(roll)
+                      var sql = "INSERT INTO `result`(`semail`,`testid`,`answers`,`marks`,`year`,`rollno`) VALUES ('" + req.body.semail + "','" + req.body.testid + "','" +s + "','" + count  + "','" + year  + "','" + roll  +"')";
+                      var query = con.query(sql, function(err, result) {  
+                        if (err) {
+                        console.log(err)
+                        } 
+                        else
+                        {
+                            console.log("inserted");
+                        }})
+                      }
+                  })
+                  
+                 // console.log(year)
+
               }
 
             } 
