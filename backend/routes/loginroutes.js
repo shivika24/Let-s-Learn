@@ -37,15 +37,6 @@ module.exports.register = async function(req,res){
                     "failed":"error ocurred"
                   })
                 } else {
-                  const token=jwt.sign(
-                    {id:users.semail},    //payload
-                    config.get('jwtSecret'),
-                    {expiresIn:3600},
-                    (err,token)=>{
-                        if(err) throw err;
-                        res.json({token,user:{id:users.semail,name:users.sname,type:"student"}})
-                    }
-                  )
                   res.send({
                     "code":200,
                     "success":"user registered sucessfully"
@@ -59,7 +50,6 @@ module.exports.register = async function(req,res){
     }
     else
     {
-    //display alert and page should be refreshed
     console.log("PASSWORDS DO NOT MATCH");
     }
   }
@@ -94,15 +84,6 @@ module.exports.register = async function(req,res){
                     "failed":"error ocurred"
                   })
                 } else {
-                  const token=jwt.sign(
-                    {id:users.temail},    //payload
-                    config.get('jwtSecret'),
-                    {expiresIn:3600},
-                    (err,token)=>{
-                    if(err) throw err;
-                        res.json({token,user:{id:users.temail,name:users.tname,type:"teacher"}})
-                    }
-                  )
                   res.send({
                     "code":200,
                     "success":"teacher registered sucessfully",
@@ -116,7 +97,6 @@ module.exports.register = async function(req,res){
     }
     else
     {
-    //display alert and page should be refreshed
     console.log("PASSWORDS DO NOT MATCH");
     }
   }

@@ -21,6 +21,7 @@ export default class extends Component{
  settotrue()
  {
    console.log("settotrue");
+  //  window.location="http:localhost:3000/feedback";
    this.props.setToTrue(true);
  }
  addSubmit(qno)
