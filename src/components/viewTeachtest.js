@@ -16,8 +16,8 @@ class ViewTeachTest extends Component
     }
      dataget=()=>{
             const user={
-            //   testid:this.props.prevTest
-            testid:'C'
+              testid:this.props.prevTest
+            // testid:'C'
             }
             fetch("http://localhost:8082/viewtestdatafile", {
               method: "POST",
