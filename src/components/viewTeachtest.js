@@ -60,10 +60,10 @@ class ViewTeachTest extends Component
         <tr key={index+1}>
             <td>{index+1}</td>
             <td>{number.testid}</td>
-            <td>name</td>
             <td>{number.semail}</td>
-            <td>rollno</td>
+            <td>{number.rollno}</td>
             <td>{number.marks}</td>
+            <td>{number.year}</td>
         </tr>
        );
        return doubled;
@@ -197,49 +197,16 @@ class ViewTeachTest extends Component
                       role="grid"
                       aria-describedby="dataTable_info"
                     >
-                      <div class="py-3 ">
-                        <h4>Fillters</h4>
-                        <div className="row p-3">
-                          <select className="col-2 form-control">
-                            <option>Year</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                          </select>
-                          <select className="col-2 form-control">
-                            <option>Test</option>
-                            <option>Test1</option>
-                            <option>Test2</option>
-                            <option>Test3</option>
-                            <option>Test4</option>
-                          </select>
-                          <input
-                            type="text"
-                            className="col-3 form-control"
-                            placeholder="student Name"
-                          />
-                          <input
-                            type="Email"
-                            className="col-3 form-control"
-                            placeholder="student Email"
-                          />
-                          <input
-                            type="RollNo"
-                            className="col-2 form-control"
-                            placeholder="student RollNo"
-                          />
-                        </div>
-                      </div>
+                      
                       <table class="table dataTable my-0" id="dataTable">
                         <thead>
                           <tr>
                             <th>S.No</th>
                             <th>Test-Id</th>
-                            <th>Student Name</th>
                             <th>Email-Id</th>
                             <th>Roll No.</th>
                             <th>Marks</th>
+                            <th>Year</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -352,3 +319,39 @@ class ViewTeachTest extends Component
     }
 }
 export default ViewTeachTest;
+/*
+<div class="py-3 ">
+                        <h4>Fillters</h4>
+                        <div className="row p-3">
+                          <select className="col-2 form-control">
+                            <option>Year</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                          <select className="col-2 form-control">
+                            <option>Test</option>
+                            <option>Test1</option>
+                            <option>Test2</option>
+                            <option>Test3</option>
+                            <option>Test4</option>
+                          </select>
+                          <input
+                            type="text"
+                            className="col-3 form-control"
+                            placeholder="student Name"
+                          />
+                          <input
+                            type="Email"
+                            className="col-3 form-control"
+                            placeholder="student Email"
+                          />
+                          <input
+                            type="RollNo"
+                            className="col-2 form-control"
+                            placeholder="student RollNo"
+                          />
+                        </div>
+                      </div>
+*/

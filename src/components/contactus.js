@@ -19,9 +19,9 @@ class Contactus extends Component{
     <div className="container" id="info-container">
         <div className="row" >
             <div className="col-12 col-sm-6 col-md-6" id="contact-box">
-                <p id="contact-text">Looking to identify the best tech candidates in your pipeline?Get in touch with our platform for Work representative who can assist you with assessing technical talent so you can hire the right developers for your company.</p>
-                <div className="info-box"><i className="fa fa-map-marker my-info-icons"></i><span className="text-uppercase text-info">Address: </span><span>MCC Road, Aba, Abia State Zirakpur</span></div>
-                <div className="info-box"><i className="fa fa-envelope my-info-icons"></i><span className="text-uppercase text-info">Email: </span><span>contact@myiq.org </span></div>
+                <p id="contact-text">Let's LEarn is a online test conducting platform that is the standard for assessing developer skills for over 2,000+ companies around the world. By enabling tech recruiters and hiring managers to objectively evaluate talent at every stage of the recruiting process, Let's Learn helps companies hire skilled developers and innovate faster.</p>
+                <div className="info-box"><i className="fa fa-map-marker my-info-icons"></i><span className="text-uppercase text-info">Address: </span><span>Patiala Road Zirakpur</span></div>
+                <div className="info-box"><i className="fa fa-envelope my-info-icons"></i><span className="text-uppercase text-info">Email: </span><span>letslearn@gmail.com </span></div>
                 <div className="info-box"><i className="fa fa-phone-square my-info-icons"></i><span className="text-uppercase text-info">Phone: </span><span>+91 8968884748 </span></div>
             </div>
             <div className="col-12 col-sm-6 col-md-6 site-form">

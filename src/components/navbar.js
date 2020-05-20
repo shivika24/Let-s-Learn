@@ -34,7 +34,7 @@ class Navbar extends Component{
              {/* <!-- Start: Navigation with Button --> */}
     <nav className="navbar navbar-light navbar-expand-md navigation-clean-button" style={{backgroundImage: "linear-gradient(90deg, #008CBA 17%, rgb(63, 98, 114) 100%)"}}>
         <div className="container">
-            <Link className="navbar-brand" to={this.state.homepath}>Company Name</Link>
+            <Link className="navbar-brand" to={this.state.homepath} style={{color:"#8c537a"}}>Let's Learn</Link>
         <button data-toggle="collapse" className="navbar-toggler" data-target="#navcol-1">
             <span className="sr-only">Toggle navigation</span><span className="navbar-toggler-icon"></span>
         </button>
