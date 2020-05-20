@@ -20,7 +20,7 @@ class Testhistory extends Component
         var len=this.props.prevTest.length;
         return (
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Previous Tests Uploaded</h3>
+                <center><h3 class="text-dark mb-4">Previous Tests Uploaded</h3></center>
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 font-weight-bold">Test Info</p>
@@ -56,7 +56,8 @@ class Testhistory extends Component
                                         <td>{t.testid}</td>
                                         <td>{t.testName}</td>
                                         <td>{this.funcdate(t.Date)}</td>
-                                        <td><Link to={t.url}>Test Link</Link></td>
+                                        <td>{t.url}</td>
+                                        {/* <td><a href={t.url}>Test Link</a></td> */}
                                         <td><Link className="page-link" to="/viewteachtest"  aria-label="Next" onClick={()=>this.props.showT(t.testid)}><span aria-hidden="true">View More»</span></Link></td>
                                     </tr>
                                   })
