@@ -50,6 +50,7 @@ class App extends Component {
       ttype:'',
       stype:'',
       auth:'',
+      viewtid:'',
       test:[
         // {
         //     ques:"Which of the following can be operands of arithmetic operators?",
@@ -153,6 +154,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
   showTest(tid)
   {
   console.log(tid)
+  this.setState({viewtid:tid})
   const userss={
     testid:tid
   }
@@ -167,6 +169,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
       .then(res => {
        // console.log(JSON.stringify(res));
         this.setState({viewTestArr:res})
+        
       })
   }
   // settestid(tid)
@@ -240,9 +243,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/sample">
         <Sample/>
       </Route>
-      <Route path="/feedback">
-        <Feedback/>
-      </Route>
+    
          
 
         <Route path="/Registers" render={() => ( <Registers/>)} />  
@@ -257,7 +258,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/testdataentry" render={props=>typeofteacher?<Testdatainsert/>:<Redirect to="Logint"/> } />
         <Route path="/profile"  render={props=>typeofteacher?<Profile/>:<Redirect to="Logint"/> } /> 
         <Route path="/teacherDashboard" render={props=>typeofteacher? <Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/> :<Redirect to="Logint"/> }/>
-        <Route path='/viewteachtest'  render={props=>typeofteacher?<ViewTeachTest prevTest={this.state.viewTestArr}/>:<Redirect to="Logint"/> } ></Route>
+        <Route path='/viewteachtest'  render={props=>typeofteacher?<ViewTeachTest prevTest={this.state.viewTestArr} tidis={this.state.viewtid} />:<Redirect to="Logint"/> } ></Route>
         <Route path="/testhistory" render={props=>typeofteacher?<Testhistory prevTest={this.state.history} showT={this.showTest} />:<Redirect to="Logint"/> } />
         <Route path="/calender" render={props=>typeofteacher?<Calender/>:<Redirect to="Logint"/> } /> 
         
@@ -282,6 +283,9 @@ if(JSON.parse(localStorage.getItem("jwt")))
          <Switch>
          <Route exact path = "/test" render={()=><TestDashboard test={this.settest} selectMCQ={this.selectMcq} ></TestDashboard>}/> 
          <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} setToTrue={this.setTrue} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
+         <Route path="/feedback">
+          <Feedback/>
+         </Route>
          </Switch>
          </div>
       </div>

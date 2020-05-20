@@ -13,10 +13,14 @@ class ViewTeachTest extends Component
     }
     componentDidMount(){
         this.dataget();
+        console.log(this.props.viewtid)
+        console.log(this.props.tidis)
+
+
     }
      dataget=()=>{
             const user={
-              testid:this.props.prevTest
+              testid:this.props.tidis
             // testid:'C'
             }
             fetch("http://localhost:8082/viewtestdatafile", {
