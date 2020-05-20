@@ -14,8 +14,7 @@ class Contactus extends Component{
             </div>
         </div>
     </div>
-    {/* <!-- End: 1 Row 1 Column --> */}
-    {/* <!-- Start: ebs contact form --> */}
+
     <div className="container" id="info-container">
         <div className="row" >
             <div className="col-12 col-sm-6 col-md-6" id="contact-box">
