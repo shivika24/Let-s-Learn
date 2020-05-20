@@ -60,6 +60,43 @@ class Calender extends Component{
         this.setState({list:res.code})
       })
     }
+// for upload and delete ceode
+//     updatedata=(d)=>{
+//       const user={
+//         sno:'',
+//         description:'',
+//         eventname:'',
+//         }
+//   console.log(user.date);
+//   fetch("http://localhost:8082/updatecalender", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(user)
+//     })
+//   .then(res=> res.json())
+//     .then(res => {
+//       alert("data updated");
+//     })
+//   }
+//   deleteddata=(d)=>{
+//     const user={
+//       sno:'',
+//       }
+// console.log(user.date);
+// fetch("http://localhost:8082/deletecalender", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json"
+//   },
+//   body: JSON.stringify(user)
+//   })
+// .then(res=> res.json())
+//   .then(res => {
+//     alert("data updated");
+//   })
+// }
 
     onChange = (d) =>
     { 

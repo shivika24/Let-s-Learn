@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
 import Calender from './calender';
 import './dashboard1.css';
-import ReactFileReader from "react-file-reader";
 const csv = require('csv-parser');
 const fs = require('fs');
 class tDashboard extends Component

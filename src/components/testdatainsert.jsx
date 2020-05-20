@@ -91,7 +91,7 @@ class Testdatainsert extends Component
       //     window.location="http://localhost:3000/teacherDashboard";
          });   
     }
-    handleCancel1=()=>{
+     handleCancel1=()=>{
         window.location="http://localhost:3000/teacherDashboard";
       }
     setFlag=(e)=>{
@@ -139,8 +139,12 @@ class Testdatainsert extends Component
             <div className="card-header py-3">
                 <p className="text-primary m-0 font-weight-bold">Test ID : {this.state.testid} </p>
                 <p className="text-primary m-0 font-weight-bold">Test Name : {this.state.testName}</p>
-                <p className="text-primary m-0 font-weight-bold">Teacher ID : {this.state.teachid}</p>
-                <button data-toggle="modal" data-target="#testModal" rel="nofollow">UPLOAD EXCEL SHEET</button>
+                <a style={{float:"right"}} class="btn btn-primary btn-icon-split" role="button" data-toggle="modal" data-target="#testModal" rel="nofollow">
+                <span class="text-white-50 icon"><i className="fa fa-upload"></i></span>
+                <span class="text-white text">UPLOAD EXCEL SHEET</span>
+                </a>
+                
+
             </div>
             <div className="card-body">
                 <h3>Upload question</h3>

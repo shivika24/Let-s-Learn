@@ -2,7 +2,8 @@ var express    =  require("express");
 var login =  require('./routes/loginroutes');
 var handleFileRouter =  require('./routes/handlingFile');
 var mcqRouter=require('./routes/mcq')
-var profileRouter=require('./routes/profileSetting')
+var profileRouter=require('./routes/profileSetting');
+var viewtestdatafile=require('./routes/viewtestdatafile')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
@@ -55,10 +56,20 @@ app.post('/deleten',login.ddelete)
 app.post('/addtodo',login.todo)
 app.post('/gettodo',login.gettodo)
 
+
+
 app.post('/addtocalender',login.addtocalender)
 app.post('/getcalender',login.getcalender)
-
+app.post('/updatecalender',login.updatecalender)
+app.post('/deletecalender',login.deletecalender)
 app.post('/getallcalender',login.getallcalender)
+
+app.post('/viewtestdatafile',viewtestdatafile.viewtestdata)
+
+
+
+
+
 
 
 app.post('/deletetodo',login.tododelete)

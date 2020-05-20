@@ -47,7 +47,9 @@ class App extends Component {
       history:[],
       testid1:"",
       viewTestArr:[],
-      typelogin:'',
+      ttype:'',
+      stype:'',
+      auth:'',
       test:[
         // {
         //     ques:"Which of the following can be operands of arithmetic operators?",
@@ -75,7 +77,10 @@ class App extends Component {
    // var temp:[]
     if(localStorage.getItem('jwt')!=null)
     {
-      this.setState({typelogin:JSON.parse(localStorage.getItem('jwt')).user.type})
+      if(JSON.parse(localStorage.getItem('jwt')).user.type=='teacher')
+      this.setState({ttype:JSON.parse(localStorage.getItem('jwt')).user.type})
+      if(JSON.parse(localStorage.getItem('jwt')).user.type=='student')
+      this.setState({stype:JSON.parse(localStorage.getItem('jwt')).user.type})
     }
 //     fetch(` http://localhost:8082/mcq`, {
 //       method: "GET",
@@ -198,6 +203,14 @@ if(JSON.parse(localStorage.getItem("jwt")))
   //   }
   // }
   render(){
+    let typeofteacher,typeofstudent;
+    if(localStorage.getItem('jwt')!=null)
+    {
+      if(JSON.parse(localStorage.getItem('jwt')).user.type=='teacher')
+      typeofteacher='teacher'
+      if(JSON.parse(localStorage.getItem('jwt')).user.type=='student')
+      typeofstudent='student'
+    }
   return (
     this.state.flag === true?
     <div className="App">
@@ -229,24 +242,23 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
-         <Route path="/testhistory" render={() => ( <Testhistory prevTest={this.state.history} showT={this.showTest}/>)} />zZZ
-         {/* {this.allroutes()} */}
-        
-       {/* <Route path="/testloginsign" render={()=><Testloginsign/>} />  */}
-       <Route path="/testlogin" render={()=><Testlogin/>} /> 
-        <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
+
            {/* <Route path="/test1" render={()=><Test1/>} />  */}
-           <Route path="/testloginregister" render={()=><Testloginregister/>} /> 
-        <Route path="/testlogin" render={()=><Testlogin/>} /> 
-        <Route path="/studentDashboard"  render={() => (<Dashboard/>)}/>
-        <Route path="/testdataentry" render={()=><Testdatainsert/>} />
-        <Route path="/profile" render={() => ( <Profile/>)} /> 
-        <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
-        <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
-        <Route path="/sprofile" render={() => ( <Sprofile/>)} />
-        <Route path="/calender" render={() => ( <Calender/>)} /> 
+        <Route path="/studentDashboard"  render={props=>typeofstudent?<Dashboard/>:<Redirect to="Logins"/> } />
+        <Route path="/sprofile" render={props=>typeofstudent?<Sprofile/>:<Redirect to="Logins"/> } />
+       
+        <Route path="/testdataentry" render={props=>typeofteacher?<Testdatainsert/>:<Redirect to="Logint"/> } />
+        <Route path="/profile"  render={props=>typeofteacher?<Profile/>:<Redirect to="Logint"/> } /> 
+        <Route path="/teacherDashboard" render={props=>typeofteacher? <Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/> :<Redirect to="Logint"/> }/>
+        <Route path='/viewteachtest'  render={props=>typeofteacher?<ViewTeachTest prevTest={this.state.viewTestArr}/>:<Redirect to="Logint"/> } ></Route>
+        <Route path="/testhistory" render={props=>typeofteacher?<Testhistory prevTest={this.state.history} showT={this.showTest} />:<Redirect to="Logint"/> } />
+        <Route path="/calender" render={props=>typeofteacher?<Calender/>:<Redirect to="Logint"/> } /> 
+        
+        <Route path="/testloginregister" render={props=>typeofstudent?<Testloginregister/>:<Redirect to="Logins"/> }/> 
+        <Route path="/testlogin" render={()=><Testlogin/>}/>}/> 
+        <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
-        <Route path="/studentAnalysis" render={() => ( <StudentAnalysis/>)} /> 
+        {/* <Route path="/studentAnalysis" render={() => ( <StudentAnalysis/>)} />  */}
         
       </Switch>
     </div>
@@ -261,7 +273,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
        <TestNavbar></TestNavbar>
        <div class="container-fluid">
          <Switch>
-         <Route exact path = "/test" render={()=><TestDashboard test={this.settest} selectMCQ={this.selectMcq} ></TestDashboard>}/> 
+         <Route exact path = "/test" render={()=><TestDashboard test={this.settest} selectMCQ={this.selectMcq} /> } /> 
          <Route path = "/mcq" render={ () => <Mcq mcq={this.state.selectedMcq} len={this.state.test.length} nextMcq={this.clickedMcq} idx={this.state.index}></Mcq>}/>
          </Switch>
          </div>

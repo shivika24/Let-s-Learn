@@ -5,7 +5,6 @@ const config=require('config');
 const readXlsxFile = require('read-excel-file/node');
 const jwt=require('jsonwebtoken');
 
-
 module.exports.register = async function(req,res){
     const password = req.body.spassword;
     const password1 = req.body.spassword1;
@@ -100,7 +99,7 @@ module.exports.register = async function(req,res){
                     config.get('jwtSecret'),
                     {expiresIn:3600},
                     (err,token)=>{
-                        if(err) throw err;
+                    if(err) throw err;
                         res.json({token,user:{id:users.temail,name:users.tname,type:"teacher"}})
                     }
                   )
@@ -188,7 +187,7 @@ module.exports.register = async function(req,res){
                   "code":200,
                   "success":"login sucessfull",
                   token,
-                  user:{id:results[0].temail,name:results[0].tname,type:"teacher"}
+                  user:{id:results[0].temail,name:results[0].tname,type:"teacher",tid:results[0].tid}
                 })
             }
             else{
@@ -536,4 +535,36 @@ module.exports.register = async function(req,res){
                       });
                       }
 
+                      module.exports.updatecalender = async function(req,res){
+                        var users={
+                             "sno":req.body.sno,
+                             "ename":req.body.eventname,
+                             "des":req.body.description,
+                           }
+                           console.log(users);
+                           con.query("UPDATE `calender` SET `eventname`='"+users.ename+"',`description`='"+users.des+"' WHERE Where `sno`='"+users.sno+"'", function(err , data){
+                            if (err) {
+                              console.log(err);
+                              return res.json({code:0});
+                            } else {
+                              return res.send("updated");
+                              } 
+                          });
+                        }
+
+
+                      module.exports.deletecalender = async function(req,res){
+                        var users={
+                             "sno":req.body.sno,
+                           }
+                           console.log(users);
+                           con.query("DELETE FROM `calender` Where `sno`='"+users.sno+"'", function(err , data){
+                            if (err) {
+                              console.log(err);
+                              return res.json({code:0});
+                            } else {
+                              return res.send("deleted");
+                              } 
+                          });
+                        }
                   

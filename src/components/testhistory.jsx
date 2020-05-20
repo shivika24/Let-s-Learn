@@ -2,11 +2,15 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 class Testhistory extends Component
 {
+    state={
+        testresult:''
+    }
     componentDidMount(){
         console.log(this.location);
+        this.setState({testresult:this.props.prevTest})
     }
     funcdate=(str)=>{
-         str=str.split('T')
+        str=str.split('T')
         let time=str[1].split('.')
         return(str[0]+" "+time[0]);
     }
