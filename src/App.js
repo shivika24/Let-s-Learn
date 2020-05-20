@@ -51,20 +51,7 @@ class App extends Component {
       stype:'',
       auth:'',
       viewtid:'',
-      test:[
-        // {
-        //     ques:"Which of the following can be operands of arithmetic operators?",
-        //     choices:["Numeric","Boolean","Character","Both Numeric & Characters"]
-        // },
-        // {
-        //     ques:"Modulus operator, %, can be applied to which of these?",
-        //     choices:["Integers","Floating-NUmbers","Both Integers and floating – point numbers","NOT"]
-        // },
-        // {
-        //     ques:"Decrement operator, −−, decreases the value of variable by what number?",
-        //     choices:["1","2","3","4"]
-        // }
-    ]
+      test:[]
     }
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
@@ -72,11 +59,9 @@ class App extends Component {
     this.sethistory=this.sethistory.bind(this);
     this.showTest=this.showTest.bind(this);
     this.setTrue=this.setTrue.bind(this);
-    // this.testCorresToId=this.testCorresToId.bind(this);
    this.settest=this.settest.bind(this);
   }
   componentDidMount(){
-   // var temp:[]
     if(localStorage.getItem('jwt')!=null)
     {
       if(JSON.parse(localStorage.getItem('jwt')).user.type=='teacher')
@@ -84,26 +69,6 @@ class App extends Component {
       if(JSON.parse(localStorage.getItem('jwt')).user.type=='student')
       this.setState({stype:JSON.parse(localStorage.getItem('jwt')).user.type})
     }
-//     fetch(` http://localhost:8082/mcq`, {
-//       method: "GET",
-//       headers:{  "Content-Type":"application/json" },
-//   })
-// .then(res => {return res.json();})
-// .then(res => {
-//       console.log(res);
-//       var temp=[]
-//       res.map((r)=>{
-//         var obj={ques:"",choices:[]}
-//             obj.ques=r.question;
-//             obj.choices.push(r.option1);
-//             obj.choices.push(r.option2)
-//             obj.choices.push(r.option3)
-//             obj.choices.push(r.option4)
-//             temp.push(obj);
-//       })
-//      this.setState({test:temp})
-//      console.log(this.state.test)
-// })
   
 if(JSON.parse(localStorage.getItem("jwt")))
 {
@@ -124,33 +89,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
   {
     this.setState({test:t})
   }
-//   testCorresToId(tid)
-//   {
-//     this.setState({testid1:tid},()=>{
-//     console.log("testid:"+this.state.testid1);
-//     fetch(` http://localhost:8082/mcq?testid=${this.state.testid1}`, {
-//       method: "GET",
-//       headers:{  "Content-Type":"application/json" },
-//   })
-// .then(res => {return res.json();})
-// .then(res => {
-//       console.log(res);
-//       var temp=[]
-      
-//       res.map((r)=>{
-//         var obj={ques:"",choices:[]}
-//             obj.ques=r.question;
-//             obj.choices.push(r.option1);
-//             obj.choices.push(r.option2)
-//             obj.choices.push(r.option3)
-//             obj.choices.push(r.option4)
-//             temp.push(obj);
-//       })
-//      this.setState({test:temp})
-//      console.log(this.state.test)
-// })
-//     })
-//   }
+
   showTest(tid)
   {
   console.log(tid)
@@ -172,10 +111,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         
       })
   }
-  // settestid(tid)
-  // {
-  //   this.setState({testid:tid});
-  // }
+  
   sethistory(hist)
   {
     this.setState({history:hist});
@@ -200,18 +136,6 @@ if(JSON.parse(localStorage.getItem("jwt")))
     console.log(this.state.flag);
   })
   }
-  // allroutes=()=>{
-  //   if(this.state.typelogin=='teacher'){
-  //     return(
-  //       <div>
-  //       <Route path="/testdataentry" render={()=><Testdatainsert/>} />
-  //       <Route path="/profile" render={() => ( <Profile/>)} /> 
-  //       <Route path="/teacherDashboard"  render={() => (<Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/>)}/>
-  //       <Route path='/viewteachtest' render={()=><ViewTeachTest prevTest={this.state.viewTestArr}></ViewTeachTest>}></Route>
-  //      </div>
-  //     )
-  //   }
-  // }
   render(){
     let typeofteacher,typeofstudent;
     if(localStorage.getItem('jwt')!=null)
@@ -251,7 +175,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
 
-           {/* <Route path="/test1" render={()=><Test1/>} />  */}
+
         <Route path="/studentDashboard"  render={props=>typeofstudent?<Dashboard/>:<Redirect to="Logins"/> } />
         <Route path="/sprofile" render={props=>typeofstudent?<Sprofile/>:<Redirect to="Logins"/> } />
        
@@ -266,8 +190,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/testlogin" render={()=><Testlogin/>}/>}/> 
         <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
-        {/* <Route path="/studentAnalysis" render={() => ( <StudentAnalysis/>)} />  */}
-        
+      
       </Switch>
     </div>
     <Footer/>
