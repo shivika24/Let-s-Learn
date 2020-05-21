@@ -30,6 +30,10 @@ import Test1 from './components/test1';
 import Sample from './components/sample';
 import StudentAnalysis from './components/studentAnalysis';
 import Feedback from './components/feedback';
+
+
+import Chatapp from './components/chatapp';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -190,7 +194,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/testlogin" render={()=><Testlogin/>}/>}/> 
         <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
-      
+        <Route path="/Chatapp" render={()=><Chatapp/>}/>}/> 
       </Switch>
     </div>
     <Footer/>
