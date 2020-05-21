@@ -85,6 +85,11 @@ app.post('/checkpass1',login.checkpassword1)
 app.post('/changepass1',login.changepassword1)
 app.use('/api', router);
 
+app.get('/getblog',login.getblog)
+app.post('/viewblog',login.viewblog)
+app.post('/getcomment',login.getcomment)
+app.post('/addcomment',login.addcomment)
+
 
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  
@@ -150,3 +155,131 @@ else
     res.end("<h1>Request is from unknown source");
 }
 });
+
+
+
+
+var mysqlConnection= require('./dbconnection');
+// var mysqlConnection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'mytest',
+//     multipleStatements: true
+//   });
+
+  
+app.get('/get', (req, res) => {
+    let emp = req.body;
+    mysqlConnection.query('SELECT * FROM event ',(err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/post1', (req, res) => {
+     let res1=req.body;
+     console.log(res1.date);
+     console.log(res1.month);
+     mysqlConnection.query('SELECT * FROM event WHERE date = ? && month = ?', [res1.date,res1.month], (err, rows, fields) => {
+        console.log(rows);
+        if (!err)
+        {
+         res.send(rows);
+        }
+        else
+            res.send('');
+    })
+});
+
+
+
+app.get('/delete/:id', (req, res) => {
+    mysqlConnection.query('Delete FROM event WHERE sn = ?', [req.params.id], (err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/put', (req, res) => {
+
+    let emp = req.body;
+    mysqlConnection.query("INSERT INTO event (email,date,month,name,description) VALUES (?,?,?,?,?)",
+    
+                             [emp.email, emp.date, emp.month, emp.name , emp.description], (err, rows, fields) => {
+        if (!err)
+            res.send('Updated successfully');
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/putevent', (req, res) => {
+
+    let emp = req.body;
+    mysqlConnection.query("INSERT INTO blogg (name,college,course,blo,date,time,rate,count,email,image) VALUES (?,?,?,?,?,?,?,?,?,?)",
+    
+                             [emp.name, emp.college, emp.course, emp.blo , emp.date,emp.time,emp.rate,emp.count,emp.email],emp.image, (err, rows, fields) => {
+        if (!err)
+            res.send('Updated successfully');
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/count', (req, res) => {
+    let p = req.body;
+    mysqlConnection.query(" UPDATE blogg SET count= count+1 WHERE sn = ?;",[p.id] ,(err, rows, fields) => {
+        if (!err)
+            res.send('Updated successfully');
+        else
+            console.log(err);
+    })
+});
+
+
+
+app.get('/getblogg', (req, res) => {
+    mysqlConnection.query('Select * from blogg', (err, rows, fields) => {
+        if (!err)
+        {
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    })
+});
+
+app.put('/comment', (req, res) => {
+    let p = req.body;
+   
+    mysqlConnection.query("INSERT INTO comment (bogid,comments) VALUES (?,?)",[p.id,p.temp], (err, rows, fields) => {
+        if (!err)
+            res.send('Updated successfully');
+        else
+            console.log(err);
+    })
+});
+
+app.get('/getcomment', (req, res) => {
+    mysqlConnection.query('Select * from comment', (err, rows, fields) => {
+        if (!err)
+        {
+        
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    })
+});
+
+
+

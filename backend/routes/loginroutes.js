@@ -547,4 +547,56 @@ module.exports.register = async function(req,res){
                               } 
                           });
                         }
-                  
+
+                        module.exports.getblog = async function(req,res){
+                          con.query("SELECT * FROM blogg", function(err , data){
+                              if (err) {
+                                console.log(err)
+                                return res.status(400).json({code:0});
+                              } else {
+                                // console.log(code)
+                                return res.status(400).json({code:data});
+                                } 
+                            });
+                          }
+                          module.exports.viewblog = async function(req,res){
+                            con.query("SELECT * FROM blogg WHERE sn = ?",req.body.id, function(err , data){
+                                if (err) {
+                                  console.log(err)
+                                  return res.status(400).json({code:0});
+                                } else {
+                                  // console.log(code)
+                                  return res.status(400).json({code:data});
+                                  } 
+                              });
+                            }
+                            module.exports.getcomment = async function(req,res){
+                              con.query("SELECT * FROM comment WHERE bogid = ?",req.body.id, function(err , data){
+                                  if (err) {
+                                    console.log(err)
+                                    return res.status(400).json({code:0});
+                                  } else {
+                                    // console.log(code)
+                                    return res.status(400).json({code:data});
+                                    } 
+                                });
+                              }
+
+                              module.exports.addcomment = async function(req,res){
+                                var d=new Date().toISOString().slice(0, 19).replace('T',' ');
+                                var users={
+                                     "email":req.body.email,
+                                     "data":req.body.data,
+                                     "id":req.body.id,
+                                     "date":d
+                                   }
+                                          var sql = "INSERT INTO `comment` (`bogid`, `comments`, `date`, `email`) VALUES ('" + users.id + "','" + users.data + "','" + users.date + "','"+users.email+"')";
+                                          var query = con.query(sql, function(err, result) {  
+                                            if (err) {
+                                              console.log(err);
+                                              return res.json({code:0});
+                                            } else {
+                                              return res.status(400).json({code:1});
+                                              }
+                                          });                  
+                              }

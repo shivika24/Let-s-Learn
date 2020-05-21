@@ -1,0 +1,64 @@
+.blog-home3 {
+  font-family: "Montserrat", sans-serif;
+  color: #8d97ad;
+  font-weight: 300;
+}
+
+.blog-home3 h1, .blog-home3 h2, .blog-home3 h3, .blog-home3 h4, .blog-home3 h5, .blog-home3 h6 {
+  color: #3e4555;
+}
+
+.blog-home3 h5 {
+  line-height: 22px;
+  font-size: 18px;
+}
+
+.blog-home3 a.link {
+  color: #3e4555;
+}
+
+.blog-home3 a.link:hover {
+  color: #316ce8;
+}
+
+.blog-home3 .font-weight-medium {
+  font-weight: 500;
+}
+
+.blog-home3 .subtitle {
+  color: #8d97ad;
+  line-height: 24px;
+}
+
+.blog-home3 .bg-success-gradiant {
+  background: #2cdd9b;
+  background: -webkit-linear-gradient(legacy-direction(to right), #2cdd9b 0%, #1dc8cc 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#2cdd9b), to(#1dc8cc));
+  background: -webkit-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
+  background: -o-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
+  background: linear-gradient(to right, #2cdd9b 0%, #1dc8cc 100%);
+}
+
+.blog-home3 .date-pos {
+  font-size: 12px;
+}
+
+.blog-home3 a {
+  overflow: hidden;
+}
+
+.blog-home3 a img {
+  -webkit-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+.blog-home3 a img:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.blog-home3.py-5 {
+}
+
