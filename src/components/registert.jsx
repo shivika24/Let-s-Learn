@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useReducer } from "react";
 import { Link } from "react-router-dom";
 import './registert.css';
 class Registert extends Component
@@ -32,6 +32,8 @@ class Registert extends Component
             tpassword1:this.state.tpassword1
         };
         console.log(newUser);
+        if(newUser.tpassword===newUser.tpassword1)
+        {
     fetch("http://localhost:8082/tregister", {
       method: "POST",
       headers: {
@@ -57,6 +59,12 @@ class Registert extends Component
         }
         console.log("done");
       });
+    }
+    else
+    {
+      alert("Passwords Entered Do Not  Match");
+      window.location='http://localhost:3000/Registert';
+    }
       }
     render()
     {

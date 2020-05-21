@@ -4,113 +4,19 @@ class Mainpage extends Component{
     render(){
         return(
     <div className="Mainpage">
-    {/* <!-- Start: Bootstrap 4 - Full Video Background v2 --> */}
     <div className="video-background-holder">
   <div className="video-background-overlay"></div>
-   {/* <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-        <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4"/>
-    </video>  */}
    <img  className="video-background-overlay" src={img} style={{ width:"100vw" }}/>
 
   <div className="video-background-content container h-100">
     <div className="d-flex h-100 text-center align-items-center">
       <div className="w-100 text-white">
         <h1 className="display-4">Our Vision</h1>
-        <p className="lead mb-0">With HTML5 and Bootstrap 4</p>
+        <p className="lead mb-0">  Build a World Class Digital Talent Platform Powered by Talent DNA Enabling the Creation & Sustenance of Talent Ecosystem. </p>
       </div>
     </div>
   </div>
 </div>
-    {/* <!-- End: Bootstrap 4 - Full Video Background v2 --> */}
-    {/* <!-- Start: featured products slider --> */}
-    <section>
-        <div data-bs-parallax-bg="true" id="w_shop_105" className="carousel slide w_shop_105_indicators w_shop_105_control_button thumb_scroll_x swipe_x ps_easeOutInCubic" data-ride="carousel" data-pause="hover" data-interval="8000" data-duration="2000">
-            {/* <!-- Start: Header of Slider --> */}
-            <div className="w_shop_105_main_header">
-                <h1><span style={{color: "#58a5ff"}}><strong>featured</strong></span><span style={{color: "#58a5ff"}}><strong>products</strong></span></h1>
-            </div>
-            {/* <!-- End: Header of Slider --> */}
-            {/* <!-- Start: Indicators --> */}
-            <ol className="carousel-indicators">
-                {/* <!-- Start: 1st Indicator --> */}
-                <li className="active" data-target="#w_shop_105" data-slide-to="0" style={{filter: "blur(0px)"}}></li>
-                {/* <!-- End: 1st Indicator --> */}
-                {/* <!-- Start: 2nd Indicator --> */}
-                <li data-target="#w_shop_105" data-slide-to="1"></li>
-                {/* <!-- End: 2nd Indicator --> */}
-                {/* <!-- Start: 3rd Indicator --> */}
-                <li data-target="#w_shop_105" data-slide-to="2"></li>
-                {/* <!-- End: 3rd Indicator --> */}
-            </ol>
-            {/* <!-- End: Indicators --> */}
-            {/* <!-- Start: Wrapper For Slides --> */}
-            <div className="carousel-inner" role="listbox" style={{color: "#58a5ff"}}>
-                {/* <!-- Start: 1st Slide --> */}
-                <div className="carousel-item active"><img src="https://www.hackerrank.com/wp-content/uploads/2018/08/Piggy_2.png" alt="w_shop_105_01"/>
-                    {/* <!-- Start: Left Box --> */}
-                    <div className="w_shop_105_left_box"><span data-animation="animated fadeInLeft" style={{fontFamily: "roboto"}}>Raised $9.2M Series B</span>
-                        <h1 className="left-h" data-animation="animated fadeInLeft">product name and modal number</h1>
-                        <p data-animation="animated fadeInLeft">The demand for platform to identify the right developer skills has grown in tandem with the demand for software engineers.</p></div>
-                    {/* <!-- End: Left Box --> */}
-                    {/* <!-- Start: Right Box --> */}
-                    <div className="w_shop_105_right_box" data-animation="animated fadeInRight">
-                        <ul>
-                            <li data-animation="animated fadeInRight">some features</li>
-                            <li data-animation="animated fadeInRight">some other features</li>
-                            <li data-animation="animated fadeInRight">some more features</li>
-                            <li data-animation="animated fadeInRight">other features</li>
-                            <li data-animation="animated fadeInRight">features and features</li>
-                        </ul>
-                    </div>
-                    {/* <!-- End: Right Box --> */}
-                </div>
-                {/* <!-- End: 1st Slide --> */}
-                {/* <!-- Start: 2nd Slide --> */}
-                <div className="carousel-item"><img src="https://www.hackerrank.com/wp-content/uploads/2018/08/hackerrank.png" alt="w_shop_105_02"/>
-                    {/* <!-- Start: Left Box --> */}
-                    <div className="w_shop_105_left_box"><span data-animation="animated fadeInLeft" style={{fontFamily: "roboto"}}>$535.00</span>
-                        <h1 className="left-h" data-animation="animated fadeInLeft">product name and modal number</h1>
-                        <p data-animation="animated fadeInLeft"> Our first customers were primarily in technology (like Airbnb, Dropbox). By December 2020, our customer base not only grew to over 1,000 companies but also prevailed across several verticals, from auto to retail to finance.</p><a href="#" data-animation="animated fadeInLeft" style={{backgroundColor: "#58a5ff"}}>order now</a></div>
-                    {/* <!-- End: Left Box --> */}
-                    {/* <!-- Start: Right Box --> */}
-                    <div className="w_shop_105_right_box" data-animation="animated fadeInRight">
-                        <ul>
-                            <li data-animation="animated fadeInRight">some features</li>
-                            <li data-animation="animated fadeInRight">some other features</li>
-                            <li data-animation="animated fadeInRight">some more features</li>
-                            <li data-animation="animated fadeInRight">other features</li>
-                            <li data-animation="animated fadeInRight">features and features</li>
-                        </ul>
-                    </div>
-                    {/* <!-- End: Right Box --> */}
-                </div>
-                {/* <!-- End: 2nd Slide --> */}
-                {/* <!-- Start: 3rd Slide --> */}
-                <div className="carousel-item"><img src="https://www.hackerrank.com/wp-content/uploads/2018/08/Hello-Computer.png" alt="w_shop_105_03"/>
-                    {/* <!-- Start: Left Box --> */}
-                    <div className="w_shop_105_left_box"><span data-animation="animated fadeInLeft" style={{fontFamily: "roboto"}}>$535.00</span>
-                        <h1 className="left-h" data-animation="animated fadeInLeft">product name and modal number</h1>
-                        <p data-animation="animated fadeInLeft">Without even spending $1 on marketing to developers, the HackerRank community organically grew to 1,000,000 developers by February 2015. We continued to invest in helping developers by expanding challenges to a variety of different technical tracks</p><a href="#" data-animation="animated fadeInLeft" style={{backgroundColor: "#58a5ff"}}>order now</a></div>
-                    {/* <!-- End: Left Box --> */}
-                    {/* <!-- Start: Right Box --> */}
-                    <div className="w_shop_105_right_box" data-animation="animated fadeInRight">
-                        <ul>
-                            <li data-animation="animated fadeInRight">some features</li>
-                            <li data-animation="animated fadeInRight">some other features</li>
-                            <li data-animation="animated fadeInRight">some more features</li>
-                            <li data-animation="animated fadeInRight">other features</li>
-                            <li data-animation="animated fadeInRight">features and features</li>
-                        </ul>
-                    </div>
-                    {/* <!-- End: Right Box --> */}
-                </div>
-                {/* <!-- End: 3rd Slide --> */}
-            </div>
-            {/* <!-- End: Wrapper For Slides --> */}
-        </div>
-    </section>
-    {/* <!-- End: featured products slider --> */}
-    {/* <!-- Start: Team --> */}
     <section id="team" className="bg-light-gray">
         <div className="container">
             <div className="row">
@@ -147,8 +53,7 @@ class Mainpage extends Component{
             </div>
             <div className="row">
                 <div className="col-lg-8 offset-lg-2 text-center" data-aos="fade-up">
-                    <p className="large text-muted">3M+ Developers
-MyIq developer community grew 3x by May 2020. This growth is a testament to our product and engineering teams, dedication to producing high-quality coding challenges, curation of inclusive events, and commitment to putting the developer experience first.</p>
+                    <p className="large text-muted">Our Mission is to be an Equal Opportunity Enabler levelling the Opportunity Landscape for Talent Transformation.Let's Learn strives to create a Talent Ecosystem for Sustainability through comprehensive Platform based services.</p>
                 </div>
             </div>
         </div>

@@ -37,6 +37,8 @@ class Registers extends Component
         };
 
         console.log(newUser);
+        if(newUser.spassword===newUser.spassword1)
+        {
     fetch("http://localhost:8082/register", {
       method: "POST",
       headers: {
@@ -63,6 +65,12 @@ class Registers extends Component
         }
         console.log("done");
       });     
+      }
+      else
+      {
+        alert("Passwords Entered Do Not  Match");
+        window.location='http://localhost:3000/Registers';
+      }
       
       }
       f1()
