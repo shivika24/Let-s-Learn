@@ -41,7 +41,7 @@ module.exports.search = async function(req,res){
               console.log(err);
               return res.json({code:0});
             } else {
-              return res.status(400).json({code:result});
+              return res.json({code:result});
               }
           });     
         }

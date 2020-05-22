@@ -1,48 +1,8 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component, PropTypes ,useState } from "react";
 import "./chatapp.css";
 import EmojiButton from "@joeattardi/emoji-button";
+import Message from './message'
 
-function Message(props) {
-var sarr=[];
-  const get=()=>
-  {
-    const user={
-      sender:props.sender,
-      reciever:props.reciver
-    }
-    console.log(user)
-    fetch("http://localhost:8082/sendermsg", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
-      })
-    .then(res=> res.json())
-      .then(res => {
-        console.log(res.code)
-        sarr.push(res.code);
-      })     
-  }
-    // create get function for finding msgs 
-  return (
-    <div>
-    {get()}
-    <div className="headmsg">
-    {console.log(sarr)}
-    <h2>{props.reciver}   : {props.sender}</h2>
-    </div>
-    {sarr[0]?<div style={{ height: "550px", overflow: "scroll" }} className="packmsg">
-    {sarr.map((i)=>{return <div>{console.log(i.sender)}</div>})}
-    {sarr.map((i)=>{return <div className={JSON.parse(localStorage.getItem("jwt")).user.id===i.sender?"sendermsg":"receivermsg"}>
-     {i.message}
-     </div>
-     })}
-     </div>:<div></div>}
-
-    </div>
-  );
-}
 class Chatapp extends Component {
   state = {
     user: "Wellcome to Chat area",
