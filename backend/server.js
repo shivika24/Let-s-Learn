@@ -85,6 +85,12 @@ app.post('/checkpass1',login.checkpassword1)
 app.post('/changepass1',login.changepassword1)
 app.use('/api', router);
 
+app.get('/getblog',login.getblog)
+app.post('/viewblog',login.viewblog)
+app.post('/getcomment',login.getcomment)
+app.post('/addcomment',login.addcomment)
+app.post('/updatelike',login.updatelike)
+
 
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  
@@ -150,3 +156,33 @@ else
     res.end("<h1>Request is from unknown source");
 }
 });
+
+
+
+
+var mysqlConnection= require('./dbconnection');
+app.put('/putevent', (req, res) => {
+
+    let emp = req.body;
+    mysqlConnection.query("INSERT INTO blogg (name,college,course,blo,date,time,rate,count,email,image) VALUES (?,?,?,?,?,?,?,?,?,?)",
+    
+                             [emp.name, emp.college, emp.course, emp.blo , emp.date,emp.time,emp.rate,emp.count,emp.email],emp.image, (err, rows, fields) => {
+        if (!err)
+            res.send('Updated successfully');
+        else
+            console.log(err);
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

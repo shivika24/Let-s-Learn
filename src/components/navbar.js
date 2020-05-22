@@ -45,7 +45,7 @@ class Navbar extends Component{
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="about" style={{color: "white"}}>About Us</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Pricing">Pricing &amp; Plans</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Contact" style={{color: "white"}}>Contact Us</Link></li>
-                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/test" onClick={()=>this.props.test(false)} style={{color: "white"}}>Take Test</Link></li>
+                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/blog" style={{color: "white"}}>Blog</Link></li>
                 </ul><span className="navbar-text actions"> 
                 {
                 localStorage.getItem('jwt')

@@ -29,6 +29,9 @@ import Testloginregister from './components/testloginregister';
 import Test1 from './components/test1';
 import Sample from './components/sample';
 import StudentAnalysis from './components/studentAnalysis';
+
+import Blogs from './components/blog2';
+import Viewblog from './components/viewblog';
 import Feedback from './components/feedback';
 
 
@@ -55,12 +58,14 @@ class App extends Component {
       stype:'',
       auth:'',
       viewtid:'',
-      test:[]
+      test:[],
+      bid:''
     }
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
     this.clickedMcq=this.clickedMcq.bind(this);
     this.sethistory=this.sethistory.bind(this);
+    this.setd=this.setd.bind(this);
     this.showTest=this.showTest.bind(this);
     this.setTrue=this.setTrue.bind(this);
    this.settest=this.settest.bind(this);
@@ -114,6 +119,10 @@ if(JSON.parse(localStorage.getItem("jwt")))
         this.setState({viewTestArr:res})
         
       })
+  }
+  setd(id)
+  {
+    this.setState({bid:id});
   }
   
   sethistory(hist)
@@ -171,6 +180,9 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/sample">
         <Sample/>
       </Route>
+      <Route path="/blog" render={props=> <Blogs setData={this.setd}/>}/>
+      <Route path="/viewblog" render={props=> <Viewblog id={this.state.bid}/>}/>
+
     
          
 

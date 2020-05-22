@@ -22,11 +22,8 @@ class Dashboard extends Component
 
     }    
   }
-  componentDidMount()
+  getQuote=()=>
   {
-    const user={
-      email:JSON.parse(localStorage.getItem("jwt")).user.id,
-    }
     fetch("http://localhost:8082/getquote", {
       method: "GET",
       headers: {
@@ -37,7 +34,25 @@ class Dashboard extends Component
       .then(res => {
         this.setState({quotess:res.code})
       })
-      fetch("http://localhost:8082/gettodo", {
+  }
+  getnotice=()=>{
+    
+    fetch("http://localhost:8082/getnotice1", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      })
+    .then(res=> res.json())
+      .then(res => {
+        this.setState({data:res.code})
+      })
+  }
+  gettodo=()=>{
+    const user={
+      email:JSON.parse(localStorage.getItem("jwt")).user.id,
+    }
+    fetch("http://localhost:8082/gettodo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -48,17 +63,13 @@ class Dashboard extends Component
       .then(res => {
         this.setState({list:res.code})
       })
+  }
+  componentDidMount()
+  {
+    {this.getQuote()}
+    {this.getnotice()}
+    {this.gettodo()}
 
-      fetch("http://localhost:8082/getnotice1", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        })
-      .then(res=> res.json())
-        .then(res => {
-          this.setState({data:res.code})
-        })
   }
   myfunc1 = () =>{
     if(this.state.list)
@@ -139,14 +150,13 @@ todolist = e => {
     if(res.code === 0)
     {
       alert("Item Not Added");
-      window.location='http://localhost:3000/studentDashboard';
+      {this.gettodo()}
     }
     else
     {
     alert(`ITEM ADDED SUCCESFULLY!!`);
-    window.location='http://localhost:3000/studentDashboard';
+    {this.gettodo()}
     }
-    console.log("done");
   }); 
 }
 deleten = id => {
@@ -166,12 +176,12 @@ deleten = id => {
     if(res.code === 0)
     {
       alert("Could Not Delete ITEM");
-      window.location='http://localhost:3000/studentDashboard';
+      {this.gettodo()}
     }
     else
     {
     alert(`ITEM DELETED SUCCESFULLY!!`);
-    window.location='http://localhost:3000/studentDashboard';
+    {this.gettodo()}
     }
   }); 
 }
