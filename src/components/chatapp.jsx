@@ -73,8 +73,8 @@ class Chatapp extends Component {
     alert("reciveremail : " + this.state.reciveremail);
   };
 
-  //create function for get id and search
-  //create function for post msg
+  //create function for get id and search use reciver id present in state
+  //create function for post msg use reciver sender and msg state
 
   render() {
     window.addEventListener("DOMContentLoaded", () => {
