@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-export default class Sprofile extends Component
+import { findRenderedComponentWithType } from 'react-dom/test-utils';
+
+export default class Ssetting extends Component
 {
     constructor()
     {
@@ -21,8 +22,27 @@ export default class Sprofile extends Component
             skills:[],
             ten:"",
             twel:"",
-            grad:""
+            grad:"",
+            pic:""
         }
+    }
+    add=()=>{
+       var obj={skill:document.getElementById("skill").value};
+       fetch(`http://localhost:8082/setskill?semail=${this.state.eid}`,{
+           method:"POST",
+           headers:{
+            Accept: "application/json",
+              "Content-Type":"application/json",
+              },
+           body:JSON.stringify(obj)
+       })
+       .then(res=> res.json())
+      .then(res => {
+       // console.log(JSON.stringify(res));
+        this.setState({skills:res})
+        
+      })
+      document.getElementById("skill").value="";
     }
     pass=e=>{
          var obj={
@@ -95,20 +115,44 @@ export default class Sprofile extends Component
              this.setState({phone:res.spno});
                       }
             )
-            fetch(`http://localhost:8082/getskill?semail=${this.state.eid}`)
+        fetch(`http://localhost:8082/getskill?semail=${this.state.eid}`)
+        .then(res => {return res.json()})
+        .then(res => {
+              console.log(JSON.stringify(res));
+             this.setState({skills:res});
+                      }
+            )
+            fetch(`http://localhost:8082/getedu?semail=${this.state.eid}`)
             .then(res => {return res.json()})
             .then(res => {
                   console.log(JSON.stringify(res));
-                 this.setState({skills:res});
+                 this.setState({ten:res.ten,twel:res.twel,grad:res.grad});
                           }
-                ) 
-                fetch(`http://localhost:8082/getedu?semail=${this.state.eid}`)
-                .then(res => {return res.json()})
-                .then(res => {
-                      console.log(JSON.stringify(res));
-                     this.setState({ten:res.ten,twel:res.twel,grad:res.grad});
-                              }
-                    )   
+                )
+    }
+    setEdu=(e)=>
+    {
+        e.preventDefault();
+        var obj={
+            tenth:document.getElementById("ten").value,
+            twelth:document.getElementById("twel").value,
+            gradu:document.getElementById("grad").value
+        }
+        fetch(` http://localhost:8082/saveedu?semail=${this.state.eid}`,{
+         method:"PUT",
+         headers:{
+            "Content-Type":"application/json",
+            },
+         body:JSON.stringify(obj)
+      })
+      .then(res => {
+         if(res.ok){return res.json();}
+      })
+      .then(res=>{
+          this.setState({ten:obj.tenth,twel:obj.twelth,grad:obj.gradu},()=>{
+              alert("Education updated")
+          });
+      })
     }
     saveSettings=(e)=>
     {
@@ -150,11 +194,11 @@ export default class Sprofile extends Component
         return(
             <div id="wrapper">
                 <div class="container-fluid">
-                <h3 class="text-dark mb-4">Profile</h3>
+                <h3 class="text-dark mb-4">Edit Profile</h3>
                 <div class="row mb-3">
                     <div class="col-lg-4">
                         <div class="card mb-3">
-                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160"/>
+                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src={this.state.pic} width="160" height="160"/>
                                 <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
                             </div>
                         </div>
@@ -163,19 +207,16 @@ export default class Sprofile extends Component
                                 <h6 class="text-primary font-weight-bold m-0">Skills</h6>
                             </div>
                             <div class="card-body">
-                                {this.state.skills.length===0?<p className="h5 text-info">Add skills from setting</p>:<div>
-                            {this.state.skills.map((skill)=>{
+                            <input class="form-control" type="text" id="skill" placeholder="Add skill"/>
+                            <a className="btn btn-danger btn-icon-split mr-2" role="button" onClick={()=>this.add()}><span className="text-white-50 icon"><i className="fa fa-plus"></i></span><span className="text-white text">Add</span></a>
+                              
+                                {this.state.skills.map((skill)=>{
                                return <div><h4 class="small font-weight-bold">{skill}<span class="float-right">40%</span></h4>
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
                                 </div></div>
                                 })}
-                                </div>}
-                                {/* <h4 class="small font-weight-bold">Sales tracking<span class="float-right">40%</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
+                                {/*<h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{width: "60%"}}><span class="sr-only">60%</span></div>
                                 </div>
@@ -225,27 +266,27 @@ export default class Sprofile extends Component
                             <div class="col">
                                 <div class="card shadow mb-3">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold">Your Profile</p>
+                                        <p class="text-primary m-0 font-weight-bold">User Settings</p>
                                     </div>
                                     <div class="card-body">
                                         <form onSubmit={this.saveSettings}>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="username"><strong>Name:</strong></label><p  className="h4 text text-primary"id="uname" name="username">{this.state.username}</p></div>
+                                                    <div class="form-group"><label for="username"><strong>Name</strong></label><input class="form-control" type="text" defaultValue={this.state.username}id="uname" name="username"/></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="email"><strong>Email Address:</strong></label><p className="text text-primary"   id="uemail" name="email">{this.state.eid}</p></div>
+                                                    <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" value={this.state.eid} id="uemail" name="email"/></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="first_name"><strong>Mobile Number</strong></label><p classNmae="text text-gray" id="uph_no" name="phone_num">{this.state.phone}</p></div>
+                                                    <div class="form-group"><label for="first_name"><strong>Mobile Number</strong></label><input class="form-control" type="text" defaultValue={this.state.phone}id="uph_no" name="phone_num"/></div>
                                                 </div>
                                                 {/* <div class="col">
                                                     <div class="form-group"><label for="last_name"><strong>Last Name</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name"/></div>
                                                 </div> */}
                                             </div>
-                                            {/* <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div> */}
+                                            <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
                                         </form>
                                     </div>
                                 </div>
@@ -254,21 +295,21 @@ export default class Sprofile extends Component
                                         <p class="text-primary m-0 font-weight-bold">Education</p>
                                     </div>
                                     <div class="card-body">
-                                        <form >
-                                            <div class="form-group"><label for="address"><strong>10th</strong></label><p className="h5 text-gray-800">{this.state.ten}</p></div>
+                                        <form onSubmit={this.setEdu}>
+                                            <div class="form-group"><label for="ten"><strong>10th</strong></label><input class="form-control" type="text" defaultValue={this.state.ten} id="ten" name="address"/></div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="city"><strong>12th</strong></label><p className="h5 text-gray-800">{this.state.twel}</p></div>
+                                                    <div class="form-group"><label for="twel"><strong>12th</strong></label><input class="form-control" type="text"id="twel" defaultValue={this.state.twel} name="city"/></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="country"><strong>Graduation</strong></label><p className="h5 text-gray-800">{this.state.grad}</p></div>
+                                                    <div class="form-group"><label for="grad"><strong>Graduation</strong></label><input class="form-control" type="text"id="grad" defaultValue={this.state.grad} name="country"/></div>
                                                 </div>
                                             </div>
-                                            {/* <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button></div> */}
+                                            <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button></div>
                                         </form>
                                     </div>
                                 </div>
-                                <center><div class="mb-3"><Link class="btn btn-primary btn-sm" to="/ssetting">Edit Profile</Link></div></center>
+                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#changeModal" rel="nofollow">Change Password</button></div>
                             </div>
     
                         </div>

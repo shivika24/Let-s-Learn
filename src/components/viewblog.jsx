@@ -105,9 +105,10 @@ class Viewblog extends Component
             <center><h1 style={{color:"#086296",fontWeight:"800"}}>{this.state.arr[0].course}</h1></center>
             <center><p style={{color:"#086296"}}>{this.state.arr[0].date}</p></center>
             <br/>
-            <center><img src={this.state.arr[0].image} style={{height:"480px",width:"80%"}}/></center>
-            <button onClick = {(event) => this.countLike(this.state.arr[0].count+1)} style={{marginLeft:"10%"}}>
-            <span style={{fontSize:'20px'}}>&#128512;</span>  {this.state.arr[0].count}</button>
+            <div ><center><img src={this.state.arr[0].image} style={{height:"480px",width:"80%"}}/></center>
+            <div style={{marginTop:"-2.5rem"}}><button className="btn btn-info btn-sm" onClick = {(event) => this.countLike(this.state.arr[0].count+1)} style={{marginLeft:"10%"}}>
+            <span style={{fontSize:'20px'}}>&#128512;</span>  {this.state.arr[0].count}</button></div></div>
+            
             <br/><br/>
             <p style={{marginLeft:"10%",marginRight:"10%"}}>{this.state.arr[0].blo}</p>
             

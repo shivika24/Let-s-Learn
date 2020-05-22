@@ -41,12 +41,15 @@ app.post('/checkt',handleFileRouter.checkt);
 app.post('/updateRes',handleFileRouter.updateMcqSub);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
-
+app.post('/setskill',profileRouter.setskill);
 app.put('/savesetting1',profileRouter.settings1);
 app.get('/phone1',profileRouter.phone1);
 // app.get('/register',(res)=>{
 //     console.log("hello");
 // });
+app.get('/getskill',profileRouter.getSkills);
+app.get('/getedu',profileRouter.getEdu);
+app.put('/saveedu',profileRouter.saveEdu);
 app.get('/mcq',mcqRouter.mcq);
 app.get('/prevTot',mcqRouter.prevTot);
 app.post('/login',login.login)
