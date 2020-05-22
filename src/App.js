@@ -206,12 +206,9 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/testlogin" render={()=><Testlogin/>}/>}/> 
         <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
-<<<<<<< Updated upstream
         <Route path="/Chatapp" render={()=><Chatapp/>}/>}/> 
-=======
       
         {/* <Route path="/reportbyteach" render={()=><Report></Report>}/> */}
->>>>>>> Stashed changes
       </Switch>
     </div>
     <Footer/>
