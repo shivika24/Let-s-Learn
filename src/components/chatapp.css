@@ -1,0 +1,79 @@
+
+.myconta{
+    border:2px solid grey;
+    /* padding: 10px; */
+    background-color: #fcfcfc;
+}
+.msgbox{
+    padding: 10px 10px 0px 0px;
+}
+.packmsg{
+    padding: 20px;
+}
+.sendermsg{
+    clip-path: polygon(20% 8%, 100% 7%, 100% 100%, 50% 100%, 0 100%, 0 0);
+    
+    border-radius:10px ;
+    background-color: lightsalmon;
+    padding: 30px 70px 30px 30px;
+    max-width: 300px;
+}
+.receivermsg{
+    clip-path: polygon(86% 8%, 100% 0, 100% 100%, 50% 100%, 0 100%, 0 9%);
+    border-radius:10px ;
+    background-color: lightgreen;
+    padding: 30px 70px 30px 30px;
+    max-width: 300px;
+    margin-left: 55%;
+}
+@media only screen and (max-width: 600px) {
+    .receivermsg{
+        max-width: 100%;
+        margin-left: 0%;
+    }
+  }
+.listprofile{
+    height: 80px;
+    padding: 10px;
+    display: flex;
+    border-bottom: 1px solid #00000029;
+    padding: 5px;
+}
+.listprofile:hover{
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+.listprofile img{
+    height: 45px;
+    width: 45px;
+    border-radius: 25px;
+    margin-right: 10px;
+}
+.listprofile p{
+    height: 100%;
+    width: 40px;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: transparent; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent; 
+  }
+  .headmsg{
+      background-color: lightgray;
+      width: 100%;
+      
+  }
