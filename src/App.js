@@ -20,7 +20,7 @@ import Home from './components/home';
 import Calender from './components/calender';
 import Testhistory from './components/testhistory';
 import ViewTeachTest from './components/viewTeachtest';
-
+// import Report from './components/report';
 
 import Testdatainsert from './components/testdatainsert';
 import Testlogin from './components/testlogin';
@@ -194,7 +194,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
 
         <Route path="/studentDashboard"  render={props=>typeofstudent?<Dashboard/>:<Redirect to="Logins"/> } />
         <Route path="/sprofile" render={props=>typeofstudent?<Sprofile/>:<Redirect to="Logins"/> } />
-       
+        <Route path="/studentAnalysis" render={props=>typeofstudent?<StudentAnalysis/>:<Redirect to="Logins"/> } />
         <Route path="/testdataentry" render={props=>typeofteacher?<Testdatainsert/>:<Redirect to="Logint"/> } />
         <Route path="/profile"  render={props=>typeofteacher?<Profile/>:<Redirect to="Logint"/> } /> 
         <Route path="/teacherDashboard" render={props=>typeofteacher? <Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/> :<Redirect to="Logint"/> }/>
@@ -207,6 +207,8 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/testloginsign" render={()=><Testloginsign tID1={this.state.testid1}/>} /> 
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
         <Route path="/Chatapp" render={()=><Chatapp/>}/>}/> 
+      
+        {/* <Route path="/reportbyteach" render={()=><Report></Report>}/> */}
       </Switch>
     </div>
     <Footer/>

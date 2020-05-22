@@ -6,7 +6,6 @@ export default class extends Component{
    super();
    this.state={
      submitted:[],
-     opt:0
    }
    this.addSubmit=this.addSubmit.bind(this);
    this.sendToBack=this.sendToBack.bind(this);
@@ -14,9 +13,37 @@ export default class extends Component{
  }
  componentDidMount()
  {
-   for(var i=0;i<this.props.len;i++)
-   this.state.submitted.push(-1);
-   console.log(this.state.submitted)
+  var url = new URL(window.location.href); 
+  var params = new URLSearchParams(url.search);
+  var obj={
+     semail:JSON.parse(localStorage.getItem("jwt")).user.id,
+     testid:params.get('code'),
+     len:this.props.len
+  }
+   fetch("http://localhost:8082/initialResult",{
+    method:"POST",
+    headers:{
+     Accept: "application/json",
+       "Content-Type":"application/json",
+       },
+    body:JSON.stringify(obj)
+})
+   .then(res => {return res.json();})
+   .then(res=>{
+     if(res.resType===0)
+     this.setState({submitted:res.arr},()=>{
+       console.log("++"+this.state.submitted+"++");
+     });
+     else
+     {
+         for(var i=0;i<this.props.len;i++)
+          this.state.submitted.push(-1);
+         console.log(this.state.submitted)
+     }
+   })
+  //  for(var i=0;i<this.props.len;i++)
+  //  this.state.submitted.push(-1);
+  //  console.log(this.state.submitted)
  }
  settotrue()
  {
@@ -26,6 +53,8 @@ export default class extends Component{
  }
  addSubmit(qno)
  {
+  var url = new URL(window.location.href); 
+  var params = new URLSearchParams(url.search);
     if(document.getElementById(""+1).checked==true)
     this.state.submitted[qno]=1;
     else if(document.getElementById(""+2).checked==true)
@@ -35,7 +64,18 @@ export default class extends Component{
     else if(document.getElementById(""+4).checked==true)
     this.state.submitted[qno]=4;
   //  else this.state.submitted[qno]="na";
-
+   fetch(`http://localhost:8082/updateRes?semail=${JSON.parse(localStorage.getItem("jwt")).user.id}&testid=${params.get('code')}`,{
+      method:"POST",
+      headers:{
+        Accept: "application/json",
+          "Content-Type":"application/json",
+          },
+       body:JSON.stringify(this.state.submitted)
+   })
+   .then(res => {return res.json();})
+   .then(res=>{
+     console.log("Result Array Updated!!")
+   })
  }
  sendToBack(){
    console.log(this.state.submitted);
@@ -77,7 +117,11 @@ export default class extends Component{
                            return <div className="form-check">
                                
                                 <h6 className="form-check-label" for="exampleRadios1">
+                                  {
+                                  this.state.submitted[this.props.idx]===(index+1)?
+                                <input className="form-check-input" type="radio"  name="exampleRadios" id={index+1} value="option1" checked/>:
                                 <input className="form-check-input" type="radio"  name="exampleRadios" id={index+1} value="option1"/>
+                                }
                                   {choice}
                                   
                                  </h6>
