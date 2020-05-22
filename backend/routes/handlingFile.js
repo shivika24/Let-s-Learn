@@ -79,6 +79,22 @@ const router=require('express').Router();
           
         
     }
+    module.exports.updateMcqSub=async function(req,res,next)
+    {
+        var email=req.query.semail;
+        var testid=req.query.testid;
+        console.log(email+" "+testid+" "+req.body);
+        var arr=req.body.join("*");
+        var sql="UPDATE result SET answers=? WHERE semail=? AND testid=?";
+        con.query(sql,[arr,email,testid],function(err,data){
+           if(err)
+           console.log(err);
+           else
+           {
+               console.log("RESULT ARRAY UPDATED!!");
+           }
+        })
+    }
      module.exports.submittedQues=async function(req,res,next)
      {
          var str=[];
@@ -118,8 +134,9 @@ const router=require('express').Router();
                       year=resultss[0].syear;
                       console.log(year)
                       console.log(roll)
-                      var sql = "INSERT INTO `result`(`semail`,`testid`,`answers`,`marks`,`year`,`rollno`) VALUES ('" + req.body.semail + "','" + req.body.testid + "','" +s + "','" + count  + "','" + year  + "','" + roll  +"')";
-                      var query = con.query(sql, function(err, result) {  
+                    //   var sql = "INSERT INTO `result`(`semail`,`testid`,`answers`,`marks`,`year`,`rollno`) VALUES ('" + req.body.semail + "','" + req.body.testid + "','" +s + "','" + count  + "','" + year  + "','" + roll  +"')";
+                        var sql="UPDATE result SET marks=? , year=? ,rollno=? WHERE semail=? AND testid=?";
+                      var query = con.query(sql,[count,year,roll,req.body.semail,req.body.testid], function(err, result) {  
                         if (err) {
                         console.log(err)
                         } 
@@ -152,10 +169,66 @@ const router=require('express').Router();
             //    else
             //    console.log(data[0].cnt)
             if (data[0].cnt>=1) {
-              console.log("already test");
-              return res.status(400).json({pass:0});
+                var sql1="SELECT marks FROM result WHERE semail ='" + users.email + "' AND testid = '"+users.testid + "'" ;
+                con.query(sql1,function(err,data)
+                {
+                    if(err)
+                    console.log(err)
+                    else if(data[0].marks=="")
+                    return res.status(400).json({pass:1});
+                    else
+                    {
+                        console.log("already test");
+                        return res.status(400).json({pass:0});
+                    }
+                })
+              
             } else {
               return res.status(400).json({pass:1});
               } 
           });
+      }
+      module.exports.initialRes= async function(req,res)
+      {
+          var email=req.body.semail;
+          var testid=req.body.testid;
+          var len=req.body.len;
+          console.log("e:"+email+" tid:"+testid);
+          var sql1="SELECT COUNT(answers) AS cnt FROM result WHERE semail ='" + email + "' AND testid = '"+testid + "'" ;
+          var sql2="SELECT answers FROM result WHERE semail ='" + email + "' AND testid = '"+testid + "'" ;
+          con.query(sql1,function(err,data){
+              if(err)
+              console.log(err);
+              else
+              {
+                  if(data[0].cnt>0)
+                  {
+                      con.query(sql2,function(err,data){
+                          if(err)
+                          console.log(err);
+                          else 
+                          {
+                            //   if(data[0].marks=="")
+                            //   console.log("marks:"+data[0].marks);
+                              var ans=data[0].answers.split("*");
+                              res.send({resType:0,arr:ans});
+                          }
+                      })
+                  
+                  }
+                  else
+                  {
+                      var arr=[]
+                      for(var i=0;i<len;i++)
+                       arr.push(-1);
+                       arr=arr.join("*");
+                       var sql="INSERT INTO `result`(`semail`,`testid`,`answers`) VALUES ('" + email + "','" + testid + "','" +arr + "')";
+                     con.query(sql,function(err,data){
+                         if(err)
+                         console.log(err);
+                         res.send({resType:1})
+                     })
+                  } 
+              }
+          })
       }
