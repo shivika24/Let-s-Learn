@@ -600,3 +600,20 @@ module.exports.register = async function(req,res){
                                               }
                                           });                  
                               }
+                              module.exports.updatelike = async function(req,res){
+                                var users={
+                                     "id":req.body.id,
+                                     "count":req.body.count
+                                   }
+                                   console.log(users)
+                                   var sql = "UPDATE blogg SET count ='" + users.count + "' WHERE sn = '"+users.id + "'" ;
+                                    con.query(sql,function(err , data){
+                                     if (err) {
+                                      console.log(err);
+                                       return res.status(400).json({code:0});
+                                    } else {
+                                      console.log("added")
+                                    return res.status(400).json({code:1});
+                                   } 
+                                   });
+                                   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import StarRatingComponent from 'react-star-rating-component';
 import './viewblog.css';
 class Viewblog extends Component
 {
@@ -10,6 +11,7 @@ class Viewblog extends Component
             arr:[],
             comment:[]
         }
+        this.countLike=this.countLike.bind(this);
     }
     componentDidMount()
     {
@@ -68,10 +70,34 @@ class Viewblog extends Component
                 {
                 alert("Comment Added");
                 document.getElementById("comment").value="";
+                {this.comment()}
                 }
 
             })
     }
+    countLike(count){
+        var obj={
+            id:this.props.id,
+            count:count
+          }    
+          fetch("http://localhost:8082/updatelike", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj)
+            })
+          .then(res=> res.json())
+            .then(res => {
+                if(res.code===1)
+                {
+                {this.data()}
+                }
+
+            })
+        
+    }
+    
     render()
     {
         return (
@@ -80,9 +106,12 @@ class Viewblog extends Component
             <center><p style={{color:"#086296"}}>{this.state.arr[0].date}</p></center>
             <br/>
             <center><img src={this.state.arr[0].image} style={{height:"480px",width:"80%"}}/></center>
+            <button onClick = {(event) => this.countLike(this.state.arr[0].count+1)} style={{marginLeft:"10%"}}>
+            <span style={{fontSize:'20px'}}>&#128512;</span>  {this.state.arr[0].count}</button>
             <br/><br/>
             <p style={{marginLeft:"10%",marginRight:"10%"}}>{this.state.arr[0].blo}</p>
-            <p style={{marginLeft:"10%",marginRight:"10%",color:"#086296"}}>{this.state.arr[0].name}<br/>{this.state.arr[0].email}</p>
+            
+            <p style={{marginLeft:"10%",marginRight:"10%",color:"#086296"}}><StarRatingComponent   starCount={10}  value={this.state.arr[0].rate}  /><br/>{this.state.arr[0].name}<br/>{this.state.arr[0].email}</p>
             <br/><br/>
             <h2 style={{marginLeft:"10%",marginRight:"10%"}}>Comments</h2>
             {this.state.comment.map((i)=>{return <div class="container10">
