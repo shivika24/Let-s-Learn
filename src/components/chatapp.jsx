@@ -3,42 +3,43 @@ import "./chatapp.css";
 import EmojiButton from "@joeattardi/emoji-button";
 
 function Message(props) {
-
+var sarr=[];
+  const get=()=>
+  {
+    const user={
+      sender:props.sender,
+      reciever:props.reciver
+    }
+    console.log(user)
+    fetch("http://localhost:8082/sendermsg", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        console.log(res.code)
+        sarr.push(res.code);
+      })     
+  }
     // create get function for finding msgs 
   return (
     <div>
-      <div className="headmsg">
-          {/* use these props in get function */}
-        <h2>{props.reciver}   : {props.sender}</h2>
-      </div>
-      <div style={{ height: "550px", overflow: "scroll" }} className="packmsg">
-       
-       {/* className="sendermsg" for reciver className="receivermsg" for sender */}
-       
-        <div className="sendermsg">
-          This is some text. This is some text. This is some text This is some
-          text. This is some text. This is some text This is some text. This is
-          some text. This is some text
-        </div>
-        <div className="receivermsg">
-          This is some text. This is some text. This is some text This is some
-          text. This is some text. This is some text This is some text. This is
-          some text. This is some text
-        </div>
-        <div className="sendermsg">
-          This is some text. This is some text. This is some text This is some
-          text. This is some text. This is some text This is some text. This is
-          some text. This is some text
-        </div>
-        <div className="receivermsg">
-          This is some text. This is some text. This is some text This is some
-          text. This is some text. This is some text This is some text. This is
-          some text. This is some text
-        </div>
+    {get()}
+    <div className="headmsg">
+    {console.log(sarr)}
+    <h2>{props.reciver}   : {props.sender}</h2>
+    </div>
+    {sarr[0]?<div style={{ height: "550px", overflow: "scroll" }} className="packmsg">
+    {sarr.map((i)=>{return <div>{console.log(i.sender)}</div>})}
+    {sarr.map((i)=>{return <div className={JSON.parse(localStorage.getItem("jwt")).user.id===i.sender?"sendermsg":"receivermsg"}>
+     {i.message}
+     </div>
+     })}
+     </div>:<div></div>}
 
-
-
-      </div>
     </div>
   );
 }
@@ -48,6 +49,7 @@ class Chatapp extends Component {
     msg: "", //your message value
     reciveremail: "",
     senderemail: "",
+    arr:[]
   };
   constructor() {
     super();
@@ -57,20 +59,58 @@ class Chatapp extends Component {
   }
   passmsg = (email1 = 0) => {
     this.setState({ reciveremail: email1 });
+    this.setState({ senderemail: JSON.parse(localStorage.getItem("jwt")).user.id,})
   };
+  
 
   mymsgsend(event) {
     this.setState({ msg: event.target.value });
   }
   searhboxmail(event) {
+    const user={
+      email:this.state.reciveremail,
+      e1:JSON.parse(localStorage.getItem("jwt")).user.id
+    }
+    fetch("http://localhost:8082/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        console.log(res.code)
+        this.setState({arr:res.code})
+      })
     this.setState({ reciveremail: event.target.value });
   }
   handleSubmit(event) {
-    alert("your message" + this.state.msg);
     event.preventDefault();
+    const user={
+      sender:JSON.parse(localStorage.getItem("jwt")).user.id,
+      reciever:this.state.reciveremail,
+      message:this.state.msg
+    }
+    fetch("http://localhost:8082/addmsg", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        if(res.code===1)
+        alert("Message Added");
+        else
+        alert("Message Not Added");
+      })
+
   }
   searchmail = () => {
-    alert("reciveremail : " + this.state.reciveremail);
+   
+   alert("reciveremail : " + this.state.reciveremail);
   };
 
   //create function for get id and search use reciver id present in state
@@ -121,42 +161,17 @@ class Chatapp extends Component {
                   className="col-12 mt-4"
                   style={{ height: "550px", overflow: "scroll" }}
                 >
-                  <div
-                    className="listprofile"
-                    onClick={() => {
-                      this.passmsg("email1");
-                    }}
-                  >
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtFb5KR5e9qSqvLmU94XSIFrHKVhcJolh-vUdnvY0A7sVOJoLd&usqp=CAU" />
-                    <p>click 1</p>
-                  </div>
-                  <div
-                    className="listprofile"
-                    onClick={() => {
-                      this.passmsg("email2");
-                    }}
-                  >
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtFb5KR5e9qSqvLmU94XSIFrHKVhcJolh-vUdnvY0A7sVOJoLd&usqp=CAU" />
-                    <p>click 1</p>
-                  </div>
-                  <div
-                    className="listprofile"
-                    onClick={() => {
-                      this.passmsg("email3");
-                    }}
-                  >
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtFb5KR5e9qSqvLmU94XSIFrHKVhcJolh-vUdnvY0A7sVOJoLd&usqp=CAU" />
-                    <p>click 1</p>
-                  </div>
-                  <div
-                    className="listprofile"
-                    onClick={() => {
-                      this.passmsg("email4");
-                    }}
-                  >
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtFb5KR5e9qSqvLmU94XSIFrHKVhcJolh-vUdnvY0A7sVOJoLd&usqp=CAU" />
-                    <p>click 1</p>
-                  </div>
+                {this.state.arr.map((i)=>{return <div
+                  className="listprofile"
+                  onClick={() => {
+                    this.passmsg(i.reciever);
+                  }}
+                >
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtFb5KR5e9qSqvLmU94XSIFrHKVhcJolh-vUdnvY0A7sVOJoLd&usqp=CAU" />
+                  <p>{i.reciever}</p>
+                </div>
+                })}
+
                 </div>
               </div>
             </div>

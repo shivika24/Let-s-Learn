@@ -4,6 +4,7 @@ var handleFileRouter =  require('./routes/handlingFile');
 var mcqRouter=require('./routes/mcq')
 var profileRouter=require('./routes/profileSetting');
 var viewtestdatafile=require('./routes/viewtestdatafile')
+var chatapp=require('./routes/chatapp')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
@@ -91,6 +92,10 @@ app.post('/getcomment',login.getcomment)
 app.post('/addcomment',login.addcomment)
 app.post('/updatelike',login.updatelike)
 
+
+app.post('/search',chatapp.search)
+app.post('/addmsg',chatapp.addmsg)
+app.post('/sendermsg',chatapp.sendermsg)
 
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  
