@@ -9,6 +9,7 @@ import Sidebar from './components/sideBar.js';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Profile from './components/profile';
+import Tsetting from './components/tsettings';
 import Ssetting from './components/ssetings.js';
 import Registers from './components/registers';
 import Registert from './components/registert';
@@ -197,6 +198,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/studentAnalysis" render={props=>typeofstudent?<StudentAnalysis/>:<Redirect to="Logins"/> } />
         <Route path="/testdataentry" render={props=>typeofteacher?<Testdatainsert/>:<Redirect to="Logint"/> } />
         <Route path="/profile"  render={props=>typeofteacher?<Profile/>:<Redirect to="Logint"/> } /> 
+        <Route path="/tsetting"  render={props=>typeofteacher?<Tsetting/>:<Redirect to="Logint"/> } /> 
         <Route path="/teacherDashboard" render={props=>typeofteacher? <Tdashboard setHist={this.sethistory} tot={this.state.prevTot}/> :<Redirect to="Logint"/> }/>
         <Route path='/viewteachtest'  render={props=>typeofteacher?<ViewTeachTest prevTest={this.state.viewTestArr} tidis={this.state.viewtid} />:<Redirect to="Logint"/> } ></Route>
         <Route path="/testhistory" render={props=>typeofteacher?<Testhistory prevTest={this.state.history} showT={this.showTest} />:<Redirect to="Logint"/> } />

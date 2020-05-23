@@ -21,7 +21,8 @@ export default class Sprofile extends Component
             skills:[],
             ten:"",
             twel:"",
-            grad:""
+            grad:"",
+            pic:""
         }
     }
     pass=e=>{
@@ -86,6 +87,13 @@ export default class Sprofile extends Component
        }
       });  
        }
+       arrayBufferToBase64=(buffer)=> {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+      //  console.log(window.btoa(binary));
+        return window.btoa(binary);
+    }
     componentDidMount()
     {
         fetch(` http://localhost:8082/phone1?tId=${this.state.eid}`)
@@ -108,7 +116,15 @@ export default class Sprofile extends Component
                       console.log(JSON.stringify(res));
                      this.setState({ten:res.ten,twel:res.twel,grad:res.grad});
                               }
-                    )   
+                    ) 
+                    fetch(`http://localhost:8082/getphoto?semail=${this.state.eid}`)
+                    .then(res => {return res.json()})
+                    .then(data => {
+                        var base64Flag = 'data:image/jpeg;base64,';
+                        var imageStr =
+                            this.arrayBufferToBase64(data.buff.data);
+                    this.setState({pic:(base64Flag + imageStr)});
+                        })  
     }
     saveSettings=(e)=>
     {
@@ -154,8 +170,8 @@ export default class Sprofile extends Component
                 <div class="row mb-3">
                     <div class="col-lg-4">
                         <div class="card mb-3">
-                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160"/>
-                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
+                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src={this.state.pic} width="160" height="160"/>
+                                <div class="mb-3"><p  className="h6 text text-primary"id="uname" name="username">{this.state.username}</p></div>
                             </div>
                         </div>
                         <div class="card shadow mb-4">
@@ -168,8 +184,10 @@ export default class Sprofile extends Component
                                return <div><h4 class="small font-weight-bold">{skill}<span class="float-right">40%</span></h4>
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
-                                </div></div>
+                                </div>
+                                </div>
                                 })}
+                                <p className="h6 text-info">**You can add more skills from setting**</p>
                                 </div>}
                                 {/* <h4 class="small font-weight-bold">Sales tracking<span class="float-right">40%</span></h4>
                                 <div class="progress progress-sm mb-3">

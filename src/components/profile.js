@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Link} from 'react-router-dom';
 export default class Profile extends Component
 {
     constructor()
@@ -17,7 +17,9 @@ export default class Profile extends Component
             username:u,
             eid:email,
             phone:'',
-            flag1:false
+            flag1:false,
+            experience:[],
+            pic:""
         }
     }
     pass=e=>{
@@ -82,6 +84,13 @@ export default class Profile extends Component
        }
       });  
        }
+       arrayBufferToBase64=(buffer)=> {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+      //  console.log(window.btoa(binary));
+        return window.btoa(binary);
+    }
     componentDidMount()
     {
         fetch(` http://localhost:8082/phone?tId=${this.state.eid}`)
@@ -91,6 +100,21 @@ export default class Profile extends Component
              this.setState({phone:res.tpno});
                       }
             )
+            fetch(`http://localhost:8082/getexp?temail=${this.state.eid}`)
+            .then(res => {return res.json()})
+            .then(res => {
+                  console.log(JSON.stringify(res));
+                 this.setState({experience:res});
+                          }
+                ) 
+                fetch(`http://localhost:8082/gettphoto?temail=${this.state.eid}`)
+                .then(res => {return res.json()})
+                .then(data => {
+                    var base64Flag = 'data:image/jpeg;base64,';
+                    var imageStr =
+                        this.arrayBufferToBase64(data.buff.data);
+                this.setState({pic:(base64Flag + imageStr)});
+                    })
     }
     saveSettings=(e)=>
     {
@@ -136,16 +160,26 @@ export default class Profile extends Component
                 <div class="row mb-3">
                     <div class="col-lg-4">
                         <div class="card mb-3">
-                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160"/>
-                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
+                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src={this.state.pic} width="160" height="160"/>
+                                <div class="mb-3"><p  className="h6 text text-primary"id="uname" name="username">{this.state.username}</p></div>
                             </div>
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="text-primary font-weight-bold m-0">Projects</h6>
+                                <h6 class="text-primary font-weight-bold m-0">Experience</h6>
                             </div>
                             <div class="card-body">
-                                <h4 class="small font-weight-bold">Server migration<span class="float-right">20%</span></h4>
+                            {this.state.experience.length===0?<p className="h5 text-info">Add experience from setting</p>:<div>
+                            {this.state.experience.map((exp)=>{
+                               return <div><h4 class="small font-weight-bold">{exp}<span class="float-right">40%</span></h4>
+                                <div class="progress progress-sm mb-3">
+                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
+                                </div>
+                                </div>
+                                })}
+                                <p className="h6 text-info">**You can add more experience from setting**</p>
+                                </div>}
+                                {/* <h4 class="small font-weight-bold">Server migration<span class="float-right">20%</span></h4>
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style={{width: "20%"}}><span class="sr-only">20%</span></div>
                                 </div>
@@ -164,7 +198,7 @@ export default class Profile extends Component
                                 <h4 class="small font-weight-bold">Account setup<span class="float-right">Complete!</span></h4>
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style={{width: "100%"}}><span class="sr-only">100%</span></div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -203,27 +237,27 @@ export default class Profile extends Component
                             <div class="col">
                                 <div class="card shadow mb-3">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold">User Settings</p>
+                                        <p class="text-primary m-0 font-weight-bold">Your Profile</p>
                                     </div>
                                     <div class="card-body">
-                                        <form onSubmit={this.saveSettings}>
+                                        <form >
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="username"><strong>Name</strong></label><input class="form-control" type="text" defaultValue={this.state.username}id="uname" name="username"/></div>
+                                                    <div class="form-group"><label for="username"><strong>Name</strong></label><p  className="h4 text text-primary"id="uname" name="username">{this.state.username}</p></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" value={this.state.eid} id="uemail" name="email"/></div>
+                                                    <div class="form-group"><label for="email"><strong>Email Address</strong></label><p className="text text-primary"   id="uemail" name="email">{this.state.eid}</p></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="first_name"><strong>Mobile Number</strong></label><input class="form-control" type="text" defaultValue={this.state.phone}id="uph_no" name="phone_num"/></div>
+                                                    <div class="form-group"><label for="first_name"><strong>Mobile Number</strong></label><p classNmae="text text-gray" id="uph_no" name="phone_num">{this.state.phone}</p></div>
                                                 </div>
                                                 {/* <div class="col">
                                                     <div class="form-group"><label for="last_name"><strong>Last Name</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name"/></div>
                                                 </div> */}
                                             </div>
-                                            <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                                            {/* <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div> */}
                                         </form>
                                     </div>
                                 </div>
@@ -242,56 +276,17 @@ export default class Profile extends Component
                                                     <div class="form-group"><label for="country"><strong>Country</strong></label><input class="form-control" type="text" placeholder="USA" name="country"/></div>
                                                 </div>
                                             </div>
-                                            <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button></div>
+                                            {/* <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button></div> */}
                                         </form>
                                     </div>
                                 </div>
-                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#changeModal" rel="nofollow">Change Password</button></div>
+                                <div class="mb-3"><Link to="tsetting" class="btn btn-primary btn-sm" type="button" >Edit Profile</Link></div>
                             </div>
     
                         </div>
                     </div>
                 </div>               
-            </div>
-
-            <div class="modal fade " id="changeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header bg-info">
-                        <h5 class="modal-title text-gray-800" id="exampleModalLabel">CHANGE PASSWORD</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      {this.state.flag1==false?
-                        (<div class="modal-body">
-                          
-                        <div class="input-group mb-3">
-                            <input type="password" class="form-control" id="pass01" placeholder="Enter Old Password" required/>
-                          </div>
-                        </div>):
-                        (<div class="modal-body">
-                          <div class="input-group mb-3">
-                          <input type="password" class="form-control" id="npass01" placeholder="Enter New Password" required/>
-                          </div>
-                          <div class="input-group mb-3">
-                          <input type="password" class="form-control" id="npass02" placeholder="ReEnter New Password" required/>
-                          </div>
-                          </div>
-                        )}
-                        {this.state.flag1==false?
-                        <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <button class="btn btn-primary" onClick={()=>this.pass(document.getElementById("pass01").value)}>Next</button>
-                        </div>:
-                          <div class="modal-footer">
-                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <button class="btn btn-primary" onClick={()=>this.changepass(document.getElementById("npass01").value,document.getElementById("npass02").value)}>CHANGE</button>
-                       </div>
-                        }
-                    </div>
-                  </div>
-                </div>            
+            </div>        
             </div>
         )
     }

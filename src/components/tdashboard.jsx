@@ -511,7 +511,7 @@ class tDashboard extends Component
                   <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </Link>
-                <Link className="dropdown-item" to="/profile">
+                <Link className="dropdown-item" to="/tsetting" style={{color:"black",textDecoration:"none"}}>
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </Link>

@@ -42,11 +42,13 @@ app.post('/updateRes',handleFileRouter.updateMcqSub);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
 app.post('/setskill',profileRouter.setskill);
+app.post('/setexp',profileRouter.setexp);
 app.put('/savesetting1',profileRouter.settings1);
 app.get('/phone1',profileRouter.phone1);
 // app.get('/register',(res)=>{
 //     console.log("hello");
 // });
+app.get('/getexp',profileRouter.getExp);
 app.get('/getskill',profileRouter.getSkills);
 app.get('/getedu',profileRouter.getEdu);
 app.put('/saveedu',profileRouter.saveEdu);
@@ -99,7 +101,10 @@ app.post('/updatelike',login.updatelike)
 app.post('/search',chatapp.search)
 app.post('/addmsg',chatapp.addmsg)
 app.post('/sendermsg',chatapp.sendermsg)
-
+app.post('/setpic',profileRouter.setPic);
+app.post('/settpic',profileRouter.settPic);
+app.get('/getphoto',profileRouter.getPhoto);
+app.get('/gettphoto',profileRouter.gettPhoto);
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  
 })

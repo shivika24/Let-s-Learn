@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-
-export default class Ssetting extends Component
+export default class Tsetting extends Component
 {
     constructor()
     {
@@ -19,66 +18,34 @@ export default class Ssetting extends Component
             eid:email,
             phone:'',
             flag1:false,
-            skills:[],
-            ten:"",
-            twel:"",
-            grad:"",
+            experience:[],
             pic:""
         }
     }
-    arrayBufferToBase64=(buffer)=> {
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-      //  console.log(window.btoa(binary));
-        return window.btoa(binary);
-    }
-    changePhoto=()=>{
-        const inp=document.getElementById("pict").files[0].name;
-        console.log(inp);
-        var obj={pict:document.getElementById("pict").files[0].name};
-        fetch(`http://localhost:8082/setpic?semail=${this.state.eid}`,{
-           method:"POST",
-           headers:{
-            Accept: "application/json",
-              "Content-Type":"application/json",
-              },
-           body:JSON.stringify(obj)
-       })
-       .then(res=> res.json())
-      .then(data => {
-        var base64Flag = 'data:image/jpeg;base64,';
-            var imageStr =
-                this.arrayBufferToBase64(data.buff.data);
-        this.setState({pic:(base64Flag + imageStr)},()=>{ console.log(this.state.pic);})
-        
-      })
-
-    }
     add=()=>{
-       var obj={skill:document.getElementById("skill").value};
-       fetch(`http://localhost:8082/setskill?semail=${this.state.eid}`,{
-           method:"POST",
-           headers:{
-            Accept: "application/json",
-              "Content-Type":"application/json",
-              },
-           body:JSON.stringify(obj)
+        var obj={exp:document.getElementById("exp").value};
+        fetch(`http://localhost:8082/setexp?temail=${this.state.eid}`,{
+            method:"POST",
+            headers:{
+             Accept: "application/json",
+               "Content-Type":"application/json",
+               },
+            body:JSON.stringify(obj)
+        })
+        .then(res=> res.json())
+       .then(res => {
+        // console.log(JSON.stringify(res));
+         this.setState({experience:res})
+         
        })
-       .then(res=> res.json())
-      .then(res => {
-       // console.log(JSON.stringify(res));
-        this.setState({skills:res})
-        
-      })
-      document.getElementById("skill").value="";
-    }
+       document.getElementById("exp").value="";
+     }
     pass=e=>{
          var obj={
           email:JSON.parse(localStorage.getItem("jwt")).user.id,    
           oldp:e,
         };
-         fetch("http://localhost:8082/checkpass1",{
+         fetch("http://localhost:8082/checkpass",{
           method:"POST",
           headers:{
            Accept: "application/json",
@@ -109,7 +76,7 @@ export default class Ssetting extends Component
         npass1:e,
         npass2:f,
        };
-        fetch("http://localhost:8082/changepass1",{
+        fetch("http://localhost:8082/changepass",{
          method:"POST",
          headers:{
           Accept: "application/json",
@@ -122,12 +89,12 @@ export default class Ssetting extends Component
            if(res.pass === 1)
            {
             alert("Password Changed");
-            window.location="http://localhost:3000/studentDashboard";        
+            window.location="http://localhost:3000/teacherDashboard";        
            }
            else if(res.pass===2)
            {
                alert("Password do not match");
-               window.location="http://localhost:3000/studentDashboard";    
+               window.location="http://localhost:3000/teacherDashboard";    
            }
        else 
        {
@@ -135,30 +102,52 @@ export default class Ssetting extends Component
        }
       });  
        }
+       arrayBufferToBase64=(buffer)=> {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+      //  console.log(window.btoa(binary));
+        return window.btoa(binary);
+    }
+    changePhoto=()=>{
+        const inp=document.getElementById("pict").files[0].name;
+        console.log(inp);
+        var obj={pict:document.getElementById("pict").files[0].name};
+        fetch(`http://localhost:8082/settpic?temail=${this.state.eid}`,{
+           method:"POST",
+           headers:{
+            Accept: "application/json",
+              "Content-Type":"application/json",
+              },
+           body:JSON.stringify(obj)
+       })
+       .then(res=> res.json())
+      .then(data => {
+        var base64Flag = 'data:image/jpeg;base64,';
+            var imageStr =
+                this.arrayBufferToBase64(data.buff.data);
+        this.setState({pic:(base64Flag + imageStr)},()=>{ console.log(this.state.pic);})
+        
+      })
+
+    }
     componentDidMount()
     {
-        fetch(` http://localhost:8082/phone1?tId=${this.state.eid}`)
+        fetch(` http://localhost:8082/phone?tId=${this.state.eid}`)
         .then(res => {return res.json()})
         .then(res => {
               console.log(JSON.stringify(res));
-             this.setState({phone:res.spno});
+             this.setState({phone:res.tpno});
                       }
             )
-        fetch(`http://localhost:8082/getskill?semail=${this.state.eid}`)
-        .then(res => {return res.json()})
-        .then(res => {
-              console.log(JSON.stringify(res));
-             this.setState({skills:res});
-                      }
-            )
-            fetch(`http://localhost:8082/getedu?semail=${this.state.eid}`)
+            fetch(`http://localhost:8082/getexp?temail=${this.state.eid}`)
             .then(res => {return res.json()})
             .then(res => {
                   console.log(JSON.stringify(res));
-                 this.setState({ten:res.ten,twel:res.twel,grad:res.grad});
+                 this.setState({experience:res});
                           }
-                )
-                fetch(`http://localhost:8082/getphoto?semail=${this.state.eid}`)
+                ) 
+                fetch(`http://localhost:8082/gettphoto?temail=${this.state.eid}`)
                 .then(res => {return res.json()})
                 .then(data => {
                     var base64Flag = 'data:image/jpeg;base64,';
@@ -166,30 +155,6 @@ export default class Ssetting extends Component
                         this.arrayBufferToBase64(data.buff.data);
                 this.setState({pic:(base64Flag + imageStr)});
                     })
-    }
-    setEdu=(e)=>
-    {
-        e.preventDefault();
-        var obj={
-            tenth:document.getElementById("ten").value,
-            twelth:document.getElementById("twel").value,
-            gradu:document.getElementById("grad").value
-        }
-        fetch(` http://localhost:8082/saveedu?semail=${this.state.eid}`,{
-         method:"PUT",
-         headers:{
-            "Content-Type":"application/json",
-            },
-         body:JSON.stringify(obj)
-      })
-      .then(res => {
-         if(res.ok){return res.json();}
-      })
-      .then(res=>{
-          this.setState({ten:obj.tenth,twel:obj.twelth,grad:obj.gradu},()=>{
-              alert("Education updated")
-          });
-      })
     }
     saveSettings=(e)=>
     {
@@ -199,7 +164,7 @@ export default class Ssetting extends Component
            email:document.getElementById("uemail").value,
             ph_num:document.getElementById("uph_no").value
         }
-        fetch(' http://localhost:8082/savesetting1',{
+        fetch(' http://localhost:8082/savesetting',{
          method:"PUT",
          headers:{
             "Content-Type":"application/json",
@@ -236,24 +201,32 @@ export default class Ssetting extends Component
                     <div class="col-lg-4">
                         <div class="card mb-3">
                             <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src={this.state.pic} width="160" height="160"/>
-                                <div class="mb-3"><button class="btn btn-primary btn-sm"   type="button" data-toggle="modal" data-target="#picModal" rel="nofollow">Change Photo</button></div>
+                            <div class="mb-3"><button class="btn btn-primary btn-sm"   type="button" data-toggle="modal" data-target="#picModal" rel="nofollow">Change Photo</button></div>
                             </div>
                         </div>
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="text-primary font-weight-bold m-0">Skills</h6>
+                                <h6 class="text-primary font-weight-bold m-0">Experience</h6>
                             </div>
                             <div class="card-body">
-                            <input class="form-control" type="text" id="skill" placeholder="Add skill"/>
+                            <input class="form-control" type="text" id="exp" placeholder="Add experience"/>
                             <a className="btn btn-danger btn-icon-split mr-2" role="button" onClick={()=>this.add()}><span className="text-white-50 icon"><i className="fa fa-plus"></i></span><span className="text-white text">Add</span></a>
                               
-                                {this.state.skills.map((skill)=>{
-                               return <div><h4 class="small font-weight-bold">{skill}<span class="float-right">40%</span></h4>
+                                {this.state.experience.map((exp)=>{
+                               return <div><h4 class="small font-weight-bold">{exp}<span class="float-right">40%</span></h4>
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
                                 </div></div>
                                 })}
-                                {/*<h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
+                                {/* <h4 class="small font-weight-bold">Server migration<span class="float-right">20%</span></h4>
+                                <div class="progress progress-sm mb-3">
+                                    <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style={{width: "20%"}}><span class="sr-only">20%</span></div>
+                                </div>
+                                <h4 class="small font-weight-bold">Sales tracking<span class="float-right">40%</span></h4>
+                                <div class="progress progress-sm mb-3">
+                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
+                                </div>
+                                <h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{width: "60%"}}><span class="sr-only">60%</span></div>
                                 </div>
@@ -329,17 +302,17 @@ export default class Ssetting extends Component
                                 </div>
                                 <div class="card shadow">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold">Education</p>
+                                        <p class="text-primary m-0 font-weight-bold">Contact Settings</p>
                                     </div>
                                     <div class="card-body">
-                                        <form onSubmit={this.setEdu}>
-                                            <div class="form-group"><label for="ten"><strong>10th</strong></label><input class="form-control" type="text" defaultValue={this.state.ten} id="ten" name="address"/></div>
+                                        <form >
+                                            <div class="form-group"><label for="address"><strong>Address</strong></label><input class="form-control" type="text" placeholder="Sunset Blvd, 38" name="address"/></div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="twel"><strong>12th</strong></label><input class="form-control" type="text"id="twel" defaultValue={this.state.twel} name="city"/></div>
+                                                    <div class="form-group"><label for="city"><strong>City</strong></label><input class="form-control" type="text" placeholder="Los Angeles" name="city"/></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="grad"><strong>Graduation</strong></label><input class="form-control" type="text"id="grad" defaultValue={this.state.grad} name="country"/></div>
+                                                    <div class="form-group"><label for="country"><strong>Country</strong></label><input class="form-control" type="text" placeholder="USA" name="country"/></div>
                                                 </div>
                                             </div>
                                             <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button></div>
@@ -413,7 +386,7 @@ export default class Ssetting extends Component
                         </div>
                     </div>
                   </div>
-                </div>         
+                </div>                 
             </div>
         )
     }

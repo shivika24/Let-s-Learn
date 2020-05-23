@@ -1,5 +1,5 @@
 var con= require('./../dbconnection');
-
+var fs=require('fs');
 module.exports.phone= async function(req,res)
 {
     console.log("**"+req.query.tId+"**");
@@ -104,6 +104,61 @@ module.exports.getSkills=function(req,res)
         }
     })
 }
+module.exports.setexp=function(req,res)
+{
+    var email=req.query.temail;
+    var arr=[];
+    con.query("SELECT experience FROM teacher WHERE temail=?",email,function(err,data)
+    {
+        if(err)
+        console.log(err);
+        else
+        {
+            if(data=="")
+            arr.push(req.body.exp);
+            else
+            {
+                arr=data[0].experience.split("*");
+                arr.push(req.body.exp);
+                arr=arr.join("*");
+            }
+            var sql="UPDATE teacher SET experience=? WHERE temail=?";
+            con.query(sql,[arr,email],function(err,result){
+                if(err)
+                console.log(err);
+                else 
+                {
+                    con.query("SELECT experience from teacher WHERE temail=?",email,function(err,result)
+                    {
+                        if(err)
+                        console.log(err)
+                        else 
+                        {
+                            arr=result[0].experience;
+                            arr=arr.split("*");
+                            res.send(arr);
+                        }
+                    })
+                }
+            })
+        }
+    })
+}
+module.exports.getExp=function(req,res)
+{
+  //  console.log("to get skill");
+    con.query("SELECT experience FROM teacher WHERE temail=?",req.query.temail,function(err,data)
+    {
+        //console.log(data[0].Skills)
+        if(err)
+        console.log(err);
+        else 
+        {
+            var arr=data[0].experience.split("*");
+            res.send(arr);
+        }
+    })
+}
 module.exports.getEdu=function(req,res)
 {
     con.query("SELECT tenth,twelth,graduation FROM student WHERE semail=?",req.query.semail,function(err,data)
@@ -129,5 +184,79 @@ module.exports.saveEdu=function(req,res)
             console.log('updated');
             res.json('edu updated');
         }
+    })
+}
+module.exports.setPic=async function(req,res)
+{
+   var img=fs.readFileSync('C:\\Users\\hp\\Pictures\\Saved Pictures\\'+req.body.pict); //give ur folder path here
+    var sql="UPDATE student SET profileImage=? WHERE semail=?";
+    con.query(sql,[img,req.query.semail],function(err,data)
+    {
+        if(err)
+        console.log(err)
+        else
+        {
+            con.query("SELECT profileImage FROM student WHERE semail=?",req.query.semail,function(err,result){
+                console.log(result[0].profileImage)
+                if(err)
+                console.log(err);
+                else 
+                {
+                    res.contentType('json');
+                    var obj={buff:result[0].profileImage}
+                    res.send(obj);
+                }
+            })
+        }
+    })
+}
+module.exports.settPic=async function(req,res)
+{
+    var img=fs.readFileSync('C:\\Users\\hp\\Pictures\\Saved Pictures\\'+req.body.pict);
+    var sql="UPDATE teacher SET profileImage=? WHERE temail=?";
+    con.query(sql,[img,req.query.temail],function(err,data)
+    {
+        if(err)
+        console.log(err)
+        else
+        {
+            con.query("SELECT profileImage FROM teacher WHERE temail=?",req.query.temail,function(err,result){
+                console.log(result[0].profileImage)
+                if(err)
+                console.log(err);
+                else 
+                {
+                    res.contentType('json');
+                    var obj={buff:result[0].profileImage}
+                    res.send(obj);
+                }
+            })
+        }
+    })
+}
+module.exports.getPhoto=function(req,res)
+{
+    con.query("SELECT profileImage FROM student WHERE semail=?",req.query.semail,function(err,result){
+        if(err)
+                console.log(err);
+                else 
+                {
+                    res.contentType('json');
+                    var obj={buff:result[0].profileImage}
+                    res.send(obj);
+                }
+    })
+}
+module.exports.gettPhoto=function(req,res)
+{
+    con.query("SELECT profileImage FROM teacher WHERE temail=?",req.query.temail,function(err,result){
+        if(err)
+                console.log(err);
+                else 
+                {
+                    res.contentType('json');
+                    var obj={buff:result[0].profileImage}
+                    res.send(obj);
+                }
     })
 }
