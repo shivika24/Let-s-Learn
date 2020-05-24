@@ -5,6 +5,7 @@ var mcqRouter=require('./routes/mcq')
 var profileRouter=require('./routes/profileSetting');
 var viewtestdatafile=require('./routes/viewtestdatafile')
 var chatapp=require('./routes/chatapp')
+var mocktest=require('./routes/mocktest')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
@@ -105,6 +106,10 @@ app.post('/setpic',profileRouter.setPic);
 app.post('/settpic',profileRouter.settPic);
 app.get('/getphoto',profileRouter.getPhoto);
 app.get('/gettphoto',profileRouter.gettPhoto);
+
+app.get('/getmocktest',mocktest.getmocktest)
+app.post('/gettest',mocktest.gettest)
+
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  
 })

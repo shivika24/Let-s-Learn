@@ -565,7 +565,7 @@ deleten = id => {
                     <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src={imgs} alt=""/>
                   </div>
                   <p>Take Mock Tests To prepare yourself for your upcoming placements and excell in your college courses. Our Mock tests are designed based on current industry demand to prepare you according to that.</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">Take Mock Tests!! &rarr;</a>
+                  <Link to="/mocktest">Take Mock Tests!! &rarr;</Link>
                 </div>
               </div>
 

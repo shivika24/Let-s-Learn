@@ -37,6 +37,7 @@ import Feedback from './components/feedback';
 
 
 import Chatapp from './components/chatapp';
+import Mocktest from './components/mocktest';
 
 import {
   BrowserRouter as Router,
@@ -210,6 +211,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
         <Route path="/Chatapp" render={()=><Chatapp/>}/> 
       
+        <Route path="/mocktest" render={props=>typeofstudent?<Mocktest/>:<Redirect to="Logins"/> } />
         {/* <Route path="/reportbyteach" render={()=><Report></Report>}/> */}
       </Switch>
     </div>
