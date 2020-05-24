@@ -16,6 +16,8 @@ class Chatapp extends Component {
     this.mymsgsend = this.mymsgsend.bind(this);
     this.searhboxmail = this.searhboxmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.historyuser()
+    
   }
   passmsg = (email1 = 0) => {
     this.setState({ reciveremail: email1 });
@@ -27,6 +29,8 @@ class Chatapp extends Component {
     this.setState({ msg: event.target.value });
   }
   searhboxmail(event) {
+    
+    // console.log(this.state.reciveremail);
     const user={
       email:this.state.reciveremail,
       e1:JSON.parse(localStorage.getItem("jwt")).user.id
@@ -40,11 +44,39 @@ class Chatapp extends Component {
       })
     .then(res=> res.json())
       .then(res => {
-        console.log(res.code)
+        // console.log(res.code)
         this.setState({arr:res.code})
+        if(this.arr==null)
+    {
+      console.log(this.state.arr)
+      // this.historyuser();
+    }
       })
     this.setState({ reciveremail: event.target.value });
+    
   }
+
+  historyuser=(event)=> {
+    const user={
+      email:'',
+      e1:JSON.parse(localStorage.getItem("jwt")).user.id
+    }
+    fetch("http://localhost:8082/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        // console.log(res.code)
+        this.setState({arr:res.code})
+      })
+    // this.setState({ reciveremail: event.target.value });
+  }
+
+  
   handleSubmit(event) {
     event.preventDefault();
     const user={
@@ -66,6 +98,10 @@ class Chatapp extends Component {
         else
         alert("Message Not Added");
       })
+      if(this.state.arr==null)
+      {
+        this.historyuser();
+      }
 
   }
   searchmail = () => {
@@ -90,13 +126,14 @@ class Chatapp extends Component {
         picker.togglePicker(button);
       });
     });
-
+    
     return (
-      <div>
+      <div style={{background:"rgb(26, 157, 199)" , padding:"20px"}}>
         <div className="container">
-          <div className="row mt-4 mb-4 myconta">
-            <div className="col-12 col-md-4">
+          <div className="row myconta">
+            <div className="col-12 col-md-4" id="left">
               <div className="row">
+                
                 <div className="input-group" style={{ padding: "10px" }}>
                   {/* search reciver mail */}
                   <input
@@ -116,6 +153,7 @@ class Chatapp extends Component {
                     </span>
                   </div>
                 </div>
+                <hr/>
 
                 <div
                   className="col-12 mt-4"
@@ -135,7 +173,7 @@ class Chatapp extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-8">
+            <div className="col-12 col-md-8" id="right">
               <div>
                 <Message reciver={this.state.reciveremail} sender={this.state.senderemail} />
               </div>

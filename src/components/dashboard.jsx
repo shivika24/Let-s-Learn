@@ -208,13 +208,13 @@ deleten = id => {
       </li>
       <hr className="sidebar-divider"/>
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <Link className="nav-link collapsed" to="Studenttest" >
           <i className="fas fa-fw fa-list-alt"></i>
           <span>Test Results Overview</span>
-        </a>
+        </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <a className="nav-link collapsed" href="#">
           <i className="fas fa-fw fa-question-circle"></i>
           <span>Help</span>
         </a>
@@ -222,7 +222,7 @@ deleten = id => {
 
       <hr className="sidebar-divider"/>
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a className="nav-link collapsed" href="#">
           <i className="fas fa-comment-dots"></i>
           
           <span>Chat</span>
@@ -236,11 +236,7 @@ deleten = id => {
           <span>Generate Report</span></a>
       </li>
 
-      <hr className="sidebar-divider d-none d-md-block"/>
-      <div className="text-center d-none d-md-inline">
-        <button className="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
+     
     </ul>
     <div id="content-wrapper" className="d-flex flex-column">
       <div id="content">

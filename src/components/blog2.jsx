@@ -124,15 +124,15 @@ class Blog2 extends Component
     </div>
     
     <div class="row mt-4">
-        {this.state.arr.map((i,index)=>{return <div className={index==0||index==5?"col-lg-6":"col-md-3"}>
+        {this.state.arr.map((i,index)=>{return <div style={{minHeight: "67%"}} className={index==0||index==5?"col-lg-6":"col-md-3"}>
         {index==0||index==5?
-        <div class="card border-0 mb-4">
-          <Link to="/viewblog" onClick={()=>this.props.setData(i.sn)}><img class="card-img-top" src={i.image} alt="wrappixel kit"/></Link>
+      <div class="card border-0 mb-4">
+          <Link to="/viewblog" onClick={()=>this.props.setData(i.sn)}><img style={{height:"260px"}} class="card-img-top" src={i.image} alt="wrappixel kit"/></Link>
           <div class="date-pos text-center text-white p-3 bg-success-gradiant">{i.name} &nbsp; &nbsp; {i.date}</div>
           <h5 class="font-weight-medium mt-3"><a href="#" class="link text-decoration-none">{i.course}</a></h5>
       </div>:
       <div class="card border-0 mb-4">
-      <Link to="/viewblog" onClick={()=>this.props.setData(i.sn)}><img class="card-img-top" src={i.image}/></Link>
+      <Link to="/viewblog" onClick={()=>this.props.setData(i.sn)}><img style={{height:"260px"}}  class="card-img-top" src={i.image}/></Link>
         <div class="date-pos text-center text-white p-3 bg-success-gradiant">{i.name} &nbsp; &nbsp; {i.date}</div>
         <h6 class="font-weight-medium mt-3"><a href="#" class="link text-decoration-none">{i.course}</a></h6>
       </div>
@@ -147,11 +147,11 @@ class Blog2 extends Component
 {localStorage.getItem("jwt")?<div class="contact-clean">
 <form onSubmit = {this.handleSubmit} method="post">
 <h2 class="text-center">Enter your blog</h2>
-<div class="form-group"><input class="form-control" type="text" id="t1" name="name" placeholder="Enter Your Name"/></div>
-<div class="form-group"><input class="form-control" type="text" id="t2" name="clg" placeholder="Enter Your College"/></div>
-<div class="form-group"><input class="form-control" type="text" id="t3" name="head" placeholder="Enter Blog Title"/></div>
-<div class="form-group"><input class="form-control" type="text" id="t6" name="image" placeholder="Enter Image Url"/></div>
-<div class="form-group"><textarea class="form-control" id="t4" name="content" placeholder="Enter Blog Content" rows="14"></textarea></div>
+<div class="form-group"><input class="form-control mb-2" type="text" id="t1" name="name" placeholder="Enter Your Name"/></div>
+<div class="form-group"><input class="form-control mb-2" type="text" id="t2" name="clg" placeholder="Enter Your College"/></div>
+<div class="form-group"><input class="form-control mb-2" type="text" id="t3" name="head" placeholder="Enter Blog Title"/></div>
+<div class="form-group"><input class="form-control mb-2" type="text" id="t6" name="image" placeholder="Enter Image Url"/></div>
+<div class="form-group"><textarea class="form-control mb-2" id="t4" name="content" placeholder="Enter Blog Content" rows="14"></textarea></div>
 <h4> RATE YOUR EXPERIENCE </h4>
 <StarRatingComponent   starCount={10}  value={this.state.rating}   onStarClick={this.onStarClick.bind(this)}   />
 <br/>

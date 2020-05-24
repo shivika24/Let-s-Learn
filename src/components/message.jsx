@@ -19,7 +19,7 @@ class Message extends Component {
             })
           .then(res=> res.json())
             .then(res => {
-              console.log(res.code)
+              // console.log(res.code)
               this.setState({
                 sarr: [ ...this.state.sarr, res.code ]
               })
@@ -44,13 +44,13 @@ class Message extends Component {
             </div>
             <div style={{ height: "550px", overflow: "scroll" }} className="packmsg">
            {
-            console.log(this.state.sarr[0]),
+            // console.log(this.state.sarr[0]),
                this.state.sarr[0]?this.state.sarr[0].map((i,index)=>{return( 
                 <div key="index" className={JSON.parse(localStorage.getItem("jwt")).user.id===i.sender?"sendermsg":"receivermsg"}>
                  {i.message}
                  </div>
                   )
-                 }):<div>loding</div>
+                 }):<div>No data found...</div>
            }
              </div>
             </div>

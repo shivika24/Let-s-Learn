@@ -1,8 +1,15 @@
 
 .myconta{
-    border:2px solid grey;
+    border:2px solid #6363636b;
     /* padding: 10px; */
     background-color: #fcfcfc;
+    box-shadow: 9px 9px 9px #6363636b;
+}
+.myconta #right{
+    border:2px solid black;
+}
+.myconta #left{
+    border:2px solid black;
 }
 .msgbox{
     padding: 10px 10px 0px 0px;

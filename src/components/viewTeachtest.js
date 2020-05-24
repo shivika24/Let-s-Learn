@@ -15,13 +15,11 @@ class ViewTeachTest extends Component
         this.dataget();
         console.log(this.props.viewtid)
         console.log(this.props.tidis)
-
-
     }
      dataget=()=>{
             const user={
-              testid:this.props.tidis
-            // testid:'C'
+              // testid:this.props.tidis
+            testid:'C'
             }
             fetch("http://localhost:8082/viewtestdatafile", {
               method: "POST",
@@ -41,7 +39,7 @@ class ViewTeachTest extends Component
                 for(var i=0;i<this.state.testdata[0].length;i++)
                 {
                     arrmarks.push(this.state.testdata[0][i].marks)
-                    stuid.push(this.state.testdata[0][i].semail)
+                    stuid.push(this.state.testdata[0][i].semail.split('@')[0])
                 }
                 this.setState(prevState => ({
                     marks: [...prevState.marks, arrmarks]
@@ -61,9 +59,7 @@ class ViewTeachTest extends Component
             <td>{index+1}</td>
             <td>{number.testid}</td>
             <td>{number.semail}</td>
-            <td>{number.rollno}</td>
             <td>{number.marks}</td>
-            <td>{number.year}</td>
         </tr>
        );
        return doubled;
@@ -86,8 +82,9 @@ class ViewTeachTest extends Component
       
       // let avgval=arrAvg(this.state.marks[0]),maxval=Math.max(...this.state.marks[0]),minval=Math.min(...this.state.marks[0])
       // this.state.stid?this.state.stid:['a','b','c']
+      const val=this.state.stid[0];
       const datais = {
-            labels:['a','b','c'],
+            labels:val?val:"['a','b']",
             datasets: [
               {
                 label:'Marks',
@@ -98,10 +95,10 @@ class ViewTeachTest extends Component
               },
             ],
           };
+        console.log(datais.labels[0]);
          const nutdata = {
             labels: ['max','min','avg'],
             datasets: [{
-              
               data: [maxval,minval,avgval] ,
               backgroundColor: ['#2196f38c', '#f443368c', '#3f51b570'],
           }],
@@ -117,8 +114,8 @@ class ViewTeachTest extends Component
         <div>
         <div id="wrapper">
                 <div className="row">
-                    <div className="col-8">
-                            <div >
+                    <div className="col-12 col-md-6" style={{width:"50vw"}}>
+                            <div>
                             <Bar
                               data={datais}
                               options={{
@@ -133,14 +130,12 @@ class ViewTeachTest extends Component
                                 },
                               }}
                             />
-                            </div>
+                      </div>
                     </div>
-                    <div className="col-5">
+                    <div className="col-12 col-md-6"  style={{width:"40vw"}}>
                        <div>
                        <Doughnut
-                              
                               data={nutdata}
-                              
                             />
                        </div>
                       </div>
@@ -204,9 +199,7 @@ class ViewTeachTest extends Component
                             <th>S.No</th>
                             <th>Test-Id</th>
                             <th>Email-Id</th>
-                            <th>Roll No.</th>
                             <th>Marks</th>
-                            <th>Year</th>
                           </tr>
                         </thead>
                         <tbody>

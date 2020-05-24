@@ -37,6 +37,9 @@ import Feedback from './components/feedback';
 
 
 import Chatapp from './components/chatapp';
+import Studentopentesthistory from './components/studentopentesthistory';
+import ViewTestanalysis from './components/viewTestanalysis';
+
 
 import {
   BrowserRouter as Router,
@@ -191,7 +194,9 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
-
+        
+        <Route path="/viewTestanalysis"  render={props=>typeofstudent?<ViewTestanalysis/>:<Redirect to="Logins"/> } />
+        <Route path="/Studenttest"  render={props=>typeofstudent?<Studentopentesthistory/>:<Redirect to="Logins"/> } />
         <Route path="/sprofile"  render={props=>typeofstudent?<Sprofile/>:<Redirect to="Logins"/> } />
         <Route path="/studentDashboard"  render={props=>typeofstudent?<Dashboard/>:<Redirect to="Logins"/> } />
         <Route path="/ssetting" render={props=>typeofstudent?<Ssetting/>:<Redirect to="Logins"/> } />
