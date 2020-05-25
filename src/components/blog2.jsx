@@ -126,12 +126,12 @@ class Blog2 extends Component
     <div class="row mt-4">
         {this.state.arr.map((i,index)=>{return <div style={{minHeight: "67%"}} className={index==0||index==5?"col-lg-6":"col-md-3"}>
         {index==0||index==5?
-      <div class="card border-0 mb-4">
+      <div class="animate__animated animate__pulse card border-0 mb-4">
           <Link to="/viewblog" onClick={()=>this.props.setData(i.sn)}><img style={{height:"260px"}} class="card-img-top" src={i.image} alt="wrappixel kit"/></Link>
           <div class="date-pos text-center text-white p-3 bg-success-gradiant">{i.name} &nbsp; &nbsp; {i.date}</div>
           <h5 class="font-weight-medium mt-3"><a href="#" class="link text-decoration-none">{i.course}</a></h5>
       </div>:
-      <div class="card border-0 mb-4">
+      <div class="animate__animated animate__pulse card border-0 mb-4">
       <Link to="/viewblog" onClick={()=>this.props.setData(i.sn)}><img style={{height:"260px"}}  class="card-img-top" src={i.image}/></Link>
         <div class="date-pos text-center text-white p-3 bg-success-gradiant">{i.name} &nbsp; &nbsp; {i.date}</div>
         <h6 class="font-weight-medium mt-3"><a href="#" class="link text-decoration-none">{i.course}</a></h6>
