@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {ExcelRenderer, OutTable} from 'react-excel-renderer';
 //import {CopyToClipboard} from 'react-copy-to-clipboard';
+import sampleexecl from './samplefile.xlsx'
 class Testdatainsert extends Component
 {
     constructor(){
@@ -138,11 +139,23 @@ class Testdatainsert extends Component
         <div className="card shadow mb-3">
             <div className="card-header py-3">
                 <p className="text-primary m-0 font-weight-bold">Test ID : {this.state.testid} </p>
+                
                 <p className="text-primary m-0 font-weight-bold">Test Name : {this.state.testName}</p>
-                <a style={{float:"right"}} class="btn btn-primary btn-icon-split" role="button" data-toggle="modal" data-target="#testModal" rel="nofollow">
-                <span class="text-white-50 icon"><i className="fa fa-upload"></i></span>
-                <span class="text-white text">UPLOAD EXCEL SHEET</span>
+                <div style={{float:"right"}} >
+                <a class="btn btn-primary btn-icon-split" role="button" data-toggle="modal" data-target="#testModal" rel="nofollow">
+                <span class="text-white-50 icon">
+                  <i className="fa fa-upload"></i>
+                </span>
+                <span class="text-white text ">UPLOAD EXCEL SHEET</span>
                 </a>
+                <a class="btn btn-success btn-icon-split ml-3" role="button" href={sampleexecl} download>
+                <span class="text-white-50 icon">
+                  <i className="fa fa-download"></i>
+                </span>
+                <span class="text-white text">Download Sample Sheet</span>
+                </a>
+                
+                </div>
                 
 
             </div>

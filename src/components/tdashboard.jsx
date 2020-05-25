@@ -330,31 +330,30 @@ class tDashboard extends Component
       </a>
       <hr className="sidebar-divider my-0"/>
       <li className="nav-item active">
-        <a className="nav-link" href="index.html">
+        <Link className="nav-link" to="/teacherDashboard">
           <i className="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-      <hr className="sidebar-divider"/>
-      <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i className="fas fa-fw fa-list-alt"></i>
-          <span>Detailed Test Results</span>
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i className="fas fa-fw fa-question-circle"></i>
-          <span>Help</span>
-        </a>
+          <span>Dashboard</span>
+        </Link>
       </li>
 
       <hr className="sidebar-divider"/>
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        
+        <Link to="/testhistory" onClick={()=>this.props.setHist(this.state.hhistory)} className="nav-link active"> <i className="fas fa-fw fa-list-alt"></i> Detailed Test Results</Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link active" to="/Contact">
+          <i className="fas fa-fw fa-question-circle"></i>
+          <span>Help</span>
+        </Link>
+      </li>
+
+      <hr className="sidebar-divider"/>
+      <li className="nav-item">
+        <Link className="nav-link active" to="/Chatapp">
           <i className="fas fa-comment-dots"></i>
-          
           <span>Chat</span>
-        </a>
+        </Link>
       </li>
 
 
@@ -363,11 +362,6 @@ class tDashboard extends Component
           <i className="fas fa-fw fa-chart-area"></i>
           <span>Generate Report</span></a>
       </li>
-
-      <hr className="sidebar-divider d-none d-md-block"/>
-      <div className="text-center d-none d-md-inline">
-        <button className="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
 
     </ul>
     <div id="content-wrapper" className="d-flex flex-column">
@@ -546,8 +540,7 @@ class tDashboard extends Component
                 <div className="card-body">
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
-                      <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</div>
-                      <Link to="/testhistory" onClick={()=>this.props.setHist(this.state.hhistory)} className="btn btn-primary btn-sm">View</Link>
+                      <Link to="/testhistory" onClick={()=>this.props.setHist(this.state.hhistory)} className="text-xs font-weight-bold text-primary text-uppercase mb-1">Previous Tests Uploaded</Link>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">{this.props.tot}</div>
                     </div>
                     <div className="col-auto">

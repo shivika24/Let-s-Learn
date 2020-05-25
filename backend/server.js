@@ -72,6 +72,12 @@ app.post('/deletecalender',login.deletecalender)
 app.post('/getallcalender',login.getallcalender)
 
 app.post('/viewtestdatafile',viewtestdatafile.viewtestdata)
+app.post('/studenttesthistory',viewtestdatafile.studenttesthistory)
+app.post('/viewTestanalysis',viewtestdatafile.viewTestanalysis)
+app.post('/studenttestparticular',viewtestdatafile.studenttestparticular)
+
+
+
 
 
 

@@ -1,15 +1,35 @@
 var con= require('./../dbconnection');
 module.exports.search = async function(req,res){
-    var sql="SELECT * FROM chat WHERE reciever LIKE '"+req.body.email+"%' AND reciever !='"+req.body.e1+"' GROUP BY reciever";
+  if(req.body.email=='' || req.body.email==null)
+     {
+      
+      var sql="SELECT * FROM chat WHERE sender = '"+req.body.e1+"' GROUP BY reciever";
+      con.query(sql,function(err , data){
+        if (err) 
+        {
+          console.log(err);
+          return res.status(400).json({code:0});
+        } 
+       else 
+       {
+        //  console.log(data)
+       return res.status(400).json({code:data});
+      } 
+      });
+     }
+  else
+   {
+    var sql="SELECT * FROM teacher WHERE temail LIKE '"+req.body.email+"%'";
     con.query(sql,function(err , data){
         if (err) {
          console.log(err);
           return res.status(400).json({code:0});
        } else {
-         console.log("seached")
+        console.log("seached")
        return res.status(400).json({code:data});
       } 
       });
+   }
     }
 
     module.exports.addmsg = async function(req,res){

@@ -38,6 +38,10 @@ import Feedback from './components/feedback';
 
 import Chatapp from './components/chatapp';
 import Mocktest from './components/mocktest';
+import Studentopentesthistory from './components/studentopentesthistory';
+import ViewTestanalysis from './components/viewTestanalysis';
+import Mcq1 from './components/mcq1';
+
 
 import {
   BrowserRouter as Router,
@@ -61,7 +65,10 @@ class App extends Component {
       auth:'',
       viewtid:'',
       test:[],
-      bid:''
+      bid:'',
+      mtestarr:[],
+      flag1:true,
+      index1:0
     }
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
@@ -70,7 +77,11 @@ class App extends Component {
     this.setd=this.setd.bind(this);
     this.showTest=this.showTest.bind(this);
     this.setTrue=this.setTrue.bind(this);
-   this.settest=this.settest.bind(this);
+    this.settest=this.settest.bind(this);
+    this.setTest=this.setTest.bind(this);
+
+    this.clickedMcq1=this.clickedMcq1.bind(this);
+    this.setTrue1=this.setTrue1.bind(this);
   }
   componentDidMount(){
     if(localStorage.getItem('jwt')!=null)
@@ -135,14 +146,24 @@ if(JSON.parse(localStorage.getItem("jwt")))
     // console.log(event);
     this.setState({selectedMcq:mcq,index:i});
   }
+
   clickedMcq(i)
   {
     this.setState({selectedMcq:this.state.test[i],index:i})
+  }
+  clickedMcq1(i)
+  {
+    this.setState({selectedMcq1:this.state.mtestarr[i],index1:i})
   }
   setTrue(t)
   {
     this.setState({flag:t},()=>{
     console.log(this.state.flag)})
+  }
+  setTrue1(t)
+  {
+    this.setState({flag1:t},()=>{
+    console.log(this.state.flag1)})
   }
   setTofalse()
   {
@@ -150,6 +171,25 @@ if(JSON.parse(localStorage.getItem("jwt")))
     console.log("as");
     console.log(this.state.flag);
   })
+  }
+  setTest(testid)
+  {
+    var userss={
+      testid:testid
+    }
+    fetch("http://localhost:8082/gettest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userss)
+      })
+    .then(res=> res.json())
+      .then(res => {
+        console.log(res.code)
+        this.setState({mtestarr:res.code})
+        
+      })
   }
   render(){
     let typeofteacher,typeofstudent;
@@ -192,7 +232,9 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
-
+        
+        <Route path="/viewTestanalysis"  render={props=>typeofstudent?<ViewTestanalysis/>:<Redirect to="Logins"/> } />
+        <Route path="/Studenttest"  render={props=>typeofstudent?<Studentopentesthistory/>:<Redirect to="Logins"/> } />
         <Route path="/sprofile"  render={props=>typeofstudent?<Sprofile/>:<Redirect to="Logins"/> } />
         <Route path="/studentDashboard"  render={props=>typeofstudent?<Dashboard/>:<Redirect to="Logins"/> } />
         <Route path="/ssetting" render={props=>typeofstudent?<Ssetting/>:<Redirect to="Logins"/> } />
@@ -211,7 +253,8 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/test1" render={()=><Test1 setfalse={this.setTofalse} tID1={this.state.testid1}/>} /> 
         <Route path="/Chatapp" render={()=><Chatapp/>}/> 
       
-        <Route path="/mocktest" render={props=>typeofstudent?<Mocktest/>:<Redirect to="Logins"/> } />
+        <Route path="/mocktest" render={props=>typeofstudent?<Mocktest settest={this.setTest}/>:<Redirect to="Logins"/> } />
+        <Route path = "/mcq1" render={ () => <Mcq1 mcq={this.state.mtestarr}></Mcq1>}/>
         {/* <Route path="/reportbyteach" render={()=><Report></Report>}/> */}
       </Switch>
     </div>
