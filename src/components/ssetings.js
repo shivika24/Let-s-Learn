@@ -253,7 +253,7 @@ export default class Ssetting extends Component
         return(
             <div id="wrapper">
                 <div class="container-fluid">
-                <h3 class="text-dark mb-4">Edit Profile</h3>
+                <center><h3 class="mb-4" style={{color:"#206188",fontWeight:"800"}}>Edit Profile</h3></center>
                 <div class="row mb-3">
                     <div class="col-lg-4">
                         <div class="card mb-3">
@@ -273,7 +273,7 @@ export default class Ssetting extends Component
                                 {this.state.skills.map((skill)=>{
                                return <div><h4 class="small font-weight-bold">{skill.name}<span class="float-right">{skill.percentage}</span></h4>
                                 <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: skill.percentage+"%",backgroundColor:"'"+col[Math.floor(Math.random() * col.length)]+"'"}}><span class="sr-only">40%</span></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: skill.percentage+"%",backgroundColor:"'"+col[Math.floor(Math.random() * col.length)]+"'"}}><span class="sr-only">40%</span></div>
                                 </div></div>
                                 })}
                             </div>

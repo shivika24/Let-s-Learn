@@ -213,20 +213,21 @@ deleten = id => {
           <span>Test Results Overview</span>
         </Link>
       </li>
+      <hr className="sidebar-divider"/>
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#">
+        <Link className="nav-link collapsed" to="/Contact">
           <i className="fas fa-fw fa-question-circle"></i>
           <span>Help</span>
-        </a>
+          </Link>
       </li>
 
       <hr className="sidebar-divider"/>
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#">
+        <Link className="nav-link collapsed" to="/chatapp">
           <i className="fas fa-comment-dots"></i>
           
           <span>Chat</span>
-        </a>
+        </Link>
       </li>
 
 
