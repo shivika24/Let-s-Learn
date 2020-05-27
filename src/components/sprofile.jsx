@@ -159,8 +159,6 @@ export default class Sprofile extends Component
           alert(JSON.stringify(res))
       })
       //.catch(res=>console.log(res))
-      
-      
     }
     render(){
         return(

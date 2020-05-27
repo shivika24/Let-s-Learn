@@ -107,7 +107,9 @@ class Chatapp extends Component {
     .then(res=> res.json())
       .then(res => {
         if(res.code===1)
+        {
         alert("Message Added");
+        }
         else
         alert("Message Not Added");
       })
