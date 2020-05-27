@@ -40,7 +40,8 @@ class Chatapp extends Component {
     {
       const user={
       email:this.state.reciveremail,
-      e1:JSON.parse(localStorage.getItem("jwt")).user.id
+      e1:JSON.parse(localStorage.getItem("jwt")).user.id,
+      type:JSON.parse(localStorage.getItem("jwt")).user.type
     }
     fetch("http://localhost:8082/search", {
       method: "POST",
@@ -51,10 +52,19 @@ class Chatapp extends Component {
       })
     .then(res=> res.json())
       .then(res => {
-        // console.log(res.code)
+         console.log(res.code)
         var temp=[];
         for(var i=0;i<res.code.length;i++)
+        {
+        if(JSON.parse(localStorage.getItem("jwt")).user.type=="teacher")
+        {
+        temp.push(res.code[i].semail);
+        }
+        else
+        {
         temp.push(res.code[i].temail);
+        }
+        }
         this.setState({arr:temp})
         if(this.arr==null)
     {
@@ -69,7 +79,8 @@ class Chatapp extends Component {
   historyuser=(event)=> {
     const user={
       email:'',
-      e1:JSON.parse(localStorage.getItem("jwt")).user.id
+      e1:JSON.parse(localStorage.getItem("jwt")).user.id,
+      type:JSON.parse(localStorage.getItem("jwt")).user.type
     }
     fetch("http://localhost:8082/search", {
       method: "POST",
