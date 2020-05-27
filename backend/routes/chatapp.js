@@ -12,7 +12,7 @@ module.exports.search = async function(req,res){
         } 
        else 
        {
-        //  console.log(data)
+          console.log(data)
        return res.status(400).json({code:data});
       } 
       });

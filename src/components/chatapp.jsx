@@ -19,6 +19,9 @@ class Chatapp extends Component {
     // this.historyuser()
     
   }
+  componentDidMount(){
+    this.historyuser();
+  }
   passmsg = (email1 = 0) => {
     this.setState({ reciveremail: email1 });
     this.setState({ senderemail: JSON.parse(localStorage.getItem("jwt")).user.id,})
@@ -31,7 +34,11 @@ class Chatapp extends Component {
   searhboxmail(event) {
     
     // console.log(this.state.reciveremail);
-    const user={
+    if(document.getElementById("searchinp").value=="")
+    this.historyuser();
+    else
+    {
+      const user={
       email:this.state.reciveremail,
       e1:JSON.parse(localStorage.getItem("jwt")).user.id
     }
@@ -45,7 +52,10 @@ class Chatapp extends Component {
     .then(res=> res.json())
       .then(res => {
         // console.log(res.code)
-        this.setState({arr:res.code})
+        var temp=[];
+        for(var i=0;i<res.code.length;i++)
+        temp.push(res.code[i].temail);
+        this.setState({arr:temp})
         if(this.arr==null)
     {
       console.log(this.state.arr)
@@ -53,7 +63,7 @@ class Chatapp extends Component {
     }
       })
     this.setState({ reciveremail: event.target.value });
-    
+    }
   }
 
   historyuser=(event)=> {
@@ -70,8 +80,11 @@ class Chatapp extends Component {
       })
     .then(res=> res.json())
       .then(res => {
-        // console.log(res.code)
-        this.setState({arr:res.code})
+         console.log(res.code)
+         var temp=[];
+        for(var i=0;i<res.code.length;i++)
+        temp.push(res.code[i].reciever);
+        this.setState({arr:temp})
       })
     // this.setState({ reciveremail: event.target.value });
   }
@@ -141,6 +154,7 @@ class Chatapp extends Component {
                     onChange={this.searhboxmail}
                     className="form-control"
                     placeholder="search"
+                    id="searchinp"
                   />
                   <div
                     className="input-group-append"
@@ -162,11 +176,11 @@ class Chatapp extends Component {
                 {this.state.arr.map((i)=>{return <div
                   className="listprofile"
                   onClick={() => {
-                    this.passmsg(i.temail);
+                    this.passmsg(i);
                   }}
                 >
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtFb5KR5e9qSqvLmU94XSIFrHKVhcJolh-vUdnvY0A7sVOJoLd&usqp=CAU" />
-                  <p>{i.temail}</p>
+                  <p>{i}</p>
                 </div>
                 })}
 
