@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
-import Calender from './calender';
+import Calender1 from './calender1';
 import './dashboard1.css';
 class Dashboard extends Component
 {
@@ -526,7 +526,7 @@ deleten = id => {
                 </div>
                 <div className="card-body">
                 <center>
-                <Calender/>
+                <Calender1/>
                 </center>
                 </div>
               </div>

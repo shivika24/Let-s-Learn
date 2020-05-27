@@ -19,6 +19,7 @@ import Dashboard from './components/dashboard';
 import Tdashboard from './components/tdashboard';
 import Home from './components/home';
 import Calender from './components/calender';
+import Calender1 from './components/calender1';
 import Testhistory from './components/testhistory';
 import ViewTeachTest from './components/viewTeachtest';
 // import Report from './components/report';
@@ -255,6 +256,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
       
         <Route path="/mocktest" render={props=>typeofstudent?<Mocktest settest={this.setTest}/>:<Redirect to="Logins"/> } />
         <Route path = "/mcq1" render={ () => <Mcq1 mcq={this.state.mtestarr}></Mcq1>}/>
+        <Route path="/calender1" render={props=>typeofstudent?<Calender1/>:<Redirect to="Logins"/> } />
         {/* <Route path="/reportbyteach" render={()=><Report></Report>}/> */}
       </Switch>
     </div>

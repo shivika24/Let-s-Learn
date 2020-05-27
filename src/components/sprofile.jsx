@@ -180,31 +180,14 @@ export default class Sprofile extends Component
                             </div>
                             <div class="card-body">
                                 {this.state.skills.length===0?<p className="h5 text-info">Add skills from setting</p>:<div>
-                            {this.state.skills.map((skill)=>{
-                               return <div><h4 class="small font-weight-bold">{skill}<span class="float-right">40%</span></h4>
+                                {this.state.skills.map((skill)=>{
+                               return <div><h4 class="small font-weight-bold">{skill.name}<span class="float-right">{skill.percentage}</span></h4>
                                 <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
-                                </div>
-                                </div>
+                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: skill.percentage+"%"}}><span class="sr-only">40%</span></div>
+                                </div></div>
                                 })}
                                 <p className="h6 text-info">**You can add more skills from setting**</p>
                                 </div>}
-                                {/* <h4 class="small font-weight-bold">Sales tracking<span class="float-right">40%</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{width: "60%"}}><span class="sr-only">60%</span></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Payout Details<span class="float-right">80%</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style={{width: "80%"}}><span class="sr-only">80%</span></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Account setup<span class="float-right">Complete!</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style={{width: "100%"}}><span class="sr-only">100%</span></div>
-                                </div> */}
                             </div>
                         </div>
                     </div>

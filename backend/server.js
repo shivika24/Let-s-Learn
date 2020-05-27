@@ -42,7 +42,7 @@ app.post('/checkt',handleFileRouter.checkt);
 app.post('/updateRes',handleFileRouter.updateMcqSub);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
-app.post('/setskill',profileRouter.setskill);
+// app.post('/setskill',profileRouter.setskill);
 app.post('/setexp',profileRouter.setexp);
 app.put('/savesetting1',profileRouter.settings1);
 app.get('/phone1',profileRouter.phone1);
@@ -51,6 +51,7 @@ app.get('/phone1',profileRouter.phone1);
 // });
 app.get('/getexp',profileRouter.getExp);
 app.get('/getskill',profileRouter.getSkills);
+app.post('/addskill',profileRouter.addskill);
 app.get('/getedu',profileRouter.getEdu);
 app.put('/saveedu',profileRouter.saveEdu);
 app.get('/mcq',mcqRouter.mcq);
@@ -67,6 +68,7 @@ app.post('/gettodo',login.gettodo)
 
 app.post('/addtocalender',login.addtocalender)
 app.post('/getcalender',login.getcalender)
+app.post('/getcalender1',login.getcalender1)
 app.post('/updatecalender',login.updatecalender)
 app.post('/deletecalender',login.deletecalender)
 app.post('/getallcalender',login.getallcalender)
