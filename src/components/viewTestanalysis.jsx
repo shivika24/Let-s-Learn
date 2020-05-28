@@ -6,7 +6,7 @@ class ViewTestanalysis extends Component {
         answers:null,
         result:null
     }
-    componentDidMount(match){
+    componentDidMount(){
         var url = new URL(window.location.href); 
         var params = new URLSearchParams(url.search);
         var testid=params.get('id')
