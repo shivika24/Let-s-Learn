@@ -9,7 +9,8 @@ class Chatapp extends Component {
     msg: "", //your message value
     reciveremail: "",
     senderemail: "",
-    arr:[]
+    arr:[],
+    sendornot:true
   };
   constructor() {
     super();
@@ -73,6 +74,7 @@ class Chatapp extends Component {
     }
       })
     this.setState({ reciveremail: event.target.value });
+    
     }
   }
 
@@ -120,6 +122,7 @@ class Chatapp extends Component {
         if(res.code===1)
         {
         alert("Message Added");
+        this.setState({reciveremail:user.reciever})
         }
         else
         alert("Message Not Added");
@@ -202,7 +205,8 @@ class Chatapp extends Component {
             </div>
             <div className="col-12 col-md-8" id="right">
               <div>
-                <Message reciver={this.state.reciveremail} sender={this.state.senderemail} />
+                <Message reciver={this.state.reciveremail} sender={this.state.senderemail} sendornot={this.state.sendornot} />
+                
               </div>
               <div className="msgbox">
                 <div className="input-group" style={{ padding: "10px" }}>

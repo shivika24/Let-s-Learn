@@ -5,7 +5,10 @@ class Message extends Component {
         sarr:[],
         reciver:''
     }
+    componentDidMount(){
+    }
     get=()=>{
+      console.log("wun")
         this.user={
             sender:this.props.sender,
             reciever:this.props.reciver
@@ -27,12 +30,15 @@ class Message extends Component {
     }
    
     componentDidUpdate(){
+
         if(this.props.reciver!=this.state.reciver)
         {
             this.setState({reciver:this.props.reciver})
             this.setState({sarr:[]})
-            this.get();
+            setInterval(this.get(),4000)
         }
+      
+        
         
     }
     render() {
