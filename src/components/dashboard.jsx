@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
 import Calender1 from './calender1';
+import { Bar,Doughnut  } from "react-chartjs-2";
 import './dashboard1.css';
 class Dashboard extends Component
 {
@@ -18,8 +19,7 @@ class Dashboard extends Component
       quotess:[],
       name:u,
       list:[],
-      data:[]
-
+      data:[],
     }    
   }
   getQuote=()=>
@@ -69,8 +69,31 @@ class Dashboard extends Component
     {this.getQuote()}
     {this.getnotice()}
     {this.gettodo()}
+    this.getcurrentresult()
+
+    this.resultarray=[]   
+
 
   }
+  getcurrentresult=()=>{
+    const user={
+      email:JSON.parse(localStorage.getItem("jwt")).user.id,
+    }
+    fetch("http://localhost:8082/studentcurrentresult", { 
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  })
+  .then(res=> res.json())
+    .then(res => {
+      console.log(res.data);
+      res=res.data;
+      this.resultarray=[res[0].total,res[0].avg,res[0].max,res[0].min,0]
+    })
+  }
+
   myfunc1 = () =>{
     if(this.state.list)
     {
@@ -189,6 +212,22 @@ deleten = id => {
 
     render()
     {
+      const datais = {
+        // labels:val?val:"['a','b']",
+        labels:['Total No. of student','average marks','Max marks','Min marks'],
+        datasets: [
+          {
+            label:'Details',
+            backgroundColor: ['green','blue','red','grey'],
+            borderColor: "rgba(0,0,0,1)",
+            borderWidth: 2,
+            data:this.resultarray?this.resultarray:[1,2,3,4],
+            axisX:{
+              minimum: 0,
+            }
+          },
+        ],
+      };
         return(
             <div id="page-top">
             <div id="wrapper">
@@ -503,9 +542,24 @@ deleten = id => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <div className="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
+                <div>
+                            <div>
+                            <Bar
+                              data={datais}
+                              options={{
+                                title: {
+                                  display: true,
+                                  text: "Recent Test Analysis",
+                                  fontSize: 20,
+                                },
+                                legend: {
+                                  display: true,
+                                  position: "right",
+                                },
+                              }}
+                            />
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import imgs from '../images/test.svg';
 import Calender from './calender';
 import './dashboard1.css';
+import { Bar,Doughnut  } from "react-chartjs-2";
 const csv = require('csv-parser');
 const fs = require('fs');
 class tDashboard extends Component
@@ -29,7 +30,8 @@ class tDashboard extends Component
         testid:0,
         name:u,
         testName:"",
-        link:""
+        link:"",
+        
       }      
     }
     componentDidMount()
@@ -37,8 +39,29 @@ class tDashboard extends Component
       {this.getnotice()}
       {this.gettodo()}  
       {this.getquote()}       
-      {this.testhistory()}           
+      {this.testhistory()}   
+      this.getcurrentresult()
+      this.resultarray=[]   
     }
+    getcurrentresult=()=>{
+      const user={
+        email:JSON.parse(localStorage.getItem("jwt")).user.id,
+      }
+      fetch("http://localhost:8082/teachercurrentresult", { 
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res=> res.json())
+      .then(res => {
+        console.log(res.data);
+        res=res.data;
+        this.resultarray=[res[0].total,res[0].avg,res[0].max,res[0].min,0]
+      })
+    }
+
     getnotice=()=>{
       const user={
         email:JSON.parse(localStorage.getItem("jwt")).user.id,
@@ -317,6 +340,22 @@ class tDashboard extends Component
 
     render()
     {
+      const datais = {
+        // labels:val?val:"['a','b']",
+        labels:['Total No. of student','average marks','Max marks','Min marks'],
+        datasets: [
+          {
+            label:'Details',
+            backgroundColor: ['green','blue','red','grey'],
+            borderColor: "rgba(0,0,0,1)",
+            borderWidth: 2,
+            data:this.resultarray?this.resultarray:[1,2,3,4],
+            axisX:{
+              minimum: 0,
+            }
+          },
+        ],
+      };
         return(
             <div id="page-top">
             <div id="wrapper">
@@ -621,9 +660,24 @@ class tDashboard extends Component
                   </div>
                 </div>
                 <div className="card-body">
-                  <div className="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
+                <div>
+                            <div>
+                            <Bar
+                              data={datais}
+                              options={{
+                                title: {
+                                  display: true,
+                                  text: "Recent Test Analysis",
+                                  fontSize: 20,
+                                },
+                                legend: {
+                                  display: true,
+                                  position: "right",
+                                },
+                              }}
+                            />
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>

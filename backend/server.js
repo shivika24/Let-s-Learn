@@ -74,6 +74,10 @@ app.post('/viewtestdatafile',viewtestdatafile.viewtestdata)
 app.post('/studenttesthistory',viewtestdatafile.studenttesthistory)
 app.post('/viewTestanalysis',viewtestdatafile.viewTestanalysis)
 app.post('/studenttestparticular',viewtestdatafile.studenttestparticular)
+app.post('/teachercurrentresult',viewtestdatafile.teachercurrentresult)
+app.post('/studentcurrentresult',viewtestdatafile.studentcurrentresult)
+
+
 
 
 
