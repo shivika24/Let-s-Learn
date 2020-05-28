@@ -52,6 +52,7 @@ module.exports.studenttestparticular = async function(req,res){
     "Testid":req.body.testid,
 
   }
+  console.log(users.testid)
   con.query("SELECT `answers`,`marks` FROM `result` WHERE `semail`='"+users.email+"' And `testid`='"+users.Testid+"'", function(err , data){
     if (err) {
       console.log(err);

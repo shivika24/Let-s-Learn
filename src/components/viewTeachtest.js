@@ -18,8 +18,8 @@ class ViewTeachTest extends Component
     }
      dataget=()=>{
             const user={
-              // testid:this.props.tidis
-            testid:'C'
+            testid:this.props.tidis
+            //testid:'C'
             }
             fetch("http://localhost:8082/viewtestdatafile", {
               method: "POST",
@@ -95,7 +95,7 @@ class ViewTeachTest extends Component
               },
             ],
           };
-        console.log(datais.labels[0]);
+        console.log(datais.datasets[0].data)
          const nutdata = {
             labels: ['max','min','avg'],
             datasets: [{

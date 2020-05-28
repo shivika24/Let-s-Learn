@@ -21,14 +21,14 @@
     clip-path: polygon(20% 8%, 100% 7%, 100% 100%, 50% 100%, 0 100%, 0 0);
     
     border-radius:10px ;
-    background-color: lightsalmon;
+    background-color: #4b98e2;
     padding: 30px 70px 30px 30px;
     max-width: 300px;
 }
 .receivermsg{
     clip-path: polygon(86% 8%, 100% 0, 100% 100%, 50% 100%, 0 100%, 0 9%);
     border-radius:10px ;
-    background-color: lightgreen;
+    background-color: #84eef6;
     padding: 30px 70px 30px 30px;
     max-width: 300px;
     margin-left: 55%;

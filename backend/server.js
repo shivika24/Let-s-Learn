@@ -5,6 +5,7 @@ var mcqRouter=require('./routes/mcq')
 var profileRouter=require('./routes/profileSetting');
 var viewtestdatafile=require('./routes/viewtestdatafile')
 var chatapp=require('./routes/chatapp')
+var mocktest=require('./routes/mocktest')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
@@ -41,7 +42,7 @@ app.post('/checkt',handleFileRouter.checkt);
 app.post('/updateRes',handleFileRouter.updateMcqSub);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
-app.post('/setskill',profileRouter.setskill);
+// app.post('/setskill',profileRouter.setskill);
 app.post('/setexp',profileRouter.setexp);
 app.put('/savesetting1',profileRouter.settings1);
 app.get('/phone1',profileRouter.phone1);
@@ -50,6 +51,7 @@ app.get('/phone1',profileRouter.phone1);
 // });
 app.get('/getexp',profileRouter.getExp);
 app.get('/getskill',profileRouter.getSkills);
+app.post('/addskill',profileRouter.addskill);
 app.get('/getedu',profileRouter.getEdu);
 app.put('/saveedu',profileRouter.saveEdu);
 app.get('/mcq',mcqRouter.mcq);
@@ -66,6 +68,7 @@ app.post('/gettodo',login.gettodo)
 
 app.post('/addtocalender',login.addtocalender)
 app.post('/getcalender',login.getcalender)
+app.post('/getcalender1',login.getcalender1)
 app.post('/updatecalender',login.updatecalender)
 app.post('/deletecalender',login.deletecalender)
 app.post('/getallcalender',login.getallcalender)
@@ -111,6 +114,10 @@ app.post('/setpic',profileRouter.setPic);
 app.post('/settpic',profileRouter.settPic);
 app.get('/getphoto',profileRouter.getPhoto);
 app.get('/gettphoto',profileRouter.gettPhoto);
+
+app.get('/getmocktest',mocktest.getmocktest)
+app.post('/gettest',mocktest.gettest)
+
 app.listen(8082,()=>{ 
     console.log("Server is Listening At Port 8082")  
 })

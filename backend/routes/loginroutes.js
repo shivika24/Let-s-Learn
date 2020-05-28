@@ -500,6 +500,21 @@ module.exports.register = async function(req,res){
                       });
                     }
 
+                    module.exports.getcalender1 = async function(req,res){
+                      var users={
+                           "date":req.body.date,  
+                         }
+                         console.log(users);
+                         con.query("SELECT `sno`,`eventname`, `description` FROM `calender` WHERE `date`='"+users.date+"'", function(err , data){
+                          if (err) {
+                            console.log(err);
+                            return res.json({code:0});
+                          } else {
+                            return res.json({code:data});
+                            } 
+                        });
+                      }
+
                     module.exports.getallcalender = async function(req,res){
                       var users={
                         "email":req.body.email,

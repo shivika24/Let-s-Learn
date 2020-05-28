@@ -49,58 +49,78 @@ module.exports.settings1= async function(req,res){
         }
     })
 }
-module.exports.setskill=function(req,res)
-{
-    var email=req.query.semail;
-    var arr=[];
-    con.query("SELECT Skills FROM student WHERE semail=?",email,function(err,data)
-    {
-        if(err)
-        console.log(err);
-        else
-        {
-            if(data=="")
-            arr.push(req.body.skill);
-            else
-            {
-                arr=data[0].Skills.split("*");
-                arr.push(req.body.skill);
-                arr=arr.join("*");
-            }
-            var sql="UPDATE student SET Skills=? WHERE semail=?";
-            con.query(sql,[arr,email],function(err,result){
-                if(err)
-                console.log(err);
-                else 
-                {
-                    con.query("SELECT Skills from student WHERE semail=?",email,function(err,result)
-                    {
-                        if(err)
-                        console.log(err)
-                        else 
-                        {
-                            arr=result[0].Skills;
-                            arr=arr.split("*");
-                            res.send(arr);
-                        }
-                    })
-                }
-            })
-        }
-    })
-}
+module.exports.addskill = async function(req,res){
+    var users={
+         "email":req.body.email,
+         "name":req.body.name,
+         "val":req.body.val
+       }
+              var sql = "INSERT INTO `skill` (`email`, `name`, `percentage`) VALUES ('" + users.email + "','" + users.name + "','" + users.val + "')";
+              var query = con.query(sql, function(err, result) {  
+                if (err) {
+                  console.log(err);
+                  return res.json({code:0});
+                } else {
+                  return res.status(400).json({code:1});
+                  }
+              });                  
+  }
+// module.exports.setskill=function(req,res)
+// {
+//     var email=req.query.semail;
+//     var arr=[];
+//     con.query("SELECT * FROM skill WHERE email=?",email,function(err,data)
+//     {
+//         if(err)
+//         console.log(err)
+//         else
+//         res.send(data)
+        // if(err)
+        // console.log(err);
+        // else
+        // {
+        //     if(data=="")
+        //     arr.push(req.body.skill);
+        //     else
+        //     {
+        //         arr=data[0].Skills.split("*");
+        //         arr.push(req.body.skill);
+        //         arr=arr.join("*");
+        //     }
+        //     var sql="UPDATE student SET Skills=? WHERE semail=?";
+        //     con.query(sql,[arr,email],function(err,result){
+        //         if(err)
+        //         console.log(err);
+        //         else 
+        //         {
+        //             con.query("SELECT Skills from student WHERE semail=?",email,function(err,result)
+        //             {
+        //                 if(err)
+        //                 console.log(err)
+        //                 else 
+        //                 {
+        //                     arr=result[0].Skills;
+        //                     arr=arr.split("*");
+        //                     res.send(arr);
+        //                 }
+        //             })
+        //         }
+        //     })
+        // }
+//     })
+// }
 module.exports.getSkills=function(req,res)
 {
   //  console.log("to get skill");
-    con.query("SELECT Skills FROM student WHERE semail=?",req.query.semail,function(err,data)
+    con.query("SELECT * FROM skill WHERE email=?",req.query.semail,function(err,data)
     {
         //console.log(data[0].Skills)
         if(err)
         console.log(err);
         else 
         {
-            var arr=data[0].Skills.split("*");
-            res.send(arr);
+            // var arr=data[0].Skills.split("*");
+            res.send(data);
         }
     })
 }

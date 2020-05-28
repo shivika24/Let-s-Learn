@@ -56,22 +56,43 @@ export default class Ssetting extends Component
 
     }
     add=()=>{
-       var obj={skill:document.getElementById("skill").value};
-       fetch(`http://localhost:8082/setskill?semail=${this.state.eid}`,{
-           method:"POST",
-           headers:{
-            Accept: "application/json",
-              "Content-Type":"application/json",
-              },
-           body:JSON.stringify(obj)
-       })
-       .then(res=> res.json())
-      .then(res => {
-       // console.log(JSON.stringify(res));
-        this.setState({skills:res})
+        const user={
+            email:JSON.parse(localStorage.getItem("jwt")).user.id,
+            name:document.getElementById("skill").value,
+            val:document.getElementById("val").value
+          }
+          fetch("http://localhost:8082/addskill", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+            })
+          .then(res=> res.json())
+            .then(res => {
+              if(res.code===1)
+              {
+              alert("skill added!!!");
+              document.getElementById("skill").value="";
+              document.getElementById("val").value="";
+              }
+            })
+    //    var obj={skill:document.getElementById("skill").value};
+    //    fetch(`http://localhost:8082/setskill?semail=${this.state.eid}`,{
+    //        method:"POST",
+    //        headers:{
+    //         Accept: "application/json",
+    //           "Content-Type":"application/json",
+    //           },
+    //        body:JSON.stringify(obj)
+    //    })
+    //    .then(res=> res.json())
+    //   .then(res => {
+    //    // console.log(JSON.stringify(res));
+    //     this.setState({skills:res})
         
-      })
-      document.getElementById("skill").value="";
+    //   })
+    //   document.getElementById("skill").value="";
     }
     pass=e=>{
          var obj={
@@ -228,10 +249,11 @@ export default class Ssetting extends Component
       
     }
     render(){
+        var col=["red","blue","green","yellow"];
         return(
             <div id="wrapper">
                 <div class="container-fluid">
-                <h3 class="text-dark mb-4">Edit Profile</h3>
+                <center><h3 class="mb-4" style={{color:"#206188",fontWeight:"800"}}>Edit Profile</h3></center>
                 <div class="row mb-3">
                     <div class="col-lg-4">
                         <div class="card mb-3">
@@ -245,26 +267,15 @@ export default class Ssetting extends Component
                             </div>
                             <div class="card-body">
                             <input class="form-control" type="text" id="skill" placeholder="Add skill"/>
+                            <input class="form-control" type="text" id="val" placeholder="Add skill Percenntage"/>
                             <a className="btn btn-danger btn-icon-split mr-2" role="button" onClick={()=>this.add()}><span className="text-white-50 icon"><i className="fa fa-plus"></i></span><span className="text-white text">Add</span></a>
                               
                                 {this.state.skills.map((skill)=>{
-                               return <div><h4 class="small font-weight-bold">{skill}<span class="float-right">40%</span></h4>
+                               return <div><h4 class="small font-weight-bold">{skill.name}<span class="float-right">{skill.percentage}</span></h4>
                                 <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: "40%"}}><span class="sr-only">40%</span></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: skill.percentage+"%",backgroundColor:"'"+col[Math.floor(Math.random() * col.length)]+"'"}}><span class="sr-only">40%</span></div>
                                 </div></div>
                                 })}
-                                {/*<h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{width: "60%"}}><span class="sr-only">60%</span></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Payout Details<span class="float-right">80%</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style={{width: "80%"}}><span class="sr-only">80%</span></div>
-                                </div>
-                                <h4 class="small font-weight-bold">Account setup<span class="float-right">Complete!</span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style={{width: "100%"}}><span class="sr-only">100%</span></div>
-                                </div> */}
                             </div>
                         </div>
                     </div>

@@ -10,12 +10,14 @@ class ViewTestanalysis extends Component {
         var url = new URL(window.location.href); 
         var params = new URLSearchParams(url.search);
         var testid=params.get('id')
+        console.log(testid)
         
         const user={
-            testid:'AdbmsSt1',
-            // email:JSON.parse(localStorage.getItem("jwt")).user.id
-            email:'shivikasingla12@gmail.com'
+             testid:testid,
+             email:JSON.parse(localStorage.getItem("jwt")).user.id
+            //email:'shivikasingla12@gmail.com'
           }
+          console.log(user)
           fetch("http://localhost:8082/viewTestanalysis", {
           method: "POST",
           headers: {
@@ -47,8 +49,7 @@ class ViewTestanalysis extends Component {
                     alert("not run");
                   }
                   else
-                  {
-                   
+                  {                   
                    this.setState({answers:res.data[0].answers.split("*")})
                    this.setState({result:res.data[0].marks})
                    console.log(this.state.answers);

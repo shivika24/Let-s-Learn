@@ -16,8 +16,11 @@ class Chatapp extends Component {
     this.mymsgsend = this.mymsgsend.bind(this);
     this.searhboxmail = this.searhboxmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.historyuser()
+    // this.historyuser()
     
+  }
+  componentDidMount(){
+    this.historyuser();
   }
   passmsg = (email1 = 0) => {
     this.setState({ reciveremail: email1 });
@@ -31,9 +34,14 @@ class Chatapp extends Component {
   searhboxmail(event) {
     
     // console.log(this.state.reciveremail);
-    const user={
+    if(document.getElementById("searchinp").value=="")
+    this.historyuser();
+    else
+    {
+      const user={
       email:this.state.reciveremail,
-      e1:JSON.parse(localStorage.getItem("jwt")).user.id
+      e1:JSON.parse(localStorage.getItem("jwt")).user.id,
+      type:JSON.parse(localStorage.getItem("jwt")).user.type
     }
     fetch("http://localhost:8082/search", {
       method: "POST",
@@ -44,8 +52,20 @@ class Chatapp extends Component {
       })
     .then(res=> res.json())
       .then(res => {
-        // console.log(res.code)
-        this.setState({arr:res.code})
+         console.log(res.code)
+        var temp=[];
+        for(var i=0;i<res.code.length;i++)
+        {
+        if(JSON.parse(localStorage.getItem("jwt")).user.type=="teacher")
+        {
+        temp.push(res.code[i].semail);
+        }
+        else
+        {
+        temp.push(res.code[i].temail);
+        }
+        }
+        this.setState({arr:temp})
         if(this.arr==null)
     {
       console.log(this.state.arr)
@@ -53,13 +73,14 @@ class Chatapp extends Component {
     }
       })
     this.setState({ reciveremail: event.target.value });
-    
+    }
   }
 
   historyuser=(event)=> {
     const user={
       email:'',
-      e1:JSON.parse(localStorage.getItem("jwt")).user.id
+      e1:JSON.parse(localStorage.getItem("jwt")).user.id,
+      type:JSON.parse(localStorage.getItem("jwt")).user.type
     }
     fetch("http://localhost:8082/search", {
       method: "POST",
@@ -70,8 +91,11 @@ class Chatapp extends Component {
       })
     .then(res=> res.json())
       .then(res => {
-        // console.log(res.code)
-        this.setState({arr:res.code})
+         console.log(res.code)
+         var temp=[];
+        for(var i=0;i<res.code.length;i++)
+        temp.push(res.code[i].reciever);
+        this.setState({arr:temp})
       })
     // this.setState({ reciveremail: event.target.value });
   }
@@ -94,14 +118,16 @@ class Chatapp extends Component {
     .then(res=> res.json())
       .then(res => {
         if(res.code===1)
+        {
         alert("Message Added");
+        }
         else
         alert("Message Not Added");
       })
-      if(this.state.arr==null)
-      {
-        this.historyuser();
-      }
+      // if(this.state.arr==null)
+      // {
+      //   this.historyuser();
+      // }
 
   }
   searchmail = () => {
@@ -141,6 +167,7 @@ class Chatapp extends Component {
                     onChange={this.searhboxmail}
                     className="form-control"
                     placeholder="search"
+                    id="searchinp"
                   />
                   <div
                     className="input-group-append"
@@ -162,11 +189,11 @@ class Chatapp extends Component {
                 {this.state.arr.map((i)=>{return <div
                   className="listprofile"
                   onClick={() => {
-                    this.passmsg(i.reciever);
+                    this.passmsg(i);
                   }}
                 >
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtFb5KR5e9qSqvLmU94XSIFrHKVhcJolh-vUdnvY0A7sVOJoLd&usqp=CAU" />
-                  <p>{i.reciever}</p>
+                  <p>{i}</p>
                 </div>
                 })}
 
