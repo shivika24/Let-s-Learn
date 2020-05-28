@@ -220,7 +220,14 @@ deleten = id => {
           <span>Help</span>
           </Link>
       </li>
-
+      <hr className="sidebar-divider"/>
+      <li className="nav-item">
+      <Link to="/taketest" className="nav-link collapsed" style={{color:"white"}}>
+          <i className="fas fa-fw fa-question-circle"></i>
+          <span>Buyed Series</span>
+          </Link>
+      </li>
+      
       <hr className="sidebar-divider"/>
       <li className="nav-item">
         <Link className="nav-link collapsed" to="/chatapp">

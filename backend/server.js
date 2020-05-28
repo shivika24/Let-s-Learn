@@ -34,7 +34,6 @@ app.get('/', function(req, res) {
 app.post('/register',login.register);
 app.post('/tregister',login.tregister);
 app.post('/handleFile',handleFileRouter.handleFile);
-//app.post('/savelink',handleFileRouter.saveLink);
 app.post('/testid',handleFileRouter.checkTestId);
 app.post('/submittedques',handleFileRouter.submittedQues);
 app.post('/initialResult',handleFileRouter.initialRes);
@@ -42,13 +41,11 @@ app.post('/checkt',handleFileRouter.checkt);
 app.post('/updateRes',handleFileRouter.updateMcqSub);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
-// app.post('/setskill',profileRouter.setskill);
+
 app.post('/setexp',profileRouter.setexp);
 app.put('/savesetting1',profileRouter.settings1);
 app.get('/phone1',profileRouter.phone1);
-// app.get('/register',(res)=>{
-//     console.log("hello");
-// });
+
 app.get('/getexp',profileRouter.getExp);
 app.get('/getskill',profileRouter.getSkills);
 app.post('/addskill',profileRouter.addskill);
@@ -122,7 +119,7 @@ app.listen(8082,()=>{
     console.log("Server is Listening At Port 8082")  
 })
 
-//require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
+
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
 var smtpTransport = nodemailer.createTransport({
     service:"Gmail",
@@ -199,6 +196,155 @@ app.put('/putevent', (req, res) => {
             console.log(err);
     })
 });
+
+app.get('/getcourse', (req, res) => {
+    mysqlConnection.query('Select * from pcourses', (err, rows, fields) => {
+        if (!err)
+        {
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/putcart', (req, res) => {
+console.log("Rfff");
+    let emp = req.body;
+    mysqlConnection.query("INSERT INTO cart (cid,email,price,description,cname,image) VALUES (?,?,?,?,?,?)",
+    
+                             [emp.id,emp.email,emp.price,emp.description,emp.cname,emp.image], (err, rows, fields) => {
+        if (!err)
+            res.send('Updated successfully');
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/removecart', (req, res) => {
+   
+    let emp=req.body;
+    console.log(emp);
+    mysqlConnection.query('Delete FROM cart WHERE cid=? && email = ?', [emp.id,emp.email], (err, rows, fields) => {
+        if (!err)
+        {
+            console.log("gg");
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    })
+});
+
+app.get('/getcart', (req, res) => {
+    mysqlConnection.query('Select * from cart', (err, rows, fields) => {
+        if (!err)
+        {
+            res.send(rows);
+        }
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/getbill', (req, res) =>  {   
+    let emp=req.body;
+    console.log(emp);
+    var val='';
+    mysqlConnection.query('SELECT sum(price) AS val FROM cart where email = ? ',[emp.email], (err, rows, fields) => {
+        if (!err)
+        {
+            console.log(val);
+            res.send(rows);
+            // console.log(val);
+            // res.send({
+                
+            //     "val": val,
+            // })
+        }
+        else
+            console.log(err);
+    })
+});
+
+
+app.put('/addcoursetostud', (req, res) => {
+    console.log("gg");
+
+        let emp = req.body;
+       
+        mysqlConnection.query("Update student set courses = ? where semail =? ",[emp.temp,emp.id] ,(err, rows, fields) => {
+
+            if (!err)
+                res.send('Updated successfully');
+            else
+                console.log(err);
+        })
+    });
+
+    app.put('/getcourseofstud', (req, res) => {
+   
+        let emp=req.body;
+        mysqlConnection.query('SELECT courses FROM student where semail = ? ',[emp.id], (err, rows, fields) => {
+            if (!err)
+            {
+                console.log(rows);
+                res.send(rows);
+            }
+            else
+                console.log(err);
+        })
+    });
+
+
+    app.put('/deletecart', (req, res) => {
+   
+        let emp=req.body;
+        mysqlConnection.query('Delete FROM cart where email = ? ',[emp.id], (err, rows, fields) => {
+            if (!err)
+            {
+                console.log(rows);
+                res.send(rows);
+            }
+            else
+                console.log(err);
+        })
+    });
+
+    app.put('/getdetails', (req, res) => {
+            let emp = req.body;
+            console.log("hii");
+            console.log(emp);
+            mysqlConnection.query("Select * from pcourses where cname= ? ",[emp.temp] , (err, rows, fields) => {
+                if (!err)
+                    {
+                        console.log("hello");
+                        console.log(rows);
+                    res.send(rows);
+                    }
+                else
+                    console.log(err);
+            })
+        });
+
+
+        app.put('/getmcqs', (req, res) => {
+            let emp = req.body;
+           
+            mysqlConnection.query("Select * from pmcq where testid= ? ",[emp.test] , (err, rows, fields) => {
+                if (!err)
+                    {
+                        console.log("hello");
+                        console.log(rows);
+                        res.send(rows);
+                    }
+                else
+                    console.log(err);
+            })
+        });
 
 
 

@@ -44,6 +44,11 @@ import ViewTestanalysis from './components/viewTestanalysis';
 import Mcq1 from './components/mcq1';
 
 
+import Cart from './components/cart'
+import Taketest from './components/taketest'
+import Actualtest from './components/actualtest'
+import Courses from './components/courses'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -83,6 +88,8 @@ class App extends Component {
 
     this.clickedMcq1=this.clickedMcq1.bind(this);
     this.setTrue1=this.setTrue1.bind(this);
+
+    this.taketest=this.taketest.bind(this);
   }
   componentDidMount(){
     if(localStorage.getItem('jwt')!=null)
@@ -192,6 +199,15 @@ if(JSON.parse(localStorage.getItem("jwt")))
         
       })
   }
+  taketest(arg) 
+  {
+    console.log(arg);
+     this.setState
+    ( {
+      ptestid:arg,
+      } )
+
+  }
   render(){
     let typeofteacher,typeofstudent;
     if(localStorage.getItem('jwt')!=null)
@@ -233,6 +249,15 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path="/Registert" render={() => ( <Registert/>)} />     
         <Route path="/Logins" render={() => ( <Logins/>)} /> 
         <Route path="/Logint" render={() => ( <Logint/>)} />   
+
+
+        <Route path ="/taketest" render = { () => <Taketest   taketest1={this.taketest}>  </Taketest> } />
+        <Route path ="/actualtest" render = { () => <Actualtest testname={this.state.ptestid}>  </Actualtest> } />
+        <Route path ="/courses" render = { () => <Courses/>} />
+        <Route path ="/gocart" render = { () => <Cart/> } />     
+
+
+
         
         <Route path="/viewTestanalysis"  render={props=>typeofstudent?<ViewTestanalysis/>:<Redirect to="Logins"/> } />
         <Route path="/Studenttest"  render={props=>typeofstudent?<Studentopentesthistory/>:<Redirect to="Logins"/> } />

@@ -43,6 +43,8 @@ class Navbar extends Component{
                 <ul className="nav navbar-nav mr-auto">
                     <li className="nav-item" role="presentation"><Link className="nav-link"  to={this.state.homepath} style={{color: "white"}}>Home</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="about" style={{color: "white"}}>About Us</Link></li>
+                    {!JSON.parse(localStorage.getItem("jwt"))?<div></div>:JSON.parse(localStorage.getItem("jwt")).user.type=='student'?                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/courses" style={{color: "white"}}>Premium Courses</Link></li>:<div></div>}
+
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Pricing">Pricing &amp; Plans</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="Contact" style={{color: "white"}}>Contact Us</Link></li>
                     <li className="nav-item" role="presentation"><Link className="nav-link" to="/blog" style={{color: "white"}}>Blog</Link></li>

@@ -15,7 +15,7 @@ export default class extends Component{
    console.log(check)
    console.log(ans)
    var arr=document.getElementsByName(check);
-   var i,cans;
+   var i,cans="";
    for(i=0;i<arr.length;i++)
    {
      if(arr[i].checked)
@@ -23,7 +23,8 @@ export default class extends Component{
    }
    if(cans==ans)
    document.getElementById(iid).innerHTML="Correct Answer";
-  //  console.log("Correct Answer");
+   else if(cans=="")
+   document.getElementById(iid).innerHTML="Please Select An Option First!!!";
    else
    document.getElementById(iid).innerHTML="Incorrect Answer... Correct Answer is Option "+ans;
  }
