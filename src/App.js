@@ -31,7 +31,7 @@ import Testloginregister from './components/testloginregister';
 import Test1 from './components/test1';
 import Sample from './components/sample';
 import StudentAnalysis from './components/studentAnalysis';
-
+import PremMcq from './components/premMcq';
 import Blogs from './components/blog2';
 import Viewblog from './components/viewblog';
 import Feedback from './components/feedback';
@@ -74,7 +74,8 @@ class App extends Component {
       bid:'',
       mtestarr:[],
       flag1:true,
-      index1:0
+      index1:0,
+      preMcqs:[]
     }
     this.setTofalse=this.setTofalse.bind(this);
     this.selectMcq=this.selectMcq.bind(this);
@@ -85,10 +86,10 @@ class App extends Component {
     this.setTrue=this.setTrue.bind(this);
     this.settest=this.settest.bind(this);
     this.setTest=this.setTest.bind(this);
-
+    this.clickedPremMcq=this.clickedPremMcq.bind(this);
     this.clickedMcq1=this.clickedMcq1.bind(this);
     this.setTrue1=this.setTrue1.bind(this);
-
+     this.setPremMcq=this.setPremMcq.bind(this);
     this.taketest=this.taketest.bind(this);
   }
   componentDidMount(){
@@ -162,6 +163,16 @@ if(JSON.parse(localStorage.getItem("jwt")))
   clickedMcq1(i)
   {
     this.setState({selectedMcq1:this.state.mtestarr[i],index1:i})
+  }
+  clickedPremMcq(i,l){
+   // console.log("pr:"+this.state.preMcqs);
+    this.setState({selectedpr:this.state.preMcqs[i],premIndex:i,premLen:l})
+    // console.log("pr:"+this.state.premIndex)
+  }
+  setPremMcq(mcqs)
+  {
+    //console.log("setttting"+mcqs)
+    this.setState({preMcqs:mcqs});
   }
   setTrue(t)
   {
@@ -252,7 +263,8 @@ if(JSON.parse(localStorage.getItem("jwt")))
 
 
         <Route path ="/taketest" render = { () => <Taketest   taketest1={this.taketest}>  </Taketest> } />
-        <Route path ="/actualtest" render = { () => <Actualtest testname={this.state.ptestid}>  </Actualtest> } />
+        <Route path ="/actualtest" render = { () => <Actualtest premMcqs={this.setPremMcq} testname={this.state.ptestid} selectMCQ={this.clickedPremMcq}>  </Actualtest> } />
+        <Route path="/premMcq" render={()=><PremMcq prmcq={this.state.premIndex} testname={this.state.ptestid} selectedp={this.state.selectedpr} len={this.state.premLen} selectMCQ={this.clickedPremMcq} nextMcq={this.clickedPremMcq}></PremMcq> }/>
         <Route path ="/courses" render = { () => <Courses/>} />
         <Route path ="/gocart" render = { () => <Cart/> } />     
 

@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
 var nodemailer = require("nodemailer");
+var premiumRouter=require('./routes/premiuimTest');
 require('./dbconnection');
 
 
@@ -41,7 +42,9 @@ app.post('/checkt',handleFileRouter.checkt);
 app.post('/updateRes',handleFileRouter.updateMcqSub);
 app.put('/savesetting',profileRouter.settings);
 app.get('/phone',profileRouter.phone);
-
+app.post('/initialPremResult',premiumRouter.initialRes);
+app.post('/submittedPremques',premiumRouter.submittedQues);
+app.post('/updatePremRes',premiumRouter.updateMcqSub);
 app.post('/setexp',profileRouter.setexp);
 app.put('/savesetting1',profileRouter.settings1);
 app.get('/phone1',profileRouter.phone1);
