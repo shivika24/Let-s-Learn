@@ -48,7 +48,7 @@ import Cart from './components/cart'
 import Taketest from './components/taketest'
 import Actualtest from './components/actualtest'
 import Courses from './components/courses'
-
+import ShowPremResult from './components/showPremResult.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -265,6 +265,7 @@ if(JSON.parse(localStorage.getItem("jwt")))
         <Route path ="/taketest" render = { () => <Taketest   taketest1={this.taketest}>  </Taketest> } />
         <Route path ="/actualtest" render = { () => <Actualtest premMcqs={this.setPremMcq} testname={this.state.ptestid} selectMCQ={this.clickedPremMcq}>  </Actualtest> } />
         <Route path="/premMcq" render={()=><PremMcq prmcq={this.state.premIndex} testname={this.state.ptestid} selectedp={this.state.selectedpr} len={this.state.premLen} selectMCQ={this.clickedPremMcq} nextMcq={this.clickedPremMcq}></PremMcq> }/>
+        <Route path="/showPremResult" render={()=><ShowPremResult></ShowPremResult>}></Route>
         <Route path ="/courses" render = { () => <Courses/>} />
         <Route path ="/gocart" render = { () => <Cart/> } />     
 

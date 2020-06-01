@@ -206,7 +206,7 @@ export default class PremMcq extends Component{
                         <div class="modal-body">Select "Yes" below if you are ready to end your test.</div>
                         <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                          <Link to="/feedback"class="btn btn-primary"  onClick={()=>this.settotrue(true)}>Yes</Link>
+                          <button onClick={()=>{window.location=`http://localhost:3000/showPremResult?testid=${this.props.testname}`}} class="btn btn-primary"  >Yes</button>
                         </div>
                       </div>
                     </div>

@@ -107,3 +107,34 @@ module.exports.initialRes= async function(req,res)
               }
           })
       }
+      module.exports.viewPremAnalysis = async function(req,res){
+        var users={
+          "testid":req.body.testid,
+        }
+        con.query("SELECT `question`, `index1` FROM `pmcq` WHERE  `testid`='"+users.testid+"'", function(err , data){
+          if (err) {
+            console.log(err);
+            return res.json({data:null});
+          } else {
+            console.log(data)
+            return res.json({data:data});
+            } 
+        });
+      }
+      module.exports.studentPremParticular = async function(req,res){
+        var users={
+          "email":req.body.email,
+          "Testid":req.body.testid,
+      
+        }
+        console.log(users.Testid)
+        con.query("SELECT `answers`,`marks` FROM `premiumresult` WHERE `semail`='"+users.email+"' And `testid`='"+users.Testid+"'", function(err , data){
+          if (err) {
+            console.log(err);
+            return res.json({data:null});
+          } else {
+            console.log(data);
+            return res.json({data:data});
+            } 
+        });
+      }

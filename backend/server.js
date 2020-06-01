@@ -45,9 +45,14 @@ app.get('/phone',profileRouter.phone);
 app.post('/initialPremResult',premiumRouter.initialRes);
 app.post('/submittedPremques',premiumRouter.submittedQues);
 app.post('/updatePremRes',premiumRouter.updateMcqSub);
+app.post('/studentPremParticular',premiumRouter.studentPremParticular);
+app.post('/viewPremAnalysis',premiumRouter.viewPremAnalysis);
+
 app.post('/setexp',profileRouter.setexp);
 app.put('/savesetting1',profileRouter.settings1);
 app.get('/phone1',profileRouter.phone1);
+
+
 
 app.get('/getexp',profileRouter.getExp);
 app.get('/getskill',profileRouter.getSkills);
