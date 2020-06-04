@@ -82,7 +82,7 @@ class ViewTestanalysis extends Component {
                                         <td>{index+1}</td>
                                         <td>{t.question}</td>
                                          <td>{t.index1}</td>
-                                        <td>{this.state.answers[index]}</td>
+                                        <td>{this.state.answers[index]==-1?"Not Answered":this.state.answers[index]}</td>
                                         <td>{parseInt(t.index1)==parseInt(this.state.answers[index]) ? "true":"false"}</td>
                                     </tr>
                                   }):<div>loding...</div>
