@@ -41,7 +41,7 @@
     "react-star-rating-component": "^1.4.1",
     "read-excel-file": "^4.0.6",
     "stream": "0.0.2",
-    "xlsx": "^0.16.1"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
